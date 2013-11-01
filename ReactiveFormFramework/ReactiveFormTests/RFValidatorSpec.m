@@ -16,7 +16,7 @@ describe(@"Validator", ^{
 		it(@"should call this block for any value passed to validator and return result of block execution and error passed by reference", ^{
 			__block BOOL blockHasBeenCalled = NO;
 			__block id passedValue = nil;
-			RFValidator *validator = [RFValidator validatorWithBlock:^BOOL(id value, NSError *__autoreleasing *error) {
+			RFValidator *validator = [RFValidator validatorWithBlock:^(id value, NSError *__autoreleasing *error) {
 				blockHasBeenCalled = YES;
 				passedValue = value;
 				*error = [NSError errorWithDomain:@"rf.test" code:1 userInfo:nil];
