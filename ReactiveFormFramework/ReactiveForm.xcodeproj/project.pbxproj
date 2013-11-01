@@ -10,13 +10,37 @@
 		C2F5C0843FAF437DBB24735F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D331F552501C46999EAD2613 /* libPods.a */; };
 		F0322360182396A900E7EA41 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F032235F182396A900E7EA41 /* Foundation.framework */; };
 		F0322365182396A900E7EA41 /* ReactiveForm.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = F0322364182396A900E7EA41 /* ReactiveForm.h */; };
-		F0322367182396A900E7EA41 /* ReactiveForm.m in Sources */ = {isa = PBXBuildFile; fileRef = F0322366182396A900E7EA41 /* ReactiveForm.m */; };
 		F032236E182396A900E7EA41 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F032236D182396A900E7EA41 /* XCTest.framework */; };
 		F032236F182396A900E7EA41 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F032235F182396A900E7EA41 /* Foundation.framework */; };
 		F0322371182396A900E7EA41 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0322370182396A900E7EA41 /* UIKit.framework */; };
 		F0322374182396A900E7EA41 /* libReactiveForm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F032235C182396A900E7EA41 /* libReactiveForm.a */; };
 		F032237A182396A900E7EA41 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F0322378182396A900E7EA41 /* InfoPlist.strings */; };
 		F032237C182396A900E7EA41 /* ReactiveFormTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F032237B182396A900E7EA41 /* ReactiveFormTests.m */; };
+		F03223C31823A3C900E7EA41 /* RFBackingField.m in Sources */ = {isa = PBXBuildFile; fileRef = F032238A1823A3C900E7EA41 /* RFBackingField.m */; };
+		F03223C41823A3C900E7EA41 /* RFBackingForm.m in Sources */ = {isa = PBXBuildFile; fileRef = F032238C1823A3C900E7EA41 /* RFBackingForm.m */; };
+		F03223C51823A3C900E7EA41 /* RFBackingObject.m in Sources */ = {isa = PBXBuildFile; fileRef = F032238E1823A3C900E7EA41 /* RFBackingObject.m */; };
+		F03223C61823A3C900E7EA41 /* RFBackingSection.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223901823A3C900E7EA41 /* RFBackingSection.m */; };
+		F03223C71823A3C900E7EA41 /* RFBackingModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F03223911823A3C900E7EA41 /* RFBackingModel.xcdatamodeld */; };
+		F03223C81823A3C900E7EA41 /* RFBackingStructureBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223941823A3C900E7EA41 /* RFBackingStructureBuilder.m */; };
+		F03223CB1823A3C900E7EA41 /* RFMask.m in Sources */ = {isa = PBXBuildFile; fileRef = F032239D1823A3C900E7EA41 /* RFMask.m */; };
+		F03223CD1823A3C900E7EA41 /* RFActionField.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223A21823A3C900E7EA41 /* RFActionField.m */; };
+		F03223CE1823A3C900E7EA41 /* RFChoice.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223A41823A3C900E7EA41 /* RFChoice.m */; };
+		F03223CF1823A3C900E7EA41 /* RFChoiceField.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223A61823A3C900E7EA41 /* RFChoiceField.m */; };
+		F03223D01823A3C900E7EA41 /* RFField.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223A81823A3C900E7EA41 /* RFField.m */; };
+		F03223D11823A3C900E7EA41 /* RFTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223AA1823A3C900E7EA41 /* RFTextField.m */; };
+		F03223D21823A3C900E7EA41 /* RFContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223AD1823A3C900E7EA41 /* RFContainer.m */; };
+		F03223D31823A3C900E7EA41 /* RFSection.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223B11823A3C900E7EA41 /* RFSection.m */; };
+		F03223D41823A3C900E7EA41 /* RFSignalContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223B31823A3C900E7EA41 /* RFSignalContainer.m */; };
+		F03223D51823A3C900E7EA41 /* RFValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223B51823A3C900E7EA41 /* RFValidator.m */; };
+		F03223D91823A3C900E7EA41 /* RFForm.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223BF1823A3C900E7EA41 /* RFForm.m */; };
+		F03223DA1823A3C900E7EA41 /* RFFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223C11823A3C900E7EA41 /* RFFormController.m */; };
+		F03223DE1823A5AE00E7EA41 /* RFMaskComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223DD1823A5AE00E7EA41 /* RFMaskComponent.m */; };
+		F03223E01823AF0400E7EA41 /* RFValidatorSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223DF1823AF0400E7EA41 /* RFValidatorSpec.m */; };
+		F03223ED1823B5BE00E7EA41 /* NSObject+Rule.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223E41823B5BE00E7EA41 /* NSObject+Rule.m */; };
+		F03223EE1823B5BE00E7EA41 /* RFField+RFRuleCreation.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223E61823B5BE00E7EA41 /* RFField+RFRuleCreation.m */; };
+		F03223EF1823B5BE00E7EA41 /* RFFieldViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223E81823B5BE00E7EA41 /* RFFieldViewController.m */; };
+		F03223F01823B5BE00E7EA41 /* RFRule.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223EA1823B5BE00E7EA41 /* RFRule.m */; };
+		F03223F11823B5BE00E7EA41 /* RFRuleBasedFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223EC1823B5BE00E7EA41 /* RFRuleBasedFactory.m */; };
 		FADB8193E94848739BE5390C /* libPods-ReactiveFormTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FF6C90513EB4582870CAFF0 /* libPods-ReactiveFormTests.a */; };
 /* End PBXBuildFile section */
 
@@ -52,13 +76,65 @@
 		F032235F182396A900E7EA41 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F0322363182396A900E7EA41 /* ReactiveForm-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ReactiveForm-Prefix.pch"; sourceTree = "<group>"; };
 		F0322364182396A900E7EA41 /* ReactiveForm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReactiveForm.h; sourceTree = "<group>"; };
-		F0322366182396A900E7EA41 /* ReactiveForm.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReactiveForm.m; sourceTree = "<group>"; };
 		F032236C182396A900E7EA41 /* ReactiveFormTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReactiveFormTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F032236D182396A900E7EA41 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		F0322370182396A900E7EA41 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		F0322377182396A900E7EA41 /* ReactiveFormTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ReactiveFormTests-Info.plist"; sourceTree = "<group>"; };
 		F0322379182396A900E7EA41 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F032237B182396A900E7EA41 /* ReactiveFormTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReactiveFormTests.m; sourceTree = "<group>"; };
+		F03223891823A3C900E7EA41 /* RFBackingField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFBackingField.h; sourceTree = "<group>"; };
+		F032238A1823A3C900E7EA41 /* RFBackingField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFBackingField.m; sourceTree = "<group>"; };
+		F032238B1823A3C900E7EA41 /* RFBackingForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFBackingForm.h; sourceTree = "<group>"; };
+		F032238C1823A3C900E7EA41 /* RFBackingForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFBackingForm.m; sourceTree = "<group>"; };
+		F032238D1823A3C900E7EA41 /* RFBackingObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFBackingObject.h; sourceTree = "<group>"; };
+		F032238E1823A3C900E7EA41 /* RFBackingObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFBackingObject.m; sourceTree = "<group>"; };
+		F032238F1823A3C900E7EA41 /* RFBackingSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFBackingSection.h; sourceTree = "<group>"; };
+		F03223901823A3C900E7EA41 /* RFBackingSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFBackingSection.m; sourceTree = "<group>"; };
+		F03223921823A3C900E7EA41 /* DFBackingModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DFBackingModel.xcdatamodel; sourceTree = "<group>"; };
+		F03223931823A3C900E7EA41 /* RFBackingStructureBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFBackingStructureBuilder.h; sourceTree = "<group>"; };
+		F03223941823A3C900E7EA41 /* RFBackingStructureBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFBackingStructureBuilder.m; sourceTree = "<group>"; };
+		F032239C1823A3C900E7EA41 /* RFMask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFMask.h; sourceTree = "<group>"; };
+		F032239D1823A3C900E7EA41 /* RFMask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFMask.m; sourceTree = "<group>"; };
+		F032239E1823A3C900E7EA41 /* RFMaskComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFMaskComponent.h; sourceTree = "<group>"; };
+		F03223A11823A3C900E7EA41 /* RFActionField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFActionField.h; sourceTree = "<group>"; };
+		F03223A21823A3C900E7EA41 /* RFActionField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFActionField.m; sourceTree = "<group>"; };
+		F03223A31823A3C900E7EA41 /* RFChoice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFChoice.h; sourceTree = "<group>"; };
+		F03223A41823A3C900E7EA41 /* RFChoice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFChoice.m; sourceTree = "<group>"; };
+		F03223A51823A3C900E7EA41 /* RFChoiceField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFChoiceField.h; sourceTree = "<group>"; };
+		F03223A61823A3C900E7EA41 /* RFChoiceField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFChoiceField.m; sourceTree = "<group>"; };
+		F03223A71823A3C900E7EA41 /* RFField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFField.h; sourceTree = "<group>"; };
+		F03223A81823A3C900E7EA41 /* RFField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFField.m; sourceTree = "<group>"; };
+		F03223A91823A3C900E7EA41 /* RFTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFTextField.h; sourceTree = "<group>"; };
+		F03223AA1823A3C900E7EA41 /* RFTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFTextField.m; sourceTree = "<group>"; };
+		F03223AB1823A3C900E7EA41 /* RFTextInputController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFTextInputController.h; sourceTree = "<group>"; };
+		F03223AC1823A3C900E7EA41 /* RFContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFContainer.h; sourceTree = "<group>"; };
+		F03223AD1823A3C900E7EA41 /* RFContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFContainer.m; sourceTree = "<group>"; };
+		F03223AE1823A3C900E7EA41 /* RFFormElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFFormElement.h; sourceTree = "<group>"; };
+		F03223AF1823A3C900E7EA41 /* RFSection+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RFSection+Private.h"; sourceTree = "<group>"; };
+		F03223B01823A3C900E7EA41 /* RFSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFSection.h; sourceTree = "<group>"; };
+		F03223B11823A3C900E7EA41 /* RFSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFSection.m; sourceTree = "<group>"; };
+		F03223B21823A3C900E7EA41 /* RFSignalContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFSignalContainer.h; sourceTree = "<group>"; };
+		F03223B31823A3C900E7EA41 /* RFSignalContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFSignalContainer.m; sourceTree = "<group>"; };
+		F03223B41823A3C900E7EA41 /* RFValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFValidator.h; sourceTree = "<group>"; };
+		F03223B51823A3C900E7EA41 /* RFValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFValidator.m; sourceTree = "<group>"; };
+		F03223BC1823A3C900E7EA41 /* RFDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFDefines.h; sourceTree = "<group>"; };
+		F03223BD1823A3C900E7EA41 /* RFForm+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RFForm+Private.h"; sourceTree = "<group>"; };
+		F03223BE1823A3C900E7EA41 /* RFForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFForm.h; sourceTree = "<group>"; };
+		F03223BF1823A3C900E7EA41 /* RFForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFForm.m; sourceTree = "<group>"; };
+		F03223C01823A3C900E7EA41 /* RFFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFFormController.h; sourceTree = "<group>"; };
+		F03223C11823A3C900E7EA41 /* RFFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFFormController.m; sourceTree = "<group>"; };
+		F03223DD1823A5AE00E7EA41 /* RFMaskComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFMaskComponent.m; sourceTree = "<group>"; };
+		F03223DF1823AF0400E7EA41 /* RFValidatorSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFValidatorSpec.m; sourceTree = "<group>"; };
+		F03223E31823B5BE00E7EA41 /* NSObject+Rule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Rule.h"; sourceTree = "<group>"; };
+		F03223E41823B5BE00E7EA41 /* NSObject+Rule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Rule.m"; sourceTree = "<group>"; };
+		F03223E51823B5BE00E7EA41 /* RFField+RFRuleCreation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RFField+RFRuleCreation.h"; sourceTree = "<group>"; };
+		F03223E61823B5BE00E7EA41 /* RFField+RFRuleCreation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RFField+RFRuleCreation.m"; sourceTree = "<group>"; };
+		F03223E71823B5BE00E7EA41 /* RFFieldViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFFieldViewController.h; sourceTree = "<group>"; };
+		F03223E81823B5BE00E7EA41 /* RFFieldViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFFieldViewController.m; sourceTree = "<group>"; };
+		F03223E91823B5BE00E7EA41 /* RFRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFRule.h; sourceTree = "<group>"; };
+		F03223EA1823B5BE00E7EA41 /* RFRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFRule.m; sourceTree = "<group>"; };
+		F03223EB1823B5BE00E7EA41 /* RFRuleBasedFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFRuleBasedFactory.h; sourceTree = "<group>"; };
+		F03223EC1823B5BE00E7EA41 /* RFRuleBasedFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFRuleBasedFactory.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,8 +198,9 @@
 		F0322361182396A900E7EA41 /* ReactiveForm */ = {
 			isa = PBXGroup;
 			children = (
+				F03223E11823B58700E7EA41 /* UI */,
+				F03223851823A3C900E7EA41 /* Core */,
 				F0322364182396A900E7EA41 /* ReactiveForm.h */,
-				F0322366182396A900E7EA41 /* ReactiveForm.m */,
 				F0322362182396A900E7EA41 /* Supporting Files */,
 			);
 			path = ReactiveForm;
@@ -141,6 +218,7 @@
 			isa = PBXGroup;
 			children = (
 				F032237B182396A900E7EA41 /* ReactiveFormTests.m */,
+				F03223DF1823AF0400E7EA41 /* RFValidatorSpec.m */,
 				F0322376182396A900E7EA41 /* Supporting Files */,
 			);
 			path = ReactiveFormTests;
@@ -153,6 +231,128 @@
 				F0322378182396A900E7EA41 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F03223851823A3C900E7EA41 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				F03223861823A3C900E7EA41 /* Backing Structure */,
+				F03223951823A3C900E7EA41 /* Form Elements */,
+				F03223BC1823A3C900E7EA41 /* RFDefines.h */,
+				F03223BD1823A3C900E7EA41 /* RFForm+Private.h */,
+				F03223BE1823A3C900E7EA41 /* RFForm.h */,
+				F03223BF1823A3C900E7EA41 /* RFForm.m */,
+				F03223C01823A3C900E7EA41 /* RFFormController.h */,
+				F03223C11823A3C900E7EA41 /* RFFormController.m */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		F03223861823A3C900E7EA41 /* Backing Structure */ = {
+			isa = PBXGroup;
+			children = (
+				F03223871823A3C900E7EA41 /* Backing Entities */,
+				F03223931823A3C900E7EA41 /* RFBackingStructureBuilder.h */,
+				F03223941823A3C900E7EA41 /* RFBackingStructureBuilder.m */,
+			);
+			path = "Backing Structure";
+			sourceTree = "<group>";
+		};
+		F03223871823A3C900E7EA41 /* Backing Entities */ = {
+			isa = PBXGroup;
+			children = (
+				F03223881823A3C900E7EA41 /* Entities */,
+				F03223911823A3C900E7EA41 /* RFBackingModel.xcdatamodeld */,
+			);
+			path = "Backing Entities";
+			sourceTree = "<group>";
+		};
+		F03223881823A3C900E7EA41 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				F03223891823A3C900E7EA41 /* RFBackingField.h */,
+				F032238A1823A3C900E7EA41 /* RFBackingField.m */,
+				F032238B1823A3C900E7EA41 /* RFBackingForm.h */,
+				F032238C1823A3C900E7EA41 /* RFBackingForm.m */,
+				F032238D1823A3C900E7EA41 /* RFBackingObject.h */,
+				F032238E1823A3C900E7EA41 /* RFBackingObject.m */,
+				F032238F1823A3C900E7EA41 /* RFBackingSection.h */,
+				F03223901823A3C900E7EA41 /* RFBackingSection.m */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		F03223951823A3C900E7EA41 /* Form Elements */ = {
+			isa = PBXGroup;
+			children = (
+				F03223961823A3C900E7EA41 /* Fields */,
+				F03223AC1823A3C900E7EA41 /* RFContainer.h */,
+				F03223AD1823A3C900E7EA41 /* RFContainer.m */,
+				F03223AE1823A3C900E7EA41 /* RFFormElement.h */,
+				F03223AF1823A3C900E7EA41 /* RFSection+Private.h */,
+				F03223B01823A3C900E7EA41 /* RFSection.h */,
+				F03223B11823A3C900E7EA41 /* RFSection.m */,
+				F03223B21823A3C900E7EA41 /* RFSignalContainer.h */,
+				F03223B31823A3C900E7EA41 /* RFSignalContainer.m */,
+				F03223B41823A3C900E7EA41 /* RFValidator.h */,
+				F03223B51823A3C900E7EA41 /* RFValidator.m */,
+			);
+			path = "Form Elements";
+			sourceTree = "<group>";
+		};
+		F03223961823A3C900E7EA41 /* Fields */ = {
+			isa = PBXGroup;
+			children = (
+				F03223971823A3C900E7EA41 /* Mask */,
+				F03223A11823A3C900E7EA41 /* RFActionField.h */,
+				F03223A21823A3C900E7EA41 /* RFActionField.m */,
+				F03223A31823A3C900E7EA41 /* RFChoice.h */,
+				F03223A41823A3C900E7EA41 /* RFChoice.m */,
+				F03223A51823A3C900E7EA41 /* RFChoiceField.h */,
+				F03223A61823A3C900E7EA41 /* RFChoiceField.m */,
+				F03223A71823A3C900E7EA41 /* RFField.h */,
+				F03223A81823A3C900E7EA41 /* RFField.m */,
+				F03223A91823A3C900E7EA41 /* RFTextField.h */,
+				F03223AA1823A3C900E7EA41 /* RFTextField.m */,
+				F03223AB1823A3C900E7EA41 /* RFTextInputController.h */,
+			);
+			path = Fields;
+			sourceTree = "<group>";
+		};
+		F03223971823A3C900E7EA41 /* Mask */ = {
+			isa = PBXGroup;
+			children = (
+				F032239E1823A3C900E7EA41 /* RFMaskComponent.h */,
+				F03223DD1823A5AE00E7EA41 /* RFMaskComponent.m */,
+				F032239C1823A3C900E7EA41 /* RFMask.h */,
+				F032239D1823A3C900E7EA41 /* RFMask.m */,
+			);
+			path = Mask;
+			sourceTree = "<group>";
+		};
+		F03223E11823B58700E7EA41 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				F03223E21823B5BE00E7EA41 /* Field View Controller */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		F03223E21823B5BE00E7EA41 /* Field View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				F03223E31823B5BE00E7EA41 /* NSObject+Rule.h */,
+				F03223E41823B5BE00E7EA41 /* NSObject+Rule.m */,
+				F03223E51823B5BE00E7EA41 /* RFField+RFRuleCreation.h */,
+				F03223E61823B5BE00E7EA41 /* RFField+RFRuleCreation.m */,
+				F03223E71823B5BE00E7EA41 /* RFFieldViewController.h */,
+				F03223E81823B5BE00E7EA41 /* RFFieldViewController.m */,
+				F03223E91823B5BE00E7EA41 /* RFRule.h */,
+				F03223EA1823B5BE00E7EA41 /* RFRule.m */,
+				F03223EB1823B5BE00E7EA41 /* RFRuleBasedFactory.h */,
+				F03223EC1823B5BE00E7EA41 /* RFRuleBasedFactory.m */,
+			);
+			path = "Field View Controller";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -304,7 +504,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F0322367182396A900E7EA41 /* ReactiveForm.m in Sources */,
+				F03223C41823A3C900E7EA41 /* RFBackingForm.m in Sources */,
+				F03223D31823A3C900E7EA41 /* RFSection.m in Sources */,
+				F03223DE1823A5AE00E7EA41 /* RFMaskComponent.m in Sources */,
+				F03223C81823A3C900E7EA41 /* RFBackingStructureBuilder.m in Sources */,
+				F03223CD1823A3C900E7EA41 /* RFActionField.m in Sources */,
+				F03223D91823A3C900E7EA41 /* RFForm.m in Sources */,
+				F03223C31823A3C900E7EA41 /* RFBackingField.m in Sources */,
+				F03223C51823A3C900E7EA41 /* RFBackingObject.m in Sources */,
+				F03223D21823A3C900E7EA41 /* RFContainer.m in Sources */,
+				F03223ED1823B5BE00E7EA41 /* NSObject+Rule.m in Sources */,
+				F03223C61823A3C900E7EA41 /* RFBackingSection.m in Sources */,
+				F03223CB1823A3C900E7EA41 /* RFMask.m in Sources */,
+				F03223D11823A3C900E7EA41 /* RFTextField.m in Sources */,
+				F03223EF1823B5BE00E7EA41 /* RFFieldViewController.m in Sources */,
+				F03223EE1823B5BE00E7EA41 /* RFField+RFRuleCreation.m in Sources */,
+				F03223CE1823A3C900E7EA41 /* RFChoice.m in Sources */,
+				F03223F01823B5BE00E7EA41 /* RFRule.m in Sources */,
+				F03223D01823A3C900E7EA41 /* RFField.m in Sources */,
+				F03223C71823A3C900E7EA41 /* RFBackingModel.xcdatamodeld in Sources */,
+				F03223D41823A3C900E7EA41 /* RFSignalContainer.m in Sources */,
+				F03223DA1823A3C900E7EA41 /* RFFormController.m in Sources */,
+				F03223D51823A3C900E7EA41 /* RFValidator.m in Sources */,
+				F03223F11823B5BE00E7EA41 /* RFRuleBasedFactory.m in Sources */,
+				F03223CF1823A3C900E7EA41 /* RFChoiceField.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,6 +536,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F032237C182396A900E7EA41 /* ReactiveFormTests.m in Sources */,
+				F03223E01823AF0400E7EA41 /* RFValidatorSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -523,6 +747,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		F03223911823A3C900E7EA41 /* RFBackingModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				F03223921823A3C900E7EA41 /* DFBackingModel.xcdatamodel */,
+			);
+			currentVersion = F03223921823A3C900E7EA41 /* DFBackingModel.xcdatamodel */;
+			path = RFBackingModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = F0322354182396A900E7EA41 /* Project object */;
 }
