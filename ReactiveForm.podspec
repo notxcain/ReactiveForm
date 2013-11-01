@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'ReactiveForm'
-  s.version = '0.1'
+  s.version = '0.2'
   s.platform = :ios
   s.ios.deployment_target = '5.0'
   s.homepage = "https://github.com/denis-mikhaylov/ReactiveForm"
