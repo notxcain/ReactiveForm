@@ -14,5 +14,5 @@ Pod::Spec.new do |s|
   s.source_files = 'ReactiveFormFramework/ReactiveForm/**/*.{h,m}'
   s.requires_arc = true
   s.dependency "ReactiveCocoa", "~> 2.0"
-  s.prefix_header_contents = "#ifdef __OBJC__\n#endif"
+  s.prefix_header_contents = '#ifdef __OBJC__\n #import "RFDefines.h" #endif'
 end
