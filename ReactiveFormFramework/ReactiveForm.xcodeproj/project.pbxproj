@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		688BD9671823C12300D585F0 /* RFFieldControllerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 688BD9661823C12300D585F0 /* RFFieldControllerFactory.m */; };
+		688BD96C1823C38000D585F0 /* RFRuleMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 688BD9691823C38000D585F0 /* RFRuleMap.m */; };
+		688BD96D1823C38000D585F0 /* RFClassWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 688BD96B1823C38000D585F0 /* RFClassWrapper.m */; };
 		C2F5C0843FAF437DBB24735F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D331F552501C46999EAD2613 /* libPods.a */; };
 		F0322360182396A900E7EA41 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F032235F182396A900E7EA41 /* Foundation.framework */; };
 		F0322365182396A900E7EA41 /* ReactiveForm.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = F0322364182396A900E7EA41 /* ReactiveForm.h */; };
@@ -36,7 +39,6 @@
 		F03223DA1823A3C900E7EA41 /* RFFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223C11823A3C900E7EA41 /* RFFormController.m */; };
 		F03223DE1823A5AE00E7EA41 /* RFMaskComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223DD1823A5AE00E7EA41 /* RFMaskComponent.m */; };
 		F03223E01823AF0400E7EA41 /* RFValidatorSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223DF1823AF0400E7EA41 /* RFValidatorSpec.m */; };
-		F03223ED1823B5BE00E7EA41 /* NSObject+Rule.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223E41823B5BE00E7EA41 /* NSObject+Rule.m */; };
 		F03223EE1823B5BE00E7EA41 /* RFField+RFRuleCreation.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223E61823B5BE00E7EA41 /* RFField+RFRuleCreation.m */; };
 		F03223EF1823B5BE00E7EA41 /* RFFieldViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223E81823B5BE00E7EA41 /* RFFieldViewController.m */; };
 		F03223F01823B5BE00E7EA41 /* RFRule.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223EA1823B5BE00E7EA41 /* RFRule.m */; };
@@ -69,6 +71,12 @@
 
 /* Begin PBXFileReference section */
 		1A55FF9193C841FDB55F93FF /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		688BD9651823C12300D585F0 /* RFFieldControllerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFFieldControllerFactory.h; sourceTree = "<group>"; };
+		688BD9661823C12300D585F0 /* RFFieldControllerFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFFieldControllerFactory.m; sourceTree = "<group>"; };
+		688BD9681823C38000D585F0 /* RFRuleMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFRuleMap.h; sourceTree = "<group>"; };
+		688BD9691823C38000D585F0 /* RFRuleMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFRuleMap.m; sourceTree = "<group>"; };
+		688BD96A1823C38000D585F0 /* RFClassWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFClassWrapper.h; sourceTree = "<group>"; };
+		688BD96B1823C38000D585F0 /* RFClassWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFClassWrapper.m; sourceTree = "<group>"; };
 		6FF6C90513EB4582870CAFF0 /* libPods-ReactiveFormTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ReactiveFormTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D331F552501C46999EAD2613 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D79740FD55D240D7B5FAA972 /* Pods-ReactiveFormTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReactiveFormTests.xcconfig"; path = "Pods/Pods-ReactiveFormTests.xcconfig"; sourceTree = "<group>"; };
@@ -125,8 +133,6 @@
 		F03223C11823A3C900E7EA41 /* RFFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFFormController.m; sourceTree = "<group>"; };
 		F03223DD1823A5AE00E7EA41 /* RFMaskComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFMaskComponent.m; sourceTree = "<group>"; };
 		F03223DF1823AF0400E7EA41 /* RFValidatorSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFValidatorSpec.m; sourceTree = "<group>"; };
-		F03223E31823B5BE00E7EA41 /* NSObject+Rule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Rule.h"; sourceTree = "<group>"; };
-		F03223E41823B5BE00E7EA41 /* NSObject+Rule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Rule.m"; sourceTree = "<group>"; };
 		F03223E51823B5BE00E7EA41 /* RFField+RFRuleCreation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RFField+RFRuleCreation.h"; sourceTree = "<group>"; };
 		F03223E61823B5BE00E7EA41 /* RFField+RFRuleCreation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RFField+RFRuleCreation.m"; sourceTree = "<group>"; };
 		F03223E71823B5BE00E7EA41 /* RFFieldViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFFieldViewController.h; sourceTree = "<group>"; };
@@ -341,8 +347,12 @@
 		F03223E21823B5BE00E7EA41 /* Field View Controller */ = {
 			isa = PBXGroup;
 			children = (
-				F03223E31823B5BE00E7EA41 /* NSObject+Rule.h */,
-				F03223E41823B5BE00E7EA41 /* NSObject+Rule.m */,
+				688BD9651823C12300D585F0 /* RFFieldControllerFactory.h */,
+				688BD9661823C12300D585F0 /* RFFieldControllerFactory.m */,
+				688BD9681823C38000D585F0 /* RFRuleMap.h */,
+				688BD9691823C38000D585F0 /* RFRuleMap.m */,
+				688BD96A1823C38000D585F0 /* RFClassWrapper.h */,
+				688BD96B1823C38000D585F0 /* RFClassWrapper.m */,
 				F03223E51823B5BE00E7EA41 /* RFField+RFRuleCreation.h */,
 				F03223E61823B5BE00E7EA41 /* RFField+RFRuleCreation.m */,
 				F03223E71823B5BE00E7EA41 /* RFFieldViewController.h */,
@@ -510,17 +520,19 @@
 				F03223C81823A3C900E7EA41 /* RFBackingStructureBuilder.m in Sources */,
 				F03223CD1823A3C900E7EA41 /* RFActionField.m in Sources */,
 				F03223D91823A3C900E7EA41 /* RFForm.m in Sources */,
+				688BD96C1823C38000D585F0 /* RFRuleMap.m in Sources */,
 				F03223C31823A3C900E7EA41 /* RFBackingField.m in Sources */,
 				F03223C51823A3C900E7EA41 /* RFBackingObject.m in Sources */,
 				F03223D21823A3C900E7EA41 /* RFContainer.m in Sources */,
-				F03223ED1823B5BE00E7EA41 /* NSObject+Rule.m in Sources */,
 				F03223C61823A3C900E7EA41 /* RFBackingSection.m in Sources */,
 				F03223CB1823A3C900E7EA41 /* RFMask.m in Sources */,
 				F03223D11823A3C900E7EA41 /* RFTextField.m in Sources */,
+				688BD9671823C12300D585F0 /* RFFieldControllerFactory.m in Sources */,
 				F03223EF1823B5BE00E7EA41 /* RFFieldViewController.m in Sources */,
 				F03223EE1823B5BE00E7EA41 /* RFField+RFRuleCreation.m in Sources */,
 				F03223CE1823A3C900E7EA41 /* RFChoice.m in Sources */,
 				F03223F01823B5BE00E7EA41 /* RFRule.m in Sources */,
+				688BD96D1823C38000D585F0 /* RFClassWrapper.m in Sources */,
 				F03223D01823A3C900E7EA41 /* RFField.m in Sources */,
 				F03223C71823A3C900E7EA41 /* RFBackingModel.xcdatamodeld in Sources */,
 				F03223D41823A3C900E7EA41 /* RFSignalContainer.m in Sources */,
