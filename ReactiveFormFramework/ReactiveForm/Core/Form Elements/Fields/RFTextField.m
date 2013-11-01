@@ -32,13 +32,13 @@
         
         _validate = [RACSignal
                      if:[RACObserve(self, validator)
-                         map:^(id <RFValidator> validator) {
-                             return validator ? @YES : @NO;
+						 map:^(id <RFValidator> validator) {
+							 return validator ? @YES : @NO;
                          }]
-                     then:[[RACObserve(self, value)
-                            map:^(id value) {
-                                return [self.validator validateValue:self.value];
-                            }] switchToLatest]
+                     then:[RACObserve(self, value)
+						   tryMap:^id(id value, NSError *__autoreleasing *errorPtr) {
+							   return @([self.validator validateValue:value error:errorPtr]);
+						   }]
                      else:[RACSignal return:@YES]];
         
     }

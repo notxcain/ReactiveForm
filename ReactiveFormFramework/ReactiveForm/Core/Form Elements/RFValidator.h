@@ -9,8 +9,7 @@
 #import <Foundation/Foundation.h>
 @class RACSignal;
 @protocol RFValidator <NSObject>
-///Returns a signal which sends YES if validated successfully or error if failed
-- (RACSignal *)validateValue:(id)value;
+- (BOOL)validateValue:(id)value error:(out NSError **)error;
 @end
 
 typedef BOOL(^RFValidationBlock)(id value, NSError *__autoreleasing*error);
@@ -18,6 +17,7 @@ typedef BOOL(^RFValidationBlock)(id value, NSError *__autoreleasing*error);
 @interface RFValidator : NSObject <RFValidator>
 + (instancetype)validatorWithBlock:(RFValidationBlock)block;
 + (instancetype)successfulValidator;
++ (instancetype)validatorWithRegularExpression:(NSRegularExpression *)regularExpression;
 @end
 
 @interface NSRegularExpression (RFValidator)
