@@ -1,0 +1,22 @@
+PODS:
+  - Kiwi/ARC (2.2.3)
+  - Kiwi/NonARC (2.2.3)
+  - Kiwi/XCTest (2.2.3):
+    - Kiwi/ARC
+    - Kiwi/NonARC
+  - ReactiveCocoa (2.1.5):
+    - ReactiveCocoa/Core
+    - ReactiveCocoa/no-arc
+  - ReactiveCocoa/Core (2.1.5):
+    - ReactiveCocoa/no-arc
+  - ReactiveCocoa/no-arc (2.1.5)
+
+DEPENDENCIES:
+  - Kiwi/XCTest (~> 2.2.3)
+  - ReactiveCocoa (~> 2.0)
+
+SPEC CHECKSUMS:
+  Kiwi: 04c51e880831d291748ec702d42c4101f7eb95c9
+  ReactiveCocoa: e497a250d3d7e4822a724dbabf8b96b6a534a35f
+
+COCOAPODS: 0.26.2

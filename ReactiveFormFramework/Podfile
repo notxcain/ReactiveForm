@@ -1,0 +1,6 @@
+platform :ios, 5.0
+pod 'ReactiveCocoa', '~> 2.0'
+
+target :ReactiveFormTests, :exclusive => true do
+    pod 'Kiwi/XCTest', '~> 2.2.3'
+end
