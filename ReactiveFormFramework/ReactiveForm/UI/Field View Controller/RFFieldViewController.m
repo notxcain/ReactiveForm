@@ -19,7 +19,6 @@
 	if (_view) return _view;
 	
 	[self loadView];
-	[self viewDidLoad];
 	
 	return _view;
 }

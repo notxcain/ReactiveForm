@@ -7,12 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-@class RFField;
-@class RFFieldView;
 @interface RFFieldViewController : NSObject
 @property (nonatomic, strong) UITableViewCell *view;
-
-- (id)initWithPresenter:(UIViewController *)presenter;
+@property (nonatomic, assign) UIViewController *presentationController;
 
 - (void)loadView;
 - (void)viewDidLoad;
