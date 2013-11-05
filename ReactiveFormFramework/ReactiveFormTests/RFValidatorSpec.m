@@ -60,6 +60,13 @@ describe(@"Validator", ^{
             [[theValue(result) should] equal:theValue(NO)];
 			[[error should] equal:failureError];
         });
+        
+        it(@"should return NO and output error for nil value", ^{
+            NSError *error = nil;
+            BOOL result = [validator validateValue:nil error:&error];
+            [[theValue(result) should] equal:theValue(NO)];
+			[[error should] equal:failureError];
+        });
     });
 });
 SPEC_END
