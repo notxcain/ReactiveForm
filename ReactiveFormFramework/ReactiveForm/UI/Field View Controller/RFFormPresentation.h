@@ -9,16 +9,16 @@
 #import <Foundation/Foundation.h>
 
 @class RFField;
-@class RFFieldViewController;
+@class RFFieldController;
 @protocol RFFormPresentationBuilder;
 
 @interface RFFormPresentation : NSObject
 + (instancetype)createWithBlock:(void (^)(id <RFFormPresentationBuilder> builder))buildingBlock;
-- (RFFieldViewController *)controllerForField:(RFField *)field;
+- (RFFieldController *)controllerForField:(RFField *)field;
 @end
 
-typedef RFFieldViewController *(^RFFieldViewControllerInstantiator)(RFField *field);
+typedef RFFieldController *(^RFFieldViewControllerInstantiator)(RFField *field);
 
 @protocol RFFormPresentationBuilder
-- (void)addPredicate:(NSPredicate *)predicate instantiator:(RFFieldViewControllerInstantiator)instantiator;
+- (void)addMatcher:(id)matcher instantiator:(RFFieldViewControllerInstantiator)instantiator;
 @end

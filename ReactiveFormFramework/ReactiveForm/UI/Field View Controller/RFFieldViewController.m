@@ -8,11 +8,11 @@
 
 #import "RFFieldViewController.h"
 
-@interface RFFieldViewController ()
+@interface RFFieldController ()
 
 @end
 
-@implementation RFFieldViewController
+@implementation RFFieldController
 @synthesize view = _view;
 - (UITableViewCell *)view
 {

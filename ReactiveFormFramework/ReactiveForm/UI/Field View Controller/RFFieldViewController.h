@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-@interface RFFieldViewController : NSObject
+@interface RFFieldController : NSObject
 @property (nonatomic, strong) UITableViewCell *view;
 @property (nonatomic, assign) UIViewController *presentationController;
 

@@ -9,7 +9,7 @@
 #import "RFFormTableViewDataSource.h"
 #import "RFFormController.h"
 #import "RFFieldViewController.h"
-#import "RFFieldControllerFactory.m"
+#import "RFFormPresentation.h"
 
 @interface RFFormTableViewDataSource () <RFFormControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong, readonly) RFFormPresentation *presentation;
@@ -35,18 +35,18 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	RFFieldViewController *fieldViewController = [self controllerAtIndexPath:indexPath];
+	RFFieldController *fieldViewController = [self controllerAtIndexPath:indexPath];
 	return fieldViewController.view;
 }
 
-- (RFFieldViewController *)controllerAtIndexPath:(NSIndexPath *)indexPath
+- (RFFieldController *)controllerAtIndexPath:(NSIndexPath *)indexPath
 {
 	return [self fieldViewControllerForField:[self.formController fieldAtIndexPath:indexPath]];
 }
 
-- (RFFieldViewController *)fieldViewControllerForField:(RFField *)field
+- (RFFieldController *)fieldViewControllerForField:(RFField *)field
 {
-	RFFieldViewController *result = [self.fieldControllerCache objectForKey:field];
+	RFFieldController *result = [self.fieldControllerCache objectForKey:field];
 	if (!result) {
 		result = [self.presentation controllerForField:field];
 		NSAssert(result != nil, @"Failed to create controller for field %@", field);
