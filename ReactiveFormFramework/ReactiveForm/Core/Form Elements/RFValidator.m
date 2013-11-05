@@ -34,7 +34,7 @@
 @implementation NSRegularExpression (RFValidator)
 - (id<RFValidator>)validatorWithFailureError:(NSError *)failureError
 {
-	return [RFValidator validatorWithRegularExpression:self];
+	return [RFValidator validatorWithRegularExpression:self failureError:failureError];
 }
 @end
 
