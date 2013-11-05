@@ -15,11 +15,12 @@
 SPEC_BEGIN(RFFormPresentationSpec)
 describe(@"Form presentation", ^{
 	context(@"when created j", ^{
-		
-		RFField *field = [RFField fieldWithName:@"account" title:@"title"];
+		RFField *field = [RFTextField fieldWithName:@"account" title:@"title"];
 		RFTextField *textField = [RFTextField fieldWithName:@"textField" title:@"dds"];
-		RFFieldController *controller = [RFFieldController mock];
-		RFFieldController *textController = [RFFieldController mock];
+		RFTextField *textField1 = [RFTextField fieldWithName:@"textField1" title:@"dds"];
+		RFFieldController *controller = [[RFFieldController alloc] init];
+		RFFieldController *textController = [[RFFieldController alloc] init];
+		
 		RFFormPresentation *presentation = [RFFormPresentation createWithBlock:^(id <RFFormPresentationBuilder> builder) {
 			[builder addMatcher:@"account" instantiator:^(RFField *field) {
 				return controller;
@@ -29,8 +30,12 @@ describe(@"Form presentation", ^{
 			}];
 		}];
 		
-		[[[presentation controllerForField:field] should] equal:controller];
-		[[[presentation controllerForField:textField] should] equal:textController];
+		it(@"should evaluate matcher in given order", ^{
+			[[[presentation controllerForField:field] shouldNot] equal:textController];
+			[[[presentation controllerForField:field] should] equal:controller];
+			[[[presentation controllerForField:textField] should] equal:textController];
+			[[[presentation controllerForField:textField1] should] equal:textController];
+		});
 	});
 });
 SPEC_END
