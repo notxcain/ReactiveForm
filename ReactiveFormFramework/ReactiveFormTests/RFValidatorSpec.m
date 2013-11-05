@@ -41,5 +41,25 @@ describe(@"Validator", ^{
 			[[error should] beNil];
 		});
 	});
+    
+    context(@"when created with Regular Expression", ^{
+        NSError *failureError = [NSError errorWithDomain:@"rf.test" code:1 userInfo:nil];
+        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"abc" options:kNilOptions error:NULL];
+        RFValidator *validator = [RFValidator validatorWithRegularExpression:regex failureError:failureError];
+        
+        it(@"should return YES and output no error for valid value", ^{
+            NSError *error = nil;
+            BOOL result = [validator validateValue:@"abc" error:&error];
+            [[theValue(result) should] equal:theValue(YES)];
+			[[error should] beNil];
+        });
+        
+        it(@"should return NO and output error for not valid value", ^{
+            NSError *error = nil;
+            BOOL result = [validator validateValue:@"a" error:&error];
+            [[theValue(result) should] equal:theValue(NO)];
+			[[error should] equal:failureError];
+        });
+    });
 });
 SPEC_END
