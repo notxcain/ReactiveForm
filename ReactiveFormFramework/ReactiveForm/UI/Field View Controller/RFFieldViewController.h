@@ -10,7 +10,11 @@
 @class RFField;
 @class RFFieldView;
 @interface RFFieldViewController : NSObject
-@property (nonatomic, strong, readonly) RFFieldView *view;
-- (id)initWithObject:(id)object presenter:(UIViewController *)presenter;
-- (void)select;
+@property (nonatomic, strong) UITableViewCell *view;
+
+- (id)initWithPresenter:(UIViewController *)presenter;
+
+- (void)loadView;
+- (void)viewDidLoad;
+- (BOOL)isViewLoaded;
 @end
