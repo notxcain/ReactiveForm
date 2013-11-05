@@ -20,5 +20,11 @@
 typedef RFFieldController *(^RFFieldViewControllerInstantiator)(RFField *field);
 
 @protocol RFFormPresentationBuilder
+
+/// Valid matchers:
+///		Class
+///		String as a field name
+/// Please note that matcher are evaluated in the order specified during initialization
+
 - (void)addMatcher:(id)matcher instantiator:(RFFieldViewControllerInstantiator)instantiator;
 @end

@@ -28,12 +28,11 @@ NSPredicate *RFPredicateForMatcher(id matcher)
 
 @interface RFFormPresentation () <RFFormPresentationBuilder>
 @property (nonatomic, strong, readonly) NSMutableArray *predicates;
-@property (nonatomic, strong, readonly) NSMutableArray *instantiators;
 @property (nonatomic, strong, readonly) void (^buildingBlock)(id<RFFormPresentationBuilder>);
 @end
 
 @implementation RFFormPresentation
-@synthesize instantiators = _instantiators, predicates = _predicates;
+@synthesize predicates = _predicates;
 + (instancetype)createWithBlock:(void (^)(id<RFFormPresentationBuilder>))buildingBlock
 {
 	RFFormPresentation *factory = [[self alloc] initWithBuildingBlock:buildingBlock];
@@ -57,14 +56,13 @@ NSPredicate *RFPredicateForMatcher(id matcher)
 
 - (RFFieldViewControllerInstantiator)instantiatorForObject:(id)object
 {
-	RFFieldViewControllerInstantiator __block instantiator = nil;
-	[self.predicates enumerateObjectsUsingBlock:^(NSPredicate *predicate, NSUInteger idx, BOOL *stop) {
+	for (NSArray *pair in self.predicates) {
+		NSPredicate *predicate = pair[0];
 		if ([predicate evaluateWithObject:object]) {
-			instantiator = [self.instantiators objectAtIndex:idx];
-			*stop = YES;
+			return pair[1];
 		}
-	}];
-	return instantiator;
+	}
+	return nil;
 }
 
 - (NSMutableArray *)predicates
@@ -72,7 +70,7 @@ NSPredicate *RFPredicateForMatcher(id matcher)
 	if (_predicates) return _predicates;
 	
 	_predicates = [NSMutableArray array];
-	_instantiators = [NSMutableArray array];
+	
 	self.buildingBlock(self);
 	
 	return _predicates;
@@ -81,8 +79,7 @@ NSPredicate *RFPredicateForMatcher(id matcher)
 - (void)addMatcher:(id)matcher instantiator:(RFFieldViewControllerInstantiator)instantiator
 {
 	NSPredicate *predicate = RFPredicateForMatcher(matcher);
-	[self.predicates addObject:predicate];
-	[self.instantiators addObject:instantiator];
+	[self.predicates addObject:@[predicate, [instantiator copy]]];
 }
 
 @end
