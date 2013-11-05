@@ -40,6 +40,7 @@
 		F03223EF1823B5BE00E7EA41 /* RFFieldViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223E81823B5BE00E7EA41 /* RFFieldViewController.m */; };
 		F03223F61828AE8200E7EA41 /* RFFormTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223F51828AE8200E7EA41 /* RFFormTableViewDataSource.m */; };
 		F03223FB1828BD4000E7EA41 /* RFFieldMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223FA1828BD4000E7EA41 /* RFFieldMatcher.m */; };
+		F03224001828F27700E7EA41 /* RFFormPresentationSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223FF1828F27700E7EA41 /* RFFormPresentationSpec.m */; };
 		FADB8193E94848739BE5390C /* libPods-ReactiveFormTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FF6C90513EB4582870CAFF0 /* libPods-ReactiveFormTests.a */; };
 /* End PBXBuildFile section */
 
@@ -132,6 +133,7 @@
 		F03223F51828AE8200E7EA41 /* RFFormTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFFormTableViewDataSource.m; sourceTree = "<group>"; };
 		F03223F91828BD4000E7EA41 /* RFFieldMatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFFieldMatcher.h; sourceTree = "<group>"; };
 		F03223FA1828BD4000E7EA41 /* RFFieldMatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFFieldMatcher.m; sourceTree = "<group>"; };
+		F03223FF1828F27700E7EA41 /* RFFormPresentationSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFFormPresentationSpec.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -216,6 +218,7 @@
 			children = (
 				F032237B182396A900E7EA41 /* ReactiveFormTests.m */,
 				F03223DF1823AF0400E7EA41 /* RFValidatorSpec.m */,
+				F03223FF1828F27700E7EA41 /* RFFormPresentationSpec.m */,
 				F0322376182396A900E7EA41 /* Supporting Files */,
 			);
 			path = ReactiveFormTests;
@@ -531,6 +534,7 @@
 			files = (
 				F032237C182396A900E7EA41 /* ReactiveFormTests.m in Sources */,
 				F03223E01823AF0400E7EA41 /* RFValidatorSpec.m in Sources */,
+				F03224001828F27700E7EA41 /* RFFormPresentationSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
