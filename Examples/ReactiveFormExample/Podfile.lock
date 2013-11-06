@@ -1,0 +1,23 @@
+PODS:
+  - ReactiveCocoa (2.1.6):
+    - ReactiveCocoa/Core
+    - ReactiveCocoa/no-arc
+  - ReactiveCocoa/Core (2.1.6):
+    - ReactiveCocoa/no-arc
+  - ReactiveCocoa/no-arc (2.1.6)
+  - ReactiveForm (0.2):
+    - ReactiveCocoa (~> 2.0)
+
+DEPENDENCIES:
+  - ReactiveForm (from `https://github.com/ReactiveForm/ReactiveForm.git`, branch `form-ui`)
+
+EXTERNAL SOURCES:
+  ReactiveForm:
+    :branch: form-ui
+    :git: https://github.com/ReactiveForm/ReactiveForm.git
+
+SPEC CHECKSUMS:
+  ReactiveCocoa: 63b3bae2d4008b897eb982042dfbc379f6d04a2e
+  ReactiveForm: ec670f6f8ab9eb3666cafeb3886eed5778fbdbe4
+
+COCOAPODS: 0.26.2
