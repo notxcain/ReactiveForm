@@ -11,12 +11,13 @@ Pod::Spec.new do |s|
   s.source = {
     :git => 'https://github.com/denis-mikhaylov/ReactiveForm.git'
   }
-  s.source_files = 'ReactiveFormFramework/ReactiveForm/**/*.{h,m,xcdatamodeld}'
+  s.source_files = 'ReactiveFormFramework/ReactiveForm/**/*.{h,m}'
+  s.resource = 'RFBackingModel.xcdatamodeld' 
   s.requires_arc = true
   s.dependency "ReactiveCocoa", "~> 2.0"
   s.prefix_header_contents = <<-EOS
-    #ifdef __OBJC__ 
-    #import "RFDefines.h" 
-    #endif
-  EOS
+#ifdef __OBJC__ 
+#import "RFDefines.h" 
+#endif
+EOS
 end
