@@ -8,11 +8,11 @@ Pod::Spec.new do |s|
   s.author   = {
     'Denis Mikhaylov' => 'd.mikhaylov@qiwi.ru' 
   }
-  s.source = {
-    :git => 'https://github.com/denis-mikhaylov/ReactiveForm.git'
-  }
+  # s.source = {
+  #   :git => 'https://github.com/denis-mikhaylov/ReactiveForm.git'
+  # }
   s.source_files = 'ReactiveFormFramework/ReactiveForm/**/*.{h,m}'
-  s.resources = 'ReactiveFormFramework/**/*.{xcdatamodel,xcdatamodeld}'
+  s.resources = 'ReactiveFormFramework/**/*.{xcdatamodeld}'
   s.requires_arc = true
   s.dependency "ReactiveCocoa", "~> 2.0"
   s.prefix_header_contents = <<-EOS
