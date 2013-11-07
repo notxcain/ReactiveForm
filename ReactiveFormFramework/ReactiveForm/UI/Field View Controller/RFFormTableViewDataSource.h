@@ -12,7 +12,7 @@
 @class RFFormPresentation;
 @class RFForm;
 
-@interface RFFormTableViewDataSource : NSObject
+@interface RFFormTableViewDataSource : NSObject <UITableViewDataSource>
 @property (nonatomic, strong, readonly) UITableView *formView;
 - (id)initWithForm:(RFForm *)form presentation:(RFFormPresentation *)presentation;
 @end
