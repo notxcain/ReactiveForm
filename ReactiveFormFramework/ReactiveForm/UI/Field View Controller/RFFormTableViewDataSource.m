@@ -11,7 +11,7 @@
 #import "RFFieldViewController.h"
 #import "RFFormPresentation.h"
 
-@interface RFFormTableViewDataSource () <RFFormControllerDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface RFFormTableViewDataSource () <RFFormControllerDelegate, UITableViewDelegate>
 @property (nonatomic, strong, readonly) RFFormPresentation *presentation;
 @property (nonatomic, strong, readonly) RFForm *form;
 @property (nonatomic, strong, readonly) RFFormController *formController;
@@ -31,6 +31,11 @@
 		_fieldControllerCache.name = @"rf.fieldViewController.cache";
     }
     return self;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [self.formController numberOfFieldsInSection:section];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

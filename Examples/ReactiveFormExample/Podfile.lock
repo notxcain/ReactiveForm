@@ -1,0 +1,22 @@
+PODS:
+  - ReactiveCocoa (2.1.6):
+    - ReactiveCocoa/Core
+    - ReactiveCocoa/no-arc
+  - ReactiveCocoa/Core (2.1.6):
+    - ReactiveCocoa/no-arc
+  - ReactiveCocoa/no-arc (2.1.6)
+  - ReactiveForm (0.2):
+    - ReactiveCocoa (~> 2.0)
+
+DEPENDENCIES:
+  - ReactiveForm (from `../../`)
+
+EXTERNAL SOURCES:
+  ReactiveForm:
+    :path: ../../
+
+SPEC CHECKSUMS:
+  ReactiveCocoa: 63b3bae2d4008b897eb982042dfbc379f6d04a2e
+  ReactiveForm: 3be0316f7712063607825a0bf9d0a2ca1f2434ae
+
+COCOAPODS: 0.26.2
