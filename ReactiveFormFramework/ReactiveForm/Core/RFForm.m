@@ -102,15 +102,9 @@
     
     _backingForm = [RFBackingForm insertInManagedObjectContext:self.managedObjectContext];
     
-    [self prepareForm];
-    
     return _backingForm;
 }
 
-- (void)prepareForm
-{
-    
-}
 
 - (NSManagedObjectContext *)managedObjectContext
 {
@@ -135,6 +129,6 @@
 
 - (NSString *)description
 {
-    return [self.visibleFields description];
+    return [NSString stringWithFormat:@"%@ %@", [super description], [self.visibleFields description]];
 }
 @end
