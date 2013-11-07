@@ -8,9 +8,9 @@ Pod::Spec.new do |s|
   s.author   = {
     'Denis Mikhaylov' => 'd.mikhaylov@qiwi.ru' 
   }
-  s.source = {
-    :git => 'https://github.com/denis-mikhaylov/ReactiveForm.git'
-  }
+  # s.source = {
+    # :git => 'https://github.com/denis-mikhaylov/ReactiveForm.git'
+  # }
   s.source_files = 'ReactiveFormFramework/ReactiveForm/**/*.{h,m}'
   s.resource = 'ReactiveFormFramework/ReactiveForm/Core/Backing Structure/Backing Entities/RFBackingModel.xcdatamodeld' 
   s.requires_arc = true
