@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 @protocol RFFormElement;
 @interface RFSection : NSObject
+@property (nonatomic, copy, readonly) NSOrderedSet *visibleFields;
 + (instancetype)sectionWithFormElement:(id <RFFormElement>)formElement;
 - (id)initWithFormElement:(id <RFFormElement>)formElement;
 @end

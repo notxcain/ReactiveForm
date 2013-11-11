@@ -25,16 +25,11 @@
 @end
 
 @protocol RFFormControllerDelegate <NSObject>
-
-typedef NS_ENUM(NSInteger, RFFormChangeType) {
-	RFFormChangeInsert = 1,
-	RFFormChangeDelete = 2,
-	RFFormChangeMove = 3
-};
-
 @optional
 - (void)controllerWillChangeContent:(RFFormController *)controller;
-- (void)controller:(RFFormController *)controller didChangeField:(RFField *)field atIndexPath:(NSIndexPath *)indexPath changeType:(RFFormChangeType)changeType newIndexPath:(NSIndexPath *)newIndexPath;
-- (void)controller:(RFFormController *)controller didChangeSectionAtIndex:(NSUInteger)sectionIndex changeType:(RFFormChangeType)type;
+- (void)controller:(RFFormController *)controller didInsertField:(RFField *)field atIndexPath:(NSIndexPath *)indexPath;
+- (void)controller:(RFFormController *)controller didRemoveField:(RFField *)field atIndexPath:(NSIndexPath *)indexPath;
+- (void)controller:(RFFormController *)controller didInsertSectionAtIndex:(NSUInteger)index;
+- (void)controller:(RFFormController *)controller didRemoveSectionAtIndex:(NSUInteger)index;
 - (void)controllerDidChangeContent:(RFFormController *)controller;
 @end

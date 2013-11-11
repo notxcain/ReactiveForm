@@ -28,8 +28,11 @@ NSArray *RFOrderedSetInsertedObjectsComparedToOrderedSet(NSOrderedSet *self, NSO
 }
 
 @implementation NSOrderedSet (RFInsertedDeleted)
-- (NSDictionary *)differenceWithOrderedSet:(NSOrderedSet *)orderedSet
+- (id<RFOrderedSetDifference>)differenceWithOrderedSet:(NSOrderedSet *)orderedSet
 {
+	if (!orderedSet || [orderedSet isEqual:[NSNull null]]) {
+		return [self differenceWithOrderedSet:[NSOrderedSet orderedSet]];
+	}
 	NSArray *addedObjects = RFOrderedSetInsertedObjectsComparedToOrderedSet(self, orderedSet);
 	NSArray *deletedObjects = RFOrderedSetInsertedObjectsComparedToOrderedSet(orderedSet, self);
 	return @{RFInsertedObjectsKey : [addedObjects copy], RFRemovedObjectsKey : [deletedObjects copy]};

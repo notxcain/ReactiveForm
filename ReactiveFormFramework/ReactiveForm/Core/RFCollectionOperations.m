@@ -27,6 +27,13 @@
 	}];
 	return [result copy];
 }
+
+- (void)each:(void (^)(id))each
+{
+	for (id obj in self) {
+		each(obj);
+	}
+}
 @end
 
 @implementation NSOrderedSet (Map)
@@ -47,5 +54,12 @@
 		[result addObject:obj];
 	}];
 	return [result copy];
+}
+
+- (void)each:(void (^)(id))each
+{
+	for (id obj in self) {
+		each(obj);
+	}
 }
 @end

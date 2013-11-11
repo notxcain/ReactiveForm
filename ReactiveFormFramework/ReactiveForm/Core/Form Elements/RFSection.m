@@ -7,14 +7,14 @@
 //
 
 #import "RFSection.h"
-#import "RFSection+Private.h"
-
+#import "RFFormElement.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
 
 
 @interface RFSection ()
 @property (nonatomic, strong, readonly) RACSignal *visibleElements;
+@property (nonatomic, copy, readwrite) NSOrderedSet *visibleFields;
 @end
 
 @implementation RFSection
@@ -27,12 +27,10 @@
 {
     if (!(self = [super init])) return nil;
     
-    @weakify(self);
-    _visibleElements = [[formElement visibleElements] map:^(RACSequence *elements) {
-        @strongify(self);
-        return self ? [@[self].rac_sequence concat:elements] : [RACSequence empty];
-    }];
-    
+    RAC(self, visibleFields) = [[[formElement visibleElements] map:^(RACSequence *value) {
+        return [NSOrderedSet orderedSetWithArray:value.array];
+    }] startWith:[NSOrderedSet orderedSet]];
+	
     return self;
 }
 @end

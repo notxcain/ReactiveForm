@@ -9,7 +9,6 @@
 
 #import "RFForm.h"
 
-@class RFBackingForm;
+
 @interface RFForm ()
-@property (nonatomic, strong, readonly) RFBackingForm *backingForm;
 @end

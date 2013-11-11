@@ -11,9 +11,11 @@
 @interface NSArray (Map)
 - (instancetype)map:(id (^)(id x))mapBlock;
 - (instancetype)filter:(BOOL (^)(id x))filterBlock;
+- (void)each:(void (^)(id x))each;
 @end
 
 @interface NSOrderedSet (Map)
 - (instancetype)map:(id (^)(id x))mapBlock;
 - (instancetype)filter:(BOOL (^)(id x))filterBlock;
+- (void)each:(void (^)(id x))each;
 @end

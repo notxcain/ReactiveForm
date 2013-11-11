@@ -18,12 +18,6 @@
 		F0322374182396A900E7EA41 /* libReactiveForm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F032235C182396A900E7EA41 /* libReactiveForm.a */; };
 		F032237A182396A900E7EA41 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F0322378182396A900E7EA41 /* InfoPlist.strings */; };
 		F032237C182396A900E7EA41 /* RFOrderedSetChangesSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F032237B182396A900E7EA41 /* RFOrderedSetChangesSpec.m */; };
-		F03223C31823A3C900E7EA41 /* RFBackingField.m in Sources */ = {isa = PBXBuildFile; fileRef = F032238A1823A3C900E7EA41 /* RFBackingField.m */; };
-		F03223C41823A3C900E7EA41 /* RFBackingForm.m in Sources */ = {isa = PBXBuildFile; fileRef = F032238C1823A3C900E7EA41 /* RFBackingForm.m */; };
-		F03223C51823A3C900E7EA41 /* RFBackingObject.m in Sources */ = {isa = PBXBuildFile; fileRef = F032238E1823A3C900E7EA41 /* RFBackingObject.m */; };
-		F03223C61823A3C900E7EA41 /* RFBackingSection.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223901823A3C900E7EA41 /* RFBackingSection.m */; };
-		F03223C71823A3C900E7EA41 /* RFBackingModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F03223911823A3C900E7EA41 /* RFBackingModel.xcdatamodeld */; };
-		F03223C81823A3C900E7EA41 /* RFBackingStructureBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223941823A3C900E7EA41 /* RFBackingStructureBuilder.m */; };
 		F03223CB1823A3C900E7EA41 /* RFMask.m in Sources */ = {isa = PBXBuildFile; fileRef = F032239D1823A3C900E7EA41 /* RFMask.m */; };
 		F03223CD1823A3C900E7EA41 /* RFActionField.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223A21823A3C900E7EA41 /* RFActionField.m */; };
 		F03223CE1823A3C900E7EA41 /* RFChoice.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223A41823A3C900E7EA41 /* RFChoice.m */; };
@@ -93,17 +87,6 @@
 		F0322377182396A900E7EA41 /* ReactiveFormTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ReactiveFormTests-Info.plist"; sourceTree = "<group>"; };
 		F0322379182396A900E7EA41 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F032237B182396A900E7EA41 /* RFOrderedSetChangesSpec.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RFOrderedSetChangesSpec.m; sourceTree = "<group>"; };
-		F03223891823A3C900E7EA41 /* RFBackingField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFBackingField.h; sourceTree = "<group>"; };
-		F032238A1823A3C900E7EA41 /* RFBackingField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFBackingField.m; sourceTree = "<group>"; };
-		F032238B1823A3C900E7EA41 /* RFBackingForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFBackingForm.h; sourceTree = "<group>"; };
-		F032238C1823A3C900E7EA41 /* RFBackingForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFBackingForm.m; sourceTree = "<group>"; };
-		F032238D1823A3C900E7EA41 /* RFBackingObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFBackingObject.h; sourceTree = "<group>"; };
-		F032238E1823A3C900E7EA41 /* RFBackingObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFBackingObject.m; sourceTree = "<group>"; };
-		F032238F1823A3C900E7EA41 /* RFBackingSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFBackingSection.h; sourceTree = "<group>"; };
-		F03223901823A3C900E7EA41 /* RFBackingSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFBackingSection.m; sourceTree = "<group>"; };
-		F03223921823A3C900E7EA41 /* DFBackingModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DFBackingModel.xcdatamodel; sourceTree = "<group>"; };
-		F03223931823A3C900E7EA41 /* RFBackingStructureBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFBackingStructureBuilder.h; sourceTree = "<group>"; };
-		F03223941823A3C900E7EA41 /* RFBackingStructureBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFBackingStructureBuilder.m; sourceTree = "<group>"; };
 		F032239C1823A3C900E7EA41 /* RFMask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFMask.h; sourceTree = "<group>"; };
 		F032239D1823A3C900E7EA41 /* RFMask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFMask.m; sourceTree = "<group>"; };
 		F032239E1823A3C900E7EA41 /* RFMaskComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFMaskComponent.h; sourceTree = "<group>"; };
@@ -278,37 +261,10 @@
 		F03223861823A3C900E7EA41 /* Backing Structure */ = {
 			isa = PBXGroup;
 			children = (
-				F03223871823A3C900E7EA41 /* Backing Entities */,
-				F03223931823A3C900E7EA41 /* RFBackingStructureBuilder.h */,
-				F03223941823A3C900E7EA41 /* RFBackingStructureBuilder.m */,
 				F09508A81830CE3A00648C79 /* NSOrderedSet+RFInsertedDeleted.h */,
 				F09508A91830CE3A00648C79 /* NSOrderedSet+RFInsertedDeleted.m */,
 			);
 			path = "Backing Structure";
-			sourceTree = "<group>";
-		};
-		F03223871823A3C900E7EA41 /* Backing Entities */ = {
-			isa = PBXGroup;
-			children = (
-				F03223881823A3C900E7EA41 /* Entities */,
-				F03223911823A3C900E7EA41 /* RFBackingModel.xcdatamodeld */,
-			);
-			path = "Backing Entities";
-			sourceTree = "<group>";
-		};
-		F03223881823A3C900E7EA41 /* Entities */ = {
-			isa = PBXGroup;
-			children = (
-				F03223891823A3C900E7EA41 /* RFBackingField.h */,
-				F032238A1823A3C900E7EA41 /* RFBackingField.m */,
-				F032238B1823A3C900E7EA41 /* RFBackingForm.h */,
-				F032238C1823A3C900E7EA41 /* RFBackingForm.m */,
-				F032238D1823A3C900E7EA41 /* RFBackingObject.h */,
-				F032238E1823A3C900E7EA41 /* RFBackingObject.m */,
-				F032238F1823A3C900E7EA41 /* RFBackingSection.h */,
-				F03223901823A3C900E7EA41 /* RFBackingSection.m */,
-			);
-			path = Entities;
 			sourceTree = "<group>";
 		};
 		F03223951823A3C900E7EA41 /* Form Elements */ = {
@@ -530,16 +486,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F03223C41823A3C900E7EA41 /* RFBackingForm.m in Sources */,
 				F03223D31823A3C900E7EA41 /* RFSection.m in Sources */,
 				F03223DE1823A5AE00E7EA41 /* RFMaskComponent.m in Sources */,
-				F03223C81823A3C900E7EA41 /* RFBackingStructureBuilder.m in Sources */,
 				F03223CD1823A3C900E7EA41 /* RFActionField.m in Sources */,
 				F03223D91823A3C900E7EA41 /* RFForm.m in Sources */,
-				F03223C31823A3C900E7EA41 /* RFBackingField.m in Sources */,
-				F03223C51823A3C900E7EA41 /* RFBackingObject.m in Sources */,
 				F03223D21823A3C900E7EA41 /* RFContainer.m in Sources */,
-				F03223C61823A3C900E7EA41 /* RFBackingSection.m in Sources */,
 				F03223CB1823A3C900E7EA41 /* RFMask.m in Sources */,
 				F03223D11823A3C900E7EA41 /* RFTextField.m in Sources */,
 				688BD9671823C12300D585F0 /* RFFormPresentation.m in Sources */,
@@ -547,7 +498,6 @@
 				F03223F61828AE8200E7EA41 /* RFFormTableViewDataSource.m in Sources */,
 				F03223CE1823A3C900E7EA41 /* RFChoice.m in Sources */,
 				F03223D01823A3C900E7EA41 /* RFField.m in Sources */,
-				F03223C71823A3C900E7EA41 /* RFBackingModel.xcdatamodeld in Sources */,
 				F09508AA1830CE3A00648C79 /* NSOrderedSet+RFInsertedDeleted.m in Sources */,
 				F09508AD18310C5200648C79 /* RFCollectionOperations.m in Sources */,
 				F03223D41823A3C900E7EA41 /* RFSignalContainer.m in Sources */,
@@ -781,19 +731,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		F03223911823A3C900E7EA41 /* RFBackingModel.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				F03223921823A3C900E7EA41 /* DFBackingModel.xcdatamodel */,
-			);
-			currentVersion = F03223921823A3C900E7EA41 /* DFBackingModel.xcdatamodel */;
-			path = RFBackingModel.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = F0322354182396A900E7EA41 /* Project object */;
 }

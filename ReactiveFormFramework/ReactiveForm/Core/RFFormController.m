@@ -7,55 +7,50 @@
 //
 
 #import "RFFormController.h"
-#import <CoreData/CoreData.h>
 #import "RFForm+Private.h"
-#import "RFBackingForm.h"
-#import "RFBackingField.h"
 
-@interface RFFormController () <NSFetchedResultsControllerDelegate>
-{
+@interface RFFormController () {
     struct {
         BOOL willChangeContent;
-        BOOL didChangeField;
-        BOOL didChangeSection;
-        BOOL didChangeContent;
+        BOOL didInsertField;
+		BOOL didRemoveField;
+        BOOL didInsertSection;
+        BOOL didRemoveSection;
+		BOOL didChangeContent;
     } _delegateRespondsTo;
 }
-@property (nonatomic, strong, readonly) NSFetchedResultsController *fetchedResultsController;
-@property (nonatomic, weak) RFBackingForm *backingForm;
+
 @end
 
 @implementation RFFormController
-@synthesize fetchedResultsController = _fetchedResultsController;
 
 - (id)initWithForm:(RFForm *)form
 {
     self = [super init];
     if (self) {
         _form = form;
-        _backingForm = _form.backingForm;
     }
     return self;
 }
 
 - (NSUInteger)numberOfSections
 {
-    return [[self.fetchedResultsController sections] count];
+    return [self.form numberOfSections];
 }
 
 - (NSUInteger)numberOfFieldsInSection:(NSUInteger)section
 {
-    return [[[self.fetchedResultsController sections] objectAtIndex:section] numberOfObjects];
+    return [self.form numberOfFieldsInSection:section];
 }
 
 - (RFField *)fieldAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [[self.fetchedResultsController objectAtIndexPath:indexPath] field];
+    return [self.form fieldAtIndexPath:indexPath];
 }
 
 - (NSIndexPath *)indexPathForField:(id)field
 {
-    return [self.fetchedResultsController indexPathForObject:[field backingObjectInContext:self.backingForm.managedObjectContext]];
+    return [self.form indexPathForField:field];
 }
 
 - (RFField *)fieldBeforeField:(RFField *)field
@@ -93,52 +88,12 @@
 {
     _delegate = delegate;
     _delegateRespondsTo.willChangeContent = [_delegate respondsToSelector:@selector(controllerWillChangeContent:)];
-    _delegateRespondsTo.didChangeField = [_delegate respondsToSelector:@selector(controller:didChangeField:atIndexPath:changeType:newIndexPath:)];
-    _delegateRespondsTo.didChangeSection = [_delegate respondsToSelector:@selector(controller:didChangeSectionAtIndex:changeType:)];
+    _delegateRespondsTo.didInsertField = [_delegate respondsToSelector:@selector(controller:didInsertField:atIndexPath:)];
+	_delegateRespondsTo.didRemoveField = [_delegate respondsToSelector:@selector(controller:didRemoveField:atIndexPath:)];
+    _delegateRespondsTo.didInsertSection = [_delegate respondsToSelector:@selector(controller:didInsertSectionAtIndex:)];
+	_delegateRespondsTo.didRemoveSection = [_delegate respondsToSelector:@selector(controller:didRemoveSectionAtIndex:)];
     _delegateRespondsTo.didChangeContent = [_delegate respondsToSelector:@selector(controllerDidChangeContent:)];
 }
 
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
-{
-    if (_delegateRespondsTo.willChangeContent) {
-        [self.delegate controllerWillChangeContent:self];
-    }
-}
 
-- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(RFBackingField *)backingField atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
-{
-    if (type != NSFetchedResultsChangeUpdate && _delegateRespondsTo.didChangeField) {
-        [self.delegate controller:self didChangeField:backingField.field atIndexPath:indexPath changeType:type newIndexPath:newIndexPath];
-    }
-}
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
-{
-    if (_delegateRespondsTo.didChangeSection) {
-        [self.delegate controller:self didChangeSectionAtIndex:sectionIndex changeType:type];
-    }
-}
-
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
-{
-    if (_delegateRespondsTo.didChangeContent) {
-        [self.delegate controllerDidChangeContent:self];
-    }
-}
-
-- (NSFetchedResultsController *)fetchedResultsController
-{
-    if (_fetchedResultsController) return _fetchedResultsController;
-    
-    _fetchedResultsController = [self.backingForm fieldsController];
-    [_fetchedResultsController setDelegate:self];
-    
-    NSError *error = nil;
-    if (![_fetchedResultsController performFetch:nil]) {
-        NSLog(@"Form fetch error: %@", [error localizedDescription]);
-    }
-
-    
-    return _fetchedResultsController;
-}
 @end

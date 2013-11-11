@@ -7,11 +7,8 @@
 //
 
 #import "RFForm.h"
+#import "RFDefines.h"
 
-#import "RFBackingForm.h"
-#import "RFBackingField.h"
-
-#import "RFBackingStructureBuilder.h"
 #import "RFField.h"
 #import "RFSection.h"
 #import <CoreData/CoreData.h>
@@ -20,115 +17,200 @@
 #import "RFContainer.h"
 #import <objc/runtime.h>
 #import "RFForm+Private.h"
-#import "RFSection+Private.h"
+#import <ReactiveCocoa/RACEXTKeyPathCoding.h>
+#import "NSOrderedSet+RFInsertedDeleted.h"
+#import "RFCollectionOperations.h"
 
-@interface RFForm ()
+
+@interface NSObject (Observation)
+- (RACSignal *)rf_oldAndNewValuesForKeyPath:(NSString *)keyPath observer:(id)observer;
+@end
+
+@implementation NSObject (Observation)
+- (RACSignal *)rf_oldAndNewValuesForKeyPath:(NSString *)keyPath observer:(id)observer
+{
+	return [[self rac_valuesAndChangesForKeyPath:keyPath options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew observer:observer] map:^id(RACTuple *valueAndChanges) {
+		NSDictionary *changes = valueAndChanges.second;
+		return RACTuplePack(changes[NSKeyValueChangeOldKey], changes[NSKeyValueChangeNewKey]);
+	}];
+}
+@end
+
+@interface RFForm () <RFFormContent>
 @property (nonatomic, assign, readwrite, getter = isValid) BOOL valid;
-@property (nonatomic, strong, readonly) RFContainer *rootContainer;
-@property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, strong, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
-@property (nonatomic, strong, readonly) NSOrderedSet *backingSections;
-@property (nonatomic, copy) NSDictionary *visibleFields;
+@property (nonatomic, strong, readonly) NSMutableOrderedSet *rootContainer;
+@property (nonatomic, strong, readonly) NSOrderedSet *visibleSections;
+@property (nonatomic, copy) void (^buildingBlock)(id<RFFormContent>);
+@property (nonatomic, strong) RACSubject *sectionRemovals;
 @end
 
 @implementation RFForm
-@synthesize managedObjectContext = _managedObjectContext, backingForm = _backingForm, persistentStoreCoordinator = _persistentStoreCoordinator, rootContainer = _rootContainer;
+@synthesize rootContainer = _rootContainer;
 
-+ (instancetype)form
++ (instancetype)formWithBuildingBlock:(void (^)(id<RFFormContent>))buildingBlock
 {
-    return [[self alloc] init];
+    return [[self alloc] initWithBuildingBlock:buildingBlock];
+}
+
+- (id)initWithBuildingBlock:(void (^)(id<RFFormContent>))buildingBlock
+{
+    self = [super init];
+    if (self) {
+        _buildingBlock = [buildingBlock copy];
+		_sectionRemovals = [RACSubject subject];
+		RAC(self, visibleSections) = [[[RACObserve(self, rootContainer) map:^(NSOrderedSet *sections) {
+			return [RACSignal combineLatest:[sections map:^(RFSection *section) {
+				return [RACObserve(section, visibleFields) mapReplace:section];
+			}]];
+		}] switchToLatest] map:^(RACTuple *sections) {
+			return [[NSOrderedSet orderedSetWithArray:[sections allObjects]] filter:^(RFSection *section) {
+				return (BOOL)([section.visibleFields count] != 0);
+			}];
+		}];
+    }
+    return self;
 }
 
 - (id)addSectionWithElement:(id<RFFormElement>)formElement
 {
+	[self willChangeValueForKey:@keypath(self.rootContainer)];
     RFSection *section = [RFSection sectionWithFormElement:formElement];
-    [self.rootContainer addElement:section];
+    [self.rootContainer addObject:section];
+	[self didChangeValueForKey:@keypath(self.rootContainer)];
     return section;
 }
 
-- (void)removeSection:(id)section
+
+- (void)removeSection:(RFSection *)section
 {
-    return [self.rootContainer removeElement:section];
+	[self willChangeValueForKey:@keypath(self.rootContainer)];
+	NSUInteger index = [self.rootContainer indexOfObject:section];
+	[self.rootContainer removeObjectAtIndex:index];
+	[self didChangeValueForKey:@keypath(self.rootContainer)];
 }
 
-- (id)fieldWithName:(NSString *)name
-{
-    return self.visibleFields[name];
-}
 
-- (RFContainer *)rootContainer
+- (NSMutableOrderedSet *)rootContainer
 {
     if (_rootContainer) return _rootContainer;
     
-    _rootContainer = [RFContainer container];
-    
-    NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
-    RAC(self, backingSections) = [[[[_rootContainer visibleElements] map:^(RACSequence *elements) {
-        return [elements map:^(id element) {
-            return [element backingObjectInContext:managedObjectContext];
-        }];
-    }] map:^(RACSequence *backingObjects) {
-        RFBackingStructureBuilder *builder = [[RFBackingStructureBuilder alloc] init];
-        return [backingObjects foldLeftWithStart:builder reduce:^(RFBackingStructureBuilder *builder, RFBackingObject *backingObject) {
-            [builder addBackingObject:backingObject];
-            return builder;
-        }];
-    }] map:^(RFBackingStructureBuilder *builder) {
-        return [builder sections];
-    }];
-    
-    RAC(self, valid, @NO) = [[[[RACObserve(self, visibleFields) map:^(NSDictionary *fields) {
-        return [RACSignal combineLatest:[[fields rac_valueSequence] map:^(RFField *field) {
-            return [field validate];
-        }]];
-    }] switchToLatest] map:^(RACTuple *tuple) {
-        return @(![[tuple allObjects] containsObject:@NO]);
-    }] distinctUntilChanged];
+    _rootContainer = [NSMutableOrderedSet orderedSet];
+	
+    self.buildingBlock(self);
     
     return _rootContainer;
 }
 
-- (void)setBackingSections:(NSOrderedSet *)backingSections
+- (void)setVisibleSections:(NSOrderedSet *)visibleSections
 {
-    if ([self.backingForm.sections isEqualToOrderedSet:backingSections]) return;
-    self.backingForm.sections = backingSections;
-    [self.managedObjectContext processPendingChanges];
-    [self.managedObjectContext save:NULL];
+    if ([_visibleSections isEqualToOrderedSet:visibleSections]) return;
+	
+	id<RFOrderedSetDifference> diff = [visibleSections differenceWithOrderedSet:_visibleSections];
+	NSArray *insertedSections = [diff insertedObjects];
+	NSArray *removedSections = [diff removedObjects];
+	
+	_visibleSections = visibleSections;
+	
+	
+	[[removedSections map:^(id x) {
+		return x[1];
+	}] each:^(id x) {
+		[self.sectionRemovals sendNext:x];
+	}];
+
+	NSMutableArray *fieldInsertions = [NSMutableArray array];
+	
+	[insertedSections each:^(NSArray *array) {
+		RACTupleUnpack(NSNumber *sectionIndex, RFSection *section) = [RACTuple tupleWithObjectsFromArray:array];
+		
+		[section.visibleFields enumerateObjectsUsingBlock:^(RFField *field, NSUInteger fieldIndex, BOOL *stop) {
+			[fieldInsertions addObject:@[[NSIndexPath indexPathForRow:fieldIndex inSection:sectionIndex.unsignedIntegerValue], field]];
+		}];
+		
+		[[[[section rf_oldAndNewValuesForKeyPath:@keypath(section.visibleFields) observer:self] takeUntil:[self removalSignalForSection:section]] map:^(RACTuple *oldAndNewValues) {
+			RACTupleUnpack(NSOrderedSet *oldVisibleFields, NSOrderedSet *visibleFields) = oldAndNewValues;
+			return [self fieldChangesDictionaryForSectionAtIndex:sectionIndex.unsignedIntegerValue oldValue:oldVisibleFields newValue:visibleFields];
+		}] subscribeNext:^(NSDictionary *changesDictionary) {
+			NSLog(@"%@", changesDictionary);
+		}];
+	}];
+	
+	NSArray *sectionInsertions =  [insertedSections map:^(NSArray *sectionChange) {
+		return sectionChange[0];
+	}];
+	
+	NSArray *sectionRemovals = [removedSections map:^(NSArray *sectionChange) {
+		return sectionChange[0];
+	}];
+	
+	NSLog(@"%@", @{@"RFSectionChanges" : @{@"RFInserted" : sectionInsertions, @"RFRemoved" : sectionRemovals}, @"RFFieldChanges" : @{@"RFInserted" : fieldInsertions}});
 }
 
-- (RFBackingForm *)backingForm
+- (NSDictionary *)fieldChangesDictionaryForSectionAtIndex:(NSUInteger)sectionIndex oldValue:(NSOrderedSet *)oldValue newValue:(NSOrderedSet *)newValue
 {
-    if (_backingForm) return _backingForm;
-    
-    _backingForm = [RFBackingForm insertInManagedObjectContext:self.managedObjectContext];
-    
-    return _backingForm;
+	id <RFOrderedSetDifference> fieldDiff = [newValue differenceWithOrderedSet:oldValue];
+	
+	NSMutableArray *insertedFields = [NSMutableArray array];
+	[[fieldDiff insertedObjects] each:^(NSArray *change) {
+		RACTupleUnpack(NSNumber *fieldIndex, RFField *field) = [RACTuple tupleWithObjectsFromArray:change];
+		[insertedFields addObject:@[[NSIndexPath indexPathForRow:fieldIndex.unsignedIntegerValue inSection:sectionIndex], field]];
+	}];
+	
+	NSMutableArray *removedFields = [NSMutableArray array];
+	[[fieldDiff removedObjects] each:^(NSArray *change) {
+		RACTupleUnpack(NSNumber *fieldIndex, RFField *field) = [RACTuple tupleWithObjectsFromArray:change];
+		[removedFields addObject:@[[NSIndexPath indexPathForRow:fieldIndex.unsignedIntegerValue inSection:sectionIndex], field]];
+	}];
+	
+	return @{@"RFFieldChanges" : @{@"RFInserted" : insertedFields, @"RFRemoved" : removedFields}};
+
 }
 
-
-- (NSManagedObjectContext *)managedObjectContext
+- (RACSignal *)removalSignalForSection:(RFSection *)section
 {
-    if (_managedObjectContext) return _managedObjectContext;
-    
-    _managedObjectContext = [[NSManagedObjectContext alloc] init];
-    [_managedObjectContext setPersistentStoreCoordinator:self.persistentStoreCoordinator];
-
-    return _managedObjectContext;
+	return [self.sectionRemovals filter:^BOOL(id value) {
+		return (value == section);
+	}];
 }
 
-- (NSPersistentStoreCoordinator *)persistentStoreCoordinator
+- (RFSection *)visibleSectionAtIndex:(NSUInteger)index
 {
-    if (_persistentStoreCoordinator) return _persistentStoreCoordinator;
-    
-    NSManagedObjectModel *managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"RFBackingModel" withExtension:@"momd"]];
-    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:managedObjectModel];
-    [_persistentStoreCoordinator addPersistentStoreWithType:NSInMemoryStoreType configuration:nil URL:nil options:nil error:NULL];
-    
-    return _persistentStoreCoordinator;
+	return self.visibleSections[index];
 }
+
+- (RFField *)fieldAtIndexPath:(NSIndexPath *)indexPath
+{
+	return [self visibleSectionAtIndex:indexPath.section].visibleFields[indexPath.row];
+}
+
+- (NSIndexPath *)indexPathForField:(RFField *)field
+{
+	__block NSIndexPath *result = nil;
+	[self.visibleSections enumerateObjectsUsingBlock:^(RFSection *section, NSUInteger idx, BOOL *stop) {
+		NSUInteger fieldIndex = [section.visibleFields indexOfObject:field];
+		if (fieldIndex != NSNotFound) {
+			*stop = YES;
+			result = [NSIndexPath indexPathForRow:fieldIndex inSection:idx];
+		}
+	}];
+	return result;
+}
+
+- (NSUInteger)numberOfSections
+{
+	return [self.visibleSections count];
+}
+
+- (NSUInteger)numberOfFieldsInSection:(NSUInteger)section
+{
+	return [[self visibleSectionAtIndex:section].visibleFields count];
+}
+
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"%@ %@", [super description], [self.visibleFields description]];
+    return [NSString stringWithFormat:@"%@ %@", [super description], [self.visibleSections description]];
 }
 @end
+
+
