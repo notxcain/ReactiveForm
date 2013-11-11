@@ -8,4 +8,5 @@
 - (NSInteger)indexOfSection:(RFBackingSection *)section;
 - (RFBackingSection *)sectionAtIndex:(NSInteger)index;
 - (NSFetchedResultsController *)fieldsController;
+- (RFBackingField *)fieldAtIndexPath:(NSIndexPath *)indexPath;
 @end

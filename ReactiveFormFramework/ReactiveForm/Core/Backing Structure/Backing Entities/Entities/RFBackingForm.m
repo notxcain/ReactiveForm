@@ -24,6 +24,11 @@
     return (self.sections)[index];
 }
 
+- (id)fieldAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [self sectionAtIndex:indexPath.section].fields[indexPath.row];
+}
+
 - (void)enumerateFieldsUsingBlock:(void (^)(RFBackingField *, NSIndexPath *))block
 {
     [self.sections enumerateObjectsUsingBlock:^(RFBackingSection *section, NSUInteger sectionIndex, BOOL *stop) {

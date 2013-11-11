@@ -11,6 +11,7 @@
 #import "RFBackingField.h"
 #import "RFSection.h"
 #import "RFField.h"
+#import "RFDefines.h"
 
 #import <objc/runtime.h>
 
