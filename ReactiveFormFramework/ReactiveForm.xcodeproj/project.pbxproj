@@ -48,6 +48,7 @@
 		F032240C182D14C800E7EA41 /* RFSectionSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F0322406182D14C800E7EA41 /* RFSectionSpec.m */; };
 		F032240D182D14C800E7EA41 /* RFSignalContainerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F0322407182D14C800E7EA41 /* RFSignalContainerSpec.m */; };
 		F09508AA1830CE3A00648C79 /* NSOrderedSet+RFInsertedDeleted.m in Sources */ = {isa = PBXBuildFile; fileRef = F09508A91830CE3A00648C79 /* NSOrderedSet+RFInsertedDeleted.m */; };
+		F09508AD18310C5200648C79 /* RFCollectionOperations.m in Sources */ = {isa = PBXBuildFile; fileRef = F09508AC18310C5200648C79 /* RFCollectionOperations.m */; };
 		FADB8193E94848739BE5390C /* libPods-ReactiveFormTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FF6C90513EB4582870CAFF0 /* libPods-ReactiveFormTests.a */; };
 /* End PBXBuildFile section */
 
@@ -149,6 +150,8 @@
 		F0322407182D14C800E7EA41 /* RFSignalContainerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFSignalContainerSpec.m; sourceTree = "<group>"; };
 		F09508A81830CE3A00648C79 /* NSOrderedSet+RFInsertedDeleted.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSOrderedSet+RFInsertedDeleted.h"; sourceTree = "<group>"; };
 		F09508A91830CE3A00648C79 /* NSOrderedSet+RFInsertedDeleted.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSOrderedSet+RFInsertedDeleted.m"; sourceTree = "<group>"; };
+		F09508AB18310C5200648C79 /* RFCollectionOperations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFCollectionOperations.h; sourceTree = "<group>"; };
+		F09508AC18310C5200648C79 /* RFCollectionOperations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFCollectionOperations.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -266,6 +269,8 @@
 				F03223BF1823A3C900E7EA41 /* RFForm.m */,
 				F03223C01823A3C900E7EA41 /* RFFormController.h */,
 				F03223C11823A3C900E7EA41 /* RFFormController.m */,
+				F09508AB18310C5200648C79 /* RFCollectionOperations.h */,
+				F09508AC18310C5200648C79 /* RFCollectionOperations.m */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -544,6 +549,7 @@
 				F03223D01823A3C900E7EA41 /* RFField.m in Sources */,
 				F03223C71823A3C900E7EA41 /* RFBackingModel.xcdatamodeld in Sources */,
 				F09508AA1830CE3A00648C79 /* NSOrderedSet+RFInsertedDeleted.m in Sources */,
+				F09508AD18310C5200648C79 /* RFCollectionOperations.m in Sources */,
 				F03223D41823A3C900E7EA41 /* RFSignalContainer.m in Sources */,
 				F03223FB1828BD4000E7EA41 /* RFFieldMatcher.m in Sources */,
 				F03223DA1823A3C900E7EA41 /* RFFormController.m in Sources */,

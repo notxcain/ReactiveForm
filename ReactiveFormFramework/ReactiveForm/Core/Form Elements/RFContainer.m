@@ -7,7 +7,7 @@
 //
 
 #import "RFContainer.h"
-
+#import "RFCollectionOperations.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
 #import <ReactiveCocoa/RACEXTKeyPathCoding.h>
@@ -35,15 +35,13 @@
     self = [super init];
     if (self) {
         _elements = [NSMutableArray array];
-        _visibleElements = [[[RACObserve(self, elements) map:^(NSArray *rootElements) {
-            NSMutableArray *signals = [NSMutableArray arrayWithCapacity:[rootElements count]];
-            for (id <RFFormElement> formElement in rootElements) {
-                [signals addObject:[formElement visibleElements]];
-            }
-            return [RACSignal combineLatest:signals];
-        }] switchToLatest] map:^(RACTuple *values) {
-            return [values.rac_sequence flatten];
-        }];
+        _visibleElements = [[RACObserve(self, elements) map:^(NSArray *elements) {
+            return [[RACSignal combineLatest:[elements map:^(id <RFFormElement> formElement) {
+				return [formElement visibleElements];
+			}]] map:^(RACTuple *sequencies) {
+                return [sequencies.rac_sequence flatten];
+            }];
+        }] switchToLatest];
     }
     return self;
 }
