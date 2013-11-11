@@ -8,6 +8,7 @@
 
 #import "RFField.h"
 #import "RFValidator.h"
+#import "RFDefines.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
 
@@ -51,10 +52,10 @@
     return self;
 }
 
-- (RACSignal *)validate
+- (BOOL)validate:(out NSError *__autoreleasing *)errorPtr
 {
     RFAssertShouldBeOverriden();
-    return nil;
+    return NO;
 }
 
 - (NSString *)stringValue

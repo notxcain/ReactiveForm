@@ -14,9 +14,10 @@
 @property (nonatomic, copy, readonly) NSString *name;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, strong, readwrite) id value;
-@property (nonatomic, assign) BOOL required;
+@property (nonatomic, assign, getter = isRequired) BOOL required;
+
 + (instancetype)fieldWithName:(NSString *)name title:(NSString *)title;
 - (id)initWithName:(NSString *)name;
-- (RACSignal *)validate;
+- (BOOL)validate:(out NSError **)errorPtr;
 - (NSString *)stringValue;
 @end

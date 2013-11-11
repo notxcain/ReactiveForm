@@ -22,12 +22,12 @@
 @end
 
 @implementation NSObject (RFChoice)
-- (id)asChoiceWithTitle:(NSString *)title
+- (id)choiceWithTitle:(NSString *)title
 {
-    return [self asChoiceWithTitle:title formElement:nil];
+    return [self choiceWithTitle:title formElement:nil];
 }
 
-- (id)asChoiceWithTitle:(NSString *)title formElement:(id<RFFormElement>)formElement
+- (id)choiceWithTitle:(NSString *)title formElement:(id<RFFormElement>)formElement
 {
     return [[RFChoice alloc] initWithValue:self title:title formElement:formElement];
 }

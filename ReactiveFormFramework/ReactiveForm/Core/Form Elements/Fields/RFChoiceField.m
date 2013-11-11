@@ -40,20 +40,9 @@
     return self;
 }
 
-- (RACSignal *)validate
+- (BOOL)validate:(out NSError *__autoreleasing *)errorPtr
 {
-    @weakify(self);
-    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        @strongify(self);
-        if ([self.choices containsObject:self.value]) {
-            [subscriber sendNext:@YES];
-            [subscriber sendCompleted];
-        } else {
-            NSError *error = [NSError errorWithDomain:@"qw.form.error" code:1 userInfo:@{}];
-            [subscriber sendError:error];
-        }
-        return nil;
-    }];
+	return [self.choices containsObject:self.value];
 }
 
 - (NSString *)stringValue
