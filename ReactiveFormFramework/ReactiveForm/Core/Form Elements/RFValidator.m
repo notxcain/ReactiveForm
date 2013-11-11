@@ -7,7 +7,7 @@
 //
 
 #import "RFValidator.h"
-#import <ReactiveCocoa/ReactiveCocoa.h>
+#import "RFDefines.h"
 
 @interface RFBlockValidator : RFValidator
 @property (nonatomic, copy, readonly) RFValidationBlock block;

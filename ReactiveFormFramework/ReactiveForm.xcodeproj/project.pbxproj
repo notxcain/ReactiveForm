@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		688BD9671823C12300D585F0 /* RFFormPresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 688BD9661823C12300D585F0 /* RFFormPresentation.m */; };
+		92EB195D182BBDCC003E8561 /* RFFormSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 92EB195C182BBDCC003E8561 /* RFFormSpec.m */; };
 		C2F5C0843FAF437DBB24735F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D331F552501C46999EAD2613 /* libPods.a */; };
 		F0322360182396A900E7EA41 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F032235F182396A900E7EA41 /* Foundation.framework */; };
 		F0322365182396A900E7EA41 /* ReactiveForm.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = F0322364182396A900E7EA41 /* ReactiveForm.h */; };
@@ -16,7 +17,7 @@
 		F0322371182396A900E7EA41 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0322370182396A900E7EA41 /* UIKit.framework */; };
 		F0322374182396A900E7EA41 /* libReactiveForm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F032235C182396A900E7EA41 /* libReactiveForm.a */; };
 		F032237A182396A900E7EA41 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F0322378182396A900E7EA41 /* InfoPlist.strings */; };
-		F032237C182396A900E7EA41 /* ReactiveFormTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F032237B182396A900E7EA41 /* ReactiveFormTests.m */; };
+		F032237C182396A900E7EA41 /* RFOrderedSetChangesSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F032237B182396A900E7EA41 /* RFOrderedSetChangesSpec.m */; };
 		F03223C31823A3C900E7EA41 /* RFBackingField.m in Sources */ = {isa = PBXBuildFile; fileRef = F032238A1823A3C900E7EA41 /* RFBackingField.m */; };
 		F03223C41823A3C900E7EA41 /* RFBackingForm.m in Sources */ = {isa = PBXBuildFile; fileRef = F032238C1823A3C900E7EA41 /* RFBackingForm.m */; };
 		F03223C51823A3C900E7EA41 /* RFBackingObject.m in Sources */ = {isa = PBXBuildFile; fileRef = F032238E1823A3C900E7EA41 /* RFBackingObject.m */; };
@@ -41,6 +42,12 @@
 		F03223F61828AE8200E7EA41 /* RFFormTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223F51828AE8200E7EA41 /* RFFormTableViewDataSource.m */; };
 		F03223FB1828BD4000E7EA41 /* RFFieldMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223FA1828BD4000E7EA41 /* RFFieldMatcher.m */; };
 		F03224001828F27700E7EA41 /* RFFormPresentationSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223FF1828F27700E7EA41 /* RFFormPresentationSpec.m */; };
+		F0322408182D14C800E7EA41 /* KWMock+RFFormElement.m in Sources */ = {isa = PBXBuildFile; fileRef = F0322402182D14C800E7EA41 /* KWMock+RFFormElement.m */; };
+		F0322409182D14C800E7EA41 /* RFContainerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F0322403182D14C800E7EA41 /* RFContainerSpec.m */; };
+		F032240A182D14C800E7EA41 /* RFMaskSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F0322404182D14C800E7EA41 /* RFMaskSpec.m */; };
+		F032240C182D14C800E7EA41 /* RFSectionSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F0322406182D14C800E7EA41 /* RFSectionSpec.m */; };
+		F032240D182D14C800E7EA41 /* RFSignalContainerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F0322407182D14C800E7EA41 /* RFSignalContainerSpec.m */; };
+		F09508AA1830CE3A00648C79 /* NSOrderedSet+RFInsertedDeleted.m in Sources */ = {isa = PBXBuildFile; fileRef = F09508A91830CE3A00648C79 /* NSOrderedSet+RFInsertedDeleted.m */; };
 		FADB8193E94848739BE5390C /* libPods-ReactiveFormTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FF6C90513EB4582870CAFF0 /* libPods-ReactiveFormTests.a */; };
 /* End PBXBuildFile section */
 
@@ -72,6 +79,7 @@
 		688BD9651823C12300D585F0 /* RFFormPresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFFormPresentation.h; sourceTree = "<group>"; };
 		688BD9661823C12300D585F0 /* RFFormPresentation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFFormPresentation.m; sourceTree = "<group>"; };
 		6FF6C90513EB4582870CAFF0 /* libPods-ReactiveFormTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ReactiveFormTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		92EB195C182BBDCC003E8561 /* RFFormSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFFormSpec.m; sourceTree = "<group>"; };
 		D331F552501C46999EAD2613 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D79740FD55D240D7B5FAA972 /* Pods-ReactiveFormTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReactiveFormTests.xcconfig"; path = "Pods/Pods-ReactiveFormTests.xcconfig"; sourceTree = "<group>"; };
 		F032235C182396A900E7EA41 /* libReactiveForm.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libReactiveForm.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -83,7 +91,7 @@
 		F0322370182396A900E7EA41 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		F0322377182396A900E7EA41 /* ReactiveFormTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ReactiveFormTests-Info.plist"; sourceTree = "<group>"; };
 		F0322379182396A900E7EA41 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		F032237B182396A900E7EA41 /* ReactiveFormTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReactiveFormTests.m; sourceTree = "<group>"; };
+		F032237B182396A900E7EA41 /* RFOrderedSetChangesSpec.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RFOrderedSetChangesSpec.m; sourceTree = "<group>"; };
 		F03223891823A3C900E7EA41 /* RFBackingField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFBackingField.h; sourceTree = "<group>"; };
 		F032238A1823A3C900E7EA41 /* RFBackingField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFBackingField.m; sourceTree = "<group>"; };
 		F032238B1823A3C900E7EA41 /* RFBackingForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFBackingForm.h; sourceTree = "<group>"; };
@@ -112,7 +120,6 @@
 		F03223AC1823A3C900E7EA41 /* RFContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFContainer.h; sourceTree = "<group>"; };
 		F03223AD1823A3C900E7EA41 /* RFContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFContainer.m; sourceTree = "<group>"; };
 		F03223AE1823A3C900E7EA41 /* RFFormElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFFormElement.h; sourceTree = "<group>"; };
-		F03223AF1823A3C900E7EA41 /* RFSection+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RFSection+Private.h"; sourceTree = "<group>"; };
 		F03223B01823A3C900E7EA41 /* RFSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFSection.h; sourceTree = "<group>"; };
 		F03223B11823A3C900E7EA41 /* RFSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFSection.m; sourceTree = "<group>"; };
 		F03223B21823A3C900E7EA41 /* RFSignalContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFSignalContainer.h; sourceTree = "<group>"; };
@@ -134,6 +141,14 @@
 		F03223F91828BD4000E7EA41 /* RFFieldMatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFFieldMatcher.h; sourceTree = "<group>"; };
 		F03223FA1828BD4000E7EA41 /* RFFieldMatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFFieldMatcher.m; sourceTree = "<group>"; };
 		F03223FF1828F27700E7EA41 /* RFFormPresentationSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFFormPresentationSpec.m; sourceTree = "<group>"; };
+		F0322401182D14C800E7EA41 /* KWMock+RFFormElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KWMock+RFFormElement.h"; sourceTree = "<group>"; };
+		F0322402182D14C800E7EA41 /* KWMock+RFFormElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KWMock+RFFormElement.m"; sourceTree = "<group>"; };
+		F0322403182D14C800E7EA41 /* RFContainerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFContainerSpec.m; sourceTree = "<group>"; };
+		F0322404182D14C800E7EA41 /* RFMaskSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFMaskSpec.m; sourceTree = "<group>"; };
+		F0322406182D14C800E7EA41 /* RFSectionSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFSectionSpec.m; sourceTree = "<group>"; };
+		F0322407182D14C800E7EA41 /* RFSignalContainerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFSignalContainerSpec.m; sourceTree = "<group>"; };
+		F09508A81830CE3A00648C79 /* NSOrderedSet+RFInsertedDeleted.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSOrderedSet+RFInsertedDeleted.h"; sourceTree = "<group>"; };
+		F09508A91830CE3A00648C79 /* NSOrderedSet+RFInsertedDeleted.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSOrderedSet+RFInsertedDeleted.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -216,9 +231,16 @@
 		F0322375182396A900E7EA41 /* ReactiveFormTests */ = {
 			isa = PBXGroup;
 			children = (
-				F032237B182396A900E7EA41 /* ReactiveFormTests.m */,
+				F032237B182396A900E7EA41 /* RFOrderedSetChangesSpec.m */,
+				F0322401182D14C800E7EA41 /* KWMock+RFFormElement.h */,
+				F0322402182D14C800E7EA41 /* KWMock+RFFormElement.m */,
+				F0322403182D14C800E7EA41 /* RFContainerSpec.m */,
+				F0322404182D14C800E7EA41 /* RFMaskSpec.m */,
+				F0322406182D14C800E7EA41 /* RFSectionSpec.m */,
+				F0322407182D14C800E7EA41 /* RFSignalContainerSpec.m */,
 				F03223DF1823AF0400E7EA41 /* RFValidatorSpec.m */,
 				F03223FF1828F27700E7EA41 /* RFFormPresentationSpec.m */,
+				92EB195C182BBDCC003E8561 /* RFFormSpec.m */,
 				F0322376182396A900E7EA41 /* Supporting Files */,
 			);
 			path = ReactiveFormTests;
@@ -254,6 +276,8 @@
 				F03223871823A3C900E7EA41 /* Backing Entities */,
 				F03223931823A3C900E7EA41 /* RFBackingStructureBuilder.h */,
 				F03223941823A3C900E7EA41 /* RFBackingStructureBuilder.m */,
+				F09508A81830CE3A00648C79 /* NSOrderedSet+RFInsertedDeleted.h */,
+				F09508A91830CE3A00648C79 /* NSOrderedSet+RFInsertedDeleted.m */,
 			);
 			path = "Backing Structure";
 			sourceTree = "<group>";
@@ -289,7 +313,6 @@
 				F03223AC1823A3C900E7EA41 /* RFContainer.h */,
 				F03223AD1823A3C900E7EA41 /* RFContainer.m */,
 				F03223AE1823A3C900E7EA41 /* RFFormElement.h */,
-				F03223AF1823A3C900E7EA41 /* RFSection+Private.h */,
 				F03223B01823A3C900E7EA41 /* RFSection.h */,
 				F03223B11823A3C900E7EA41 /* RFSection.m */,
 				F03223B21823A3C900E7EA41 /* RFSignalContainer.h */,
@@ -520,6 +543,7 @@
 				F03223CE1823A3C900E7EA41 /* RFChoice.m in Sources */,
 				F03223D01823A3C900E7EA41 /* RFField.m in Sources */,
 				F03223C71823A3C900E7EA41 /* RFBackingModel.xcdatamodeld in Sources */,
+				F09508AA1830CE3A00648C79 /* NSOrderedSet+RFInsertedDeleted.m in Sources */,
 				F03223D41823A3C900E7EA41 /* RFSignalContainer.m in Sources */,
 				F03223FB1828BD4000E7EA41 /* RFFieldMatcher.m in Sources */,
 				F03223DA1823A3C900E7EA41 /* RFFormController.m in Sources */,
@@ -532,8 +556,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F032237C182396A900E7EA41 /* ReactiveFormTests.m in Sources */,
+				F0322409182D14C800E7EA41 /* RFContainerSpec.m in Sources */,
+				F032240C182D14C800E7EA41 /* RFSectionSpec.m in Sources */,
+				F032237C182396A900E7EA41 /* RFOrderedSetChangesSpec.m in Sources */,
+				F032240A182D14C800E7EA41 /* RFMaskSpec.m in Sources */,
+				F032240D182D14C800E7EA41 /* RFSignalContainerSpec.m in Sources */,
 				F03223E01823AF0400E7EA41 /* RFValidatorSpec.m in Sources */,
+				92EB195D182BBDCC003E8561 /* RFFormSpec.m in Sources */,
+				F0322408182D14C800E7EA41 /* KWMock+RFFormElement.m in Sources */,
 				F03224001828F27700E7EA41 /* RFFormPresentationSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
