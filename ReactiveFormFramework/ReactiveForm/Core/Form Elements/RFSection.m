@@ -26,9 +26,9 @@
 {
     if (!(self = [super init])) return nil;
 	
-	RACSignal *fieldsSignal = [[formElement visibleFields] map:^(NSArray *fields) {
+	RACSignal *fieldsSignal = [[[formElement visibleFields] map:^(NSArray *fields) {
         return [NSOrderedSet orderedSetWithArray:fields];
-    }];
+    }] distinctUntilChanged];
 	
     RAC(self, fields) = [fieldsSignal startWith:[NSOrderedSet orderedSet]];
 	

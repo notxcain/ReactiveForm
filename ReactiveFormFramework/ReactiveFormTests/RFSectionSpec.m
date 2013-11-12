@@ -15,17 +15,30 @@
 
 SPEC_BEGIN(RFSectionSpec)
 describe(@"RFSection", ^{
-	context(@"when create with form element", ^{
+	context(@"when created with a form element", ^{
 		__block RFSection *section = nil;
 		__block RACSubject *fieldsSubject = nil;
+		NSArray *fields = @[[RFField fieldWithName:@"mock" title:nil], [RFField fieldWithName:@"mock2" title:nil]];
 		beforeEach(^{
 			fieldsSubject = [RACSubject subject];
 			section = [RFSection sectionWithFormElement:[KWMock mockFormElementWithSignal:fieldsSubject]];
 		});
-		it(@"should expose fields send by form element", ^{
-			NSArray *fields = @[[RFField fieldWithName:@"mock" title:nil], [RFField fieldWithName:@"mock2" title:nil]];
+		
+		it(@"should expose fields send by the form element through fields property", ^{
 			[fieldsSubject sendNext:fields];
 			[[section.fields should] equal:[NSOrderedSet orderedSetWithArray:fields]];
+		});
+		it(@"should send a tuple of a previous and current fields", ^{
+			__block RACTuple *tuple = nil;
+			[[[section changesForFields] logNext] subscribeNext:^(id x) {
+				tuple = x;
+			}];
+			
+			[fieldsSubject sendNext:fields];
+			RACTupleUnpack(NSOrderedSet *previousSet, NSOrderedSet *currentSet) = tuple;
+			[[previousSet should] equal:[NSOrderedSet orderedSet]];
+			[[currentSet should] equal:[NSOrderedSet orderedSetWithArray:fields]];
+			[fieldsSubject sendNext:fields];
 		});
 	});
 });

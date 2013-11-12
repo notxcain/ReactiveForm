@@ -65,7 +65,7 @@ void RFApplyFormChangesToObserver(RFForm *form, NSDictionary *changes, id <RFFor
 		RAC(self, visibleSections) = sectionsSignal;
 		
 		_changes = [sectionsSignal rf_mapSectionChangesToFormChanges];
-		
+	
 		[_changes subscribeNext:^(id x) {
 			[self.observers each:^(id observer) {
 				RFApplyFormChangesToObserver(self, x, observer);
@@ -73,11 +73,6 @@ void RFApplyFormChangesToObserver(RFForm *form, NSDictionary *changes, id <RFFor
 		}];
     }
     return self;
-}
-
-- (RACSignal *)someSignals
-{
-	return nil;
 }
 
 - (id)addSectionWithElement:(id<RFFormElement>)formElement
