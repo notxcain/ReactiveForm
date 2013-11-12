@@ -26,13 +26,13 @@
 {
     if (!(self = [super init])) return nil;
 	
-	RACSignal *fieldSequenceSignal = [[formElement visibleFields] map:^(RACSequence *value) {
-        return [NSOrderedSet orderedSetWithArray:value.array];
+	RACSignal *fieldsSignal = [[formElement visibleFields] map:^(NSArray *fields) {
+        return [NSOrderedSet orderedSetWithArray:fields];
     }];
 	
-    RAC(self, fields) = [fieldSequenceSignal startWith:[NSOrderedSet orderedSet]];
+    RAC(self, fields) = [fieldsSignal startWith:[NSOrderedSet orderedSet]];
 	
-	_changesForFields = [fieldSequenceSignal combinePreviousWithStart:[NSOrderedSet orderedSet] reduce:^(id previous, id current) {
+	_changesForFields = [fieldsSignal combinePreviousWithStart:[NSOrderedSet orderedSet] reduce:^(id previous, id current) {
 		return RACTuplePack(previous, current);
 	}];
 	return self;

@@ -36,10 +36,11 @@
     if (self) {
         _elements = [NSMutableArray array];
         _visibleFields = [[RACObserve(self, elements) map:^(NSArray *elements) {
-            return [[RACSignal combineLatest:[elements map:^(id <RFFormElement> formElement) {
+			NSArray *signals = [elements map:^(id <RFFormElement> formElement) {
 				return [formElement visibleFields];
-			}]] map:^(RACTuple *sequencies) {
-                return [sequencies.rac_sequence flatten];
+			}];
+            return [[RACSignal combineLatest:signals] map:^(RACTuple *arraysOfFields) {
+                return [arraysOfFields.allObjects flatten];
             }];
         }] switchToLatest];
     }

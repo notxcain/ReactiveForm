@@ -25,9 +25,9 @@ describe(@"Signal container", ^{
         });
         
         it(@"should route to the visibleElements signal of element based in signal", ^{
-            __block RACSequence *elements = nil;
-            [[container visibleFields] subscribeNext:^(RACSequence *x) {
-                elements = x;
+            __block NSArray *fields = nil;
+            [[container visibleFields] subscribeNext:^(NSArray *x) {
+                fields = x;
             }];
             
             id<RFFormElement> element1 = [RFField fieldWithName:@"f" title:@"f"];
@@ -38,15 +38,15 @@ describe(@"Signal container", ^{
             
             [subject sendNext:@1];
             
-            [[[elements array] should] equal:@[element1]];
+            [[fields should] equal:@[element1]];
             
             [subject sendNext:@2];
             
-            [[[elements array] should] equal:@[element2]];
+            [[fields should] equal:@[element2]];
             
             [subject sendNext:nil];
             
-            [[[elements array] should] beEmpty];
+            [[fields should] beEmpty];
         });
     });
 });

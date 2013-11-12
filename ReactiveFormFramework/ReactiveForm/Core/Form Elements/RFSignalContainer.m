@@ -46,8 +46,8 @@
             @strongify(self);
             return [self formElementForSignalValue:value];
         }] distinctUntilChanged] map:^(id <RFFormElement> formElement) {
-            return formElement ? [formElement visibleFields] : [RACSignal return:[RACSequence empty]];
-        }] switchToLatest] startWith:[RACSequence empty]];
+            return formElement ? [formElement visibleFields] : [RACSignal return:[NSArray array]];
+        }] switchToLatest] startWith:[NSArray array]];
         
     }
     return self;

@@ -33,15 +33,15 @@ describe(@"Container", ^{
            });
            
            it(@"should send signal when changed", ^{
-                __block RACSequence *elements = nil;
+                __block NSArray *fields = nil;
                
               [container addElement:mockElement];
                
                [[container visibleFields] subscribeNext:^(id x) {
-                   elements = x;
+                   fields = x;
                }];
                
-               [[theValue([[elements array] containsObject:mockElement]) should] beTrue];
+               [[theValue([fields containsObject:mockElement]) should] beTrue];
            });
            
            it(@"should propagate visible elements signal", ^{
@@ -49,15 +49,15 @@ describe(@"Container", ^{
                RFContainer *subcontainer = [RFContainer container];
                [container addElement:subcontainer];
                
-               __block RACSequence *elements = nil;
+               __block NSArray *fields = nil;
                
                [[container visibleFields] subscribeNext:^(id x) {
-                   elements = x;
+                   fields = x;
                }];
                
                [subcontainer addElement:mockElement];
                
-               [[theValue([[elements array] containsObject:mockElement]) should] beTrue];
+               [[theValue([fields containsObject:mockElement]) should] beTrue];
            });
        });
    });

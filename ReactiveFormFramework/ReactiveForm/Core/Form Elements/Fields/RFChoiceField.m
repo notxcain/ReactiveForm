@@ -10,7 +10,7 @@
 #import "RFChoice.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
-
+#import "RFCollectionOperations.h"
 @interface RFChoiceField ()
 @property (nonatomic, strong, readonly) RACSignal *visibleElements;
 @end
@@ -32,9 +32,9 @@
         _visibleElements = [[[RACObserve(self, value) map:^(id <RFChoice> choice) {
             NSCAssert([choice conformsToProtocol:@protocol(RFChoice)], @"Expected value to conform to RFChoice protocol, got %@ instead", choice);
             return [[choice formElement] visibleFields];
-        }] switchToLatest] map:^(RACSequence *elements) {
+        }] switchToLatest] map:^(NSArray *fields) {
             @strongify(self);
-            return [RACSequence concat:@[@[self].rac_sequence, elements]];
+            return [@[self] arrayByAddingObjectsFromArray:fields];
         }];
     }
     return self;
