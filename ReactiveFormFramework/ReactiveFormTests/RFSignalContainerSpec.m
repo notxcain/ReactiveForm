@@ -25,7 +25,7 @@ describe(@"Signal container", ^{
         
         it(@"should route to the visibleElements signal of element based in signal", ^{
             __block RACSequence *elements = nil;
-            [[container visibleElements] subscribeNext:^(RACSequence *x) {
+            [[container visibleFields] subscribeNext:^(RACSequence *x) {
                 elements = x;
             }];
             

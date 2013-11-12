@@ -37,7 +37,7 @@
         _elements = [NSMutableArray array];
         _visibleElements = [[RACObserve(self, elements) map:^(NSArray *elements) {
             return [[RACSignal combineLatest:[elements map:^(id <RFFormElement> formElement) {
-				return [formElement visibleElements];
+				return [formElement visibleFields];
 			}]] map:^(RACTuple *sequencies) {
                 return [sequencies.rac_sequence flatten];
             }];

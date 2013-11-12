@@ -20,7 +20,7 @@ describe(@"Container", ^{
            container = [RFContainer container];
        });
       it(@"should expose non nil visibleElements signal", ^{
-          [[container visibleElements] shouldNotBeNil];
+          [[container visibleFields] shouldNotBeNil];
       });
        
        context(@"signal", ^{
@@ -36,7 +36,7 @@ describe(@"Container", ^{
                
               [container addElement:mockElement];
                
-               [[container visibleElements] subscribeNext:^(id x) {
+               [[container visibleFields] subscribeNext:^(id x) {
                    elements = x;
                }];
                
@@ -50,7 +50,7 @@ describe(@"Container", ^{
                
                __block RACSequence *elements = nil;
                
-               [[container visibleElements] subscribeNext:^(id x) {
+               [[container visibleFields] subscribeNext:^(id x) {
                    elements = x;
                }];
                

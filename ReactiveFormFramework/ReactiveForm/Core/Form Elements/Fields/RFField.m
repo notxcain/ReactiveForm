@@ -15,7 +15,7 @@
 @interface RFField ()
 @property (nonatomic, copy, readwrite) NSString *name;
 @property (nonatomic, strong, readonly) RACSignal *validitySignal;
-@property (nonatomic, strong, readonly) RACSignal *visibleElements;
+@property (nonatomic, strong, readonly) RACSignal *visibleFields;
 @end
 
 @implementation RFField
@@ -42,12 +42,10 @@
         _required = YES;
         _name = [name copy];
         @weakify(self);
-        _visibleElements = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-            @strongify(self);
-            [subscriber sendNext:(self ? @[self] : @[]).rac_sequence];
-            [subscriber sendCompleted];
-            return nil;
-        }];
+        _visibleFields = [RACSignal defer:^{
+			@strongify(self);
+			return [RACSignal return:@[self].rac_sequence];
+		}];
     }
     return self;
 }

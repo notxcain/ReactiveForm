@@ -11,7 +11,6 @@
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
 
-
 @interface RFSection ()
 @property (nonatomic, strong, readonly) RACSignal *visibleElements;
 @property (nonatomic, copy, readwrite) NSOrderedSet *fields;
@@ -27,13 +26,13 @@
 {
     if (!(self = [super init])) return nil;
 	
-	RACSignal *signalOfFields = [[formElement visibleElements] map:^(RACSequence *value) {
+	RACSignal *signalOfFields = [[formElement visibleFields] map:^(RACSequence *value) {
         return [NSOrderedSet orderedSetWithArray:value.array];
     }];
 	
     RAC(self, fields) = [signalOfFields startWith:[NSOrderedSet orderedSet]];
 	
-	_signalOfChangesForFields = [signalOfFields combinePreviousWithStart:[NSOrderedSet orderedSet] reduce:^id(id previous, id current) {
+	_signalOfChangesForFields = [signalOfFields combinePreviousWithStart:[NSOrderedSet orderedSet] reduce:^(id previous, id current) {
 		return RACTuplePack(previous, current);
 	}];
 	return self;

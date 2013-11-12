@@ -31,7 +31,7 @@
         @weakify(self);
         _visibleElements = [[[RACObserve(self, value) map:^(id <RFChoice> choice) {
             NSCAssert([choice conformsToProtocol:@protocol(RFChoice)], @"Expected value to conform to RFChoice protocol, got %@ instead", choice);
-            return [[choice formElement] visibleElements];
+            return [[choice formElement] visibleFields];
         }] switchToLatest] map:^(RACSequence *elements) {
             @strongify(self);
             return [RACSequence concat:@[@[self].rac_sequence, elements]];
