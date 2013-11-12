@@ -14,6 +14,10 @@ NSString *const RFInsertedObjectsKey = @"RFInsertedObjectsKey";
 @interface NSDictionary (RFOrderedSetDifference) <RFOrderedSetDifference>
 @end
 
+@interface NSArray (RFChangeItem) <RFChangeItem>
+
+@end
+
 NSArray *RFOrderedSetInsertedObjectsComparedToOrderedSet(NSOrderedSet *self, NSOrderedSet *oldOrderedSet)
 {
 	NSMutableOrderedSet *addedObjectSet = [self mutableCopy];
@@ -48,5 +52,17 @@ NSArray *RFOrderedSetInsertedObjectsComparedToOrderedSet(NSOrderedSet *self, NSO
 - (NSArray *)insertedObjects
 {
 	return [self objectForKey:RFInsertedObjectsKey];
+}
+@end
+
+@implementation NSArray (RFChangeItem)
+- (id)object
+{
+	return self[1];
+}
+
+- (NSUInteger)index
+{
+	return [self[0] unsignedIntegerValue];
 }
 @end

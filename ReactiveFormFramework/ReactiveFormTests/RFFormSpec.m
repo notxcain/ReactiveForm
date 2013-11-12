@@ -26,12 +26,18 @@ describe(@"Form", ^{
           [builder addSectionWithElement:mockElement];
       }];
        it(@"should return element added in builder", ^{
+		   __block NSDictionary *changes = nil;
+		   [[[NSNotificationCenter defaultCenter] rac_addObserverForName:RFFormDidChangeNotification object:form] subscribeNext:^(id x) {
+			   changes = x;
+		   }];
            [[[form fieldAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]] should] equal:mockElement];
 		   [container addElement:field2];
 		   [container removeElement:field2];
 		   [container addElement:[RFField fieldWithName:@"dfsd" title:@"dsfdf"]];
 		   [container addElement:field3];
 		   [(id<RFFormContent> )form addSectionWithElement:container];
+		   NSLog(@"changes %@", changes);
+		   [[[form fieldAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:1]] should] equal:field3];
 		   [container addElement:field2];
 		   [container removeElement:field3];
 		   
