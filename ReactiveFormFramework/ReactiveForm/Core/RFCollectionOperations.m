@@ -18,6 +18,15 @@
 	return [result copy];
 }
 
+- (instancetype)mapWithIndex:(id (^)(id, NSUInteger))mapBlock
+{
+	NSMutableArray *result = [NSMutableArray array];
+	[self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		[result addObject:mapBlock(obj, idx)];
+	}];
+	return [result copy];
+}
+
 - (instancetype)filter:(BOOL (^)(id))filterBlock
 {
 	NSMutableArray *result = [NSMutableArray array];
@@ -34,6 +43,25 @@
 		each(obj);
 	}
 }
+
+- (id)foldLeftWithStart:(id)accumulator block:(id (^)(id accumulator, id x))block
+{
+	for (id x in self) {
+		accumulator = block(accumulator, x);
+	};
+	return accumulator;
+}
+
+- (instancetype)flatten
+{
+	return [[self foldLeftWithStart:[NSMutableArray array] block:^id(id accumulator, id x) {
+		NSCParameterAssert([x conformsToProtocol:@protocol(NSFastEnumeration)]);
+		for (id obj in x) {
+			[accumulator addObject:obj];
+		}
+		return accumulator;
+	}] copy];
+}
 @end
 
 @implementation NSOrderedSet (Map)
@@ -42,6 +70,15 @@
 	NSMutableOrderedSet *result = [NSMutableOrderedSet orderedSet];
 	[self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		[result addObject:mapBlock(obj)];
+	}];
+	return [result copy];
+}
+
+- (instancetype)mapWithIndex:(id (^)(id, NSUInteger))mapBlock
+{
+	NSMutableOrderedSet *result = [NSMutableOrderedSet orderedSet];
+	[self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		[result addObject:mapBlock(obj, idx)];
 	}];
 	return [result copy];
 }
@@ -61,5 +98,23 @@
 	for (id obj in self) {
 		each(obj);
 	}
+}
+
+- (id)foldLeftWithStart:(id)accumulator block:(id (^)(id accumulator, id x))block
+{
+	for (id x in self) {
+		accumulator = block(accumulator, x);
+	};
+	return accumulator;
+}
+
+- (instancetype)flatten
+{
+	return [[self foldLeftWithStart:[NSMutableOrderedSet orderedSet] block:^id(id accumulator, id <NSFastEnumeration> x) {
+		for (id obj in x) {
+			[accumulator addObject:obj];
+		}
+		return accumulator;
+	}] copy];
 }
 @end
