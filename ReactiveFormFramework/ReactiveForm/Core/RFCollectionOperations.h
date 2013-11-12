@@ -24,3 +24,8 @@
 - (void)each:(void (^)(id x))each;
 - (id)foldLeftWithStart:(id)accumulator block:(id (^)(id accumulator, id x))block;
 @end
+
+
+@interface NSObject (Do)
+- (instancetype)do:(void (^)(id x))block;
+@end

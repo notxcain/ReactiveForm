@@ -118,3 +118,11 @@
 	}] copy];
 }
 @end
+
+@implementation NSObject (Do)
+- (instancetype)do:(void (^)(id))block
+{
+	block(self);
+	return self;
+}
+@end
