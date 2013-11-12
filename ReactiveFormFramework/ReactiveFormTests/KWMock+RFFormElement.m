@@ -12,10 +12,10 @@
 #import <ReactiveCocoa/RACEXTScope.h>
 
 @implementation KWMock (RFFormElement)
-+ (id<RFFormElement>)mockFormElement
++ (id<RFFormElement>)mockFormElementWithSignal:(RACSignal *)signal
 {
-    KWMock *mock = [KWMock mockForProtocol:@protocol(RFFormElement)];
-    [mock stub:@selector(visibleElements) andReturn:[RACSignal return:@[mock].rac_sequence]];
+    KWMock <RFFormElement> *mock = [KWMock mockForProtocol:@protocol(RFFormElement)];
+    [mock stub:@selector(visibleFields) andReturn:signal];
     return (id<RFFormElement>)mock;
 }
 @end

@@ -7,8 +7,8 @@
 //
 
 #import "KWMock.h"
-
+@class RACSignal;
 @protocol RFFormElement;
 @interface KWMock (RFFormElement)
-+ (id <RFFormElement>)mockFormElement;
++ (id <RFFormElement>)mockFormElementWithSignal:(RACSignal *)signal;
 @end

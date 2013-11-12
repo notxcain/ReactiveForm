@@ -15,7 +15,7 @@
 @property (nonatomic, strong) RACSignal *signal;
 @property (nonatomic, strong) id lastSignalValue;
 @property (nonatomic, strong, readonly) NSMutableSet *routes;
-@property (nonatomic, strong) RACSignal *visibleElements;
+@property (nonatomic, strong) RACSignal *visibleFields;
 @end
 
 @interface RFSignalContainerRoute : NSObject
@@ -42,7 +42,7 @@
         _routes = [NSMutableSet set];
         
         @weakify(self);
-        _visibleElements = [[[[[RACSignal combineLatest:@[_signal, RACObserve(self, routes)] reduce:^(id value, id _) {
+        _visibleFields = [[[[[RACSignal combineLatest:@[_signal, RACObserve(self, routes)] reduce:^(id value, id _) {
             @strongify(self);
             return [self formElementForSignalValue:value];
         }] distinctUntilChanged] map:^(id <RFFormElement> formElement) {

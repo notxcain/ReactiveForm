@@ -251,7 +251,7 @@ void RFApplyFormChangesToObserver(RFForm *form, NSDictionary *changes, id <RFFor
 			[subscriber sendNext:composeChangesDictionary(insertedSectionIndexSet, removedSectionIndexSet, fieldInsertions, @{})];
 			
 			return [[RACSignal merge:[currentSections mapWithIndex:^(RFSection *section, NSUInteger sectionIndex) {
-				return [[section signalOfChangesForFields] reduceEach:^(NSOrderedSet *oldFields, NSOrderedSet *currentFields) {
+				return [[section changesForFields] reduceEach:^(NSOrderedSet *oldFields, NSOrderedSet *currentFields) {
 					id <RFOrderedSetDifference> fieldDiff = [currentFields differenceWithOrderedSet:oldFields];
 					NSDictionary *insertedFields = arrayFromFieldChanges([fieldDiff insertedObjects], sectionIndex);
 					NSDictionary *removedFields = arrayFromFieldChanges([fieldDiff removedObjects], sectionIndex);

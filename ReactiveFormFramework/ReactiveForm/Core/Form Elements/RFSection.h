@@ -11,7 +11,7 @@
 @class RACSignal;
 @interface RFSection : NSObject
 @property (nonatomic, copy, readonly) NSOrderedSet *fields;
-@property (nonatomic, copy, readonly) RACSignal *signalOfChangesForFields;
+@property (nonatomic, copy, readonly) RACSignal *changesForFields;
 + (instancetype)sectionWithFormElement:(id <RFFormElement>)formElement;
 - (id)initWithFormElement:(id <RFFormElement>)formElement;
 @end

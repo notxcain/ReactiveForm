@@ -14,7 +14,7 @@
 
 @interface RFContainer ()
 @property (nonatomic, strong, readonly) NSMutableArray *elements;
-@property (nonatomic, strong, readonly) RACSignal *visibleElements;
+@property (nonatomic, strong, readonly) RACSignal *visibleFields;
 @end
 
 @implementation RFContainer
@@ -35,7 +35,7 @@
     self = [super init];
     if (self) {
         _elements = [NSMutableArray array];
-        _visibleElements = [[RACObserve(self, elements) map:^(NSArray *elements) {
+        _visibleFields = [[RACObserve(self, elements) map:^(NSArray *elements) {
             return [[RACSignal combineLatest:[elements map:^(id <RFFormElement> formElement) {
 				return [formElement visibleFields];
 			}]] map:^(RACTuple *sequencies) {

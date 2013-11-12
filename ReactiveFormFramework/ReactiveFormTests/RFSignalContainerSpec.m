@@ -11,6 +11,7 @@
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
 #import "KWMock+RFFormElement.h"
+#import "RFField.h"
 
 SPEC_BEGIN(RFSignalContainerSpec)
 describe(@"Signal container", ^{
@@ -29,10 +30,10 @@ describe(@"Signal container", ^{
                 elements = x;
             }];
             
-            id<RFFormElement> element1 = [KWMock mockFormElement];
+            id<RFFormElement> element1 = [RFField fieldWithName:@"f" title:@"f"];
             [container setFormElement:element1 forSignalValue:@1];
             
-            id<RFFormElement> element2 = [KWMock mockFormElement];
+            id<RFFormElement> element2 = [RFField fieldWithName:@"a" title:@"a"];
             [container setFormElement:element2 forSignalValue:@2];
             
             [subject sendNext:@1];
