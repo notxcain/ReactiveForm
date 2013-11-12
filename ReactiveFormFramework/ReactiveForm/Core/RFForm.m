@@ -21,19 +21,10 @@
 #import "NSOrderedSet+RFInsertedDeleted.h"
 #import "RFCollectionOperations.h"
 
+NSString *const RFFormDidChangeNotification = @"RFFormDidChangeNotification";
 
-@interface NSObject (Observation)
-- (RACSignal *)rf_oldAndNewValuesForKeyPath:(NSString *)keyPath observer:(id)observer;
-@end
-
-@implementation NSObject (Observation)
-- (RACSignal *)rf_oldAndNewValuesForKeyPath:(NSString *)keyPath observer:(id)observer
-{
-	return [[self rac_valuesAndChangesForKeyPath:keyPath options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew observer:observer] map:^id(RACTuple *valueAndChanges) {
-		NSDictionary *changes = valueAndChanges.second;
-		return RACTuplePack(changes[NSKeyValueChangeOldKey], changes[NSKeyValueChangeNewKey]);
-	}];
-}
+@interface RACSignal (RFFormChanges)
+- (RACSignal *)rf_mapSectionChangesToFormChanges;
 @end
 
 @interface RFForm () <RFFormContent>
@@ -41,7 +32,7 @@
 @property (nonatomic, strong, readonly) NSMutableOrderedSet *rootContainer;
 @property (nonatomic, strong, readonly) NSOrderedSet *visibleSections;
 @property (nonatomic, copy) void (^buildingBlock)(id<RFFormContent>);
-@property (nonatomic, strong) RACSubject *sectionRemovals;
+@property (nonatomic, strong) RACSignal *changes;
 @end
 
 @implementation RFForm
@@ -57,18 +48,46 @@
     self = [super init];
     if (self) {
         _buildingBlock = [buildingBlock copy];
-		_sectionRemovals = [RACSubject subject];
-		RAC(self, visibleSections) = [[[RACObserve(self, rootContainer) map:^(NSOrderedSet *sections) {
+		RACSignal *sectionsSignal = [[[[RACObserve(self, rootContainer) map:^(NSOrderedSet *sections) {
 			return [RACSignal combineLatest:[sections map:^(RFSection *section) {
-				return [RACObserve(section, visibleFields) mapReplace:section];
+				return [RACObserve(section, fields) mapReplace:section];
 			}]];
 		}] switchToLatest] map:^(RACTuple *sections) {
 			return [[NSOrderedSet orderedSetWithArray:[sections allObjects]] filter:^(RFSection *section) {
-				return (BOOL)([section.visibleFields count] != 0);
+				return (BOOL)([section.fields count] != 0);
 			}];
+		}] distinctUntilChanged];
+		
+		RAC(self, visibleSections) = sectionsSignal;
+		
+		_changes = [sectionsSignal rf_mapSectionChangesToFormChanges];
+		
+		[_changes subscribeNext:^(id x) {
+			[[NSNotificationCenter defaultCenter] postNotificationName:RFFormDidChangeNotification object:self userInfo:x];
 		}];
     }
     return self;
+}
+
+- (NSDictionary *)fieldChangesDictionaryForSectionAtIndex:(NSUInteger)sectionIndex oldValue:(NSOrderedSet *)oldValue newValue:(NSOrderedSet *)newValue
+{
+	id <RFOrderedSetDifference> fieldDiff = [newValue differenceWithOrderedSet:oldValue];
+	
+	NSArray *insertedFields = [[fieldDiff insertedObjects] map:^(NSArray *change) {
+		return @[[NSIndexPath indexPathForRow:[change[0] unsignedIntegerValue] inSection:sectionIndex], change[1]];
+	}];
+	
+	NSArray *removedFields = [[fieldDiff removedObjects] map:^(NSArray *change) {
+		return @[[NSIndexPath indexPathForRow:[change[0] unsignedIntegerValue] inSection:sectionIndex], change[1]];
+	}];
+	
+	return @{@"RFFieldChanges" : @{@"RFInserted" : insertedFields, @"RFRemoved" : removedFields}};
+	
+}
+
+- (RACSignal *)someSignals
+{
+	return nil;
 }
 
 - (id)addSectionWithElement:(id<RFFormElement>)formElement
@@ -101,77 +120,6 @@
     return _rootContainer;
 }
 
-- (void)setVisibleSections:(NSOrderedSet *)visibleSections
-{
-    if ([_visibleSections isEqualToOrderedSet:visibleSections]) return;
-	
-	id<RFOrderedSetDifference> diff = [visibleSections differenceWithOrderedSet:_visibleSections];
-	NSArray *insertedSections = [diff insertedObjects];
-	NSArray *removedSections = [diff removedObjects];
-	
-	_visibleSections = visibleSections;
-	
-	
-	[[removedSections map:^(id x) {
-		return x[1];
-	}] each:^(id x) {
-		[self.sectionRemovals sendNext:x];
-	}];
-
-	NSMutableArray *fieldInsertions = [NSMutableArray array];
-	
-	[insertedSections each:^(NSArray *array) {
-		RACTupleUnpack(NSNumber *sectionIndex, RFSection *section) = [RACTuple tupleWithObjectsFromArray:array];
-		
-		[section.visibleFields enumerateObjectsUsingBlock:^(RFField *field, NSUInteger fieldIndex, BOOL *stop) {
-			[fieldInsertions addObject:@[[NSIndexPath indexPathForRow:fieldIndex inSection:sectionIndex.unsignedIntegerValue], field]];
-		}];
-		
-		[[[[section rf_oldAndNewValuesForKeyPath:@keypath(section.visibleFields) observer:self] takeUntil:[self removalSignalForSection:section]] map:^(RACTuple *oldAndNewValues) {
-			RACTupleUnpack(NSOrderedSet *oldVisibleFields, NSOrderedSet *visibleFields) = oldAndNewValues;
-			return [self fieldChangesDictionaryForSectionAtIndex:sectionIndex.unsignedIntegerValue oldValue:oldVisibleFields newValue:visibleFields];
-		}] subscribeNext:^(NSDictionary *changesDictionary) {
-			NSLog(@"%@", changesDictionary);
-		}];
-	}];
-	
-	NSArray *sectionInsertions =  [insertedSections map:^(NSArray *sectionChange) {
-		return sectionChange[0];
-	}];
-	
-	NSArray *sectionRemovals = [removedSections map:^(NSArray *sectionChange) {
-		return sectionChange[0];
-	}];
-	
-	NSLog(@"%@", @{@"RFSectionChanges" : @{@"RFInserted" : sectionInsertions, @"RFRemoved" : sectionRemovals}, @"RFFieldChanges" : @{@"RFInserted" : fieldInsertions}});
-}
-
-- (NSDictionary *)fieldChangesDictionaryForSectionAtIndex:(NSUInteger)sectionIndex oldValue:(NSOrderedSet *)oldValue newValue:(NSOrderedSet *)newValue
-{
-	id <RFOrderedSetDifference> fieldDiff = [newValue differenceWithOrderedSet:oldValue];
-	
-	NSMutableArray *insertedFields = [NSMutableArray array];
-	[[fieldDiff insertedObjects] each:^(NSArray *change) {
-		RACTupleUnpack(NSNumber *fieldIndex, RFField *field) = [RACTuple tupleWithObjectsFromArray:change];
-		[insertedFields addObject:@[[NSIndexPath indexPathForRow:fieldIndex.unsignedIntegerValue inSection:sectionIndex], field]];
-	}];
-	
-	NSMutableArray *removedFields = [NSMutableArray array];
-	[[fieldDiff removedObjects] each:^(NSArray *change) {
-		RACTupleUnpack(NSNumber *fieldIndex, RFField *field) = [RACTuple tupleWithObjectsFromArray:change];
-		[removedFields addObject:@[[NSIndexPath indexPathForRow:fieldIndex.unsignedIntegerValue inSection:sectionIndex], field]];
-	}];
-	
-	return @{@"RFFieldChanges" : @{@"RFInserted" : insertedFields, @"RFRemoved" : removedFields}};
-
-}
-
-- (RACSignal *)removalSignalForSection:(RFSection *)section
-{
-	return [self.sectionRemovals filter:^BOOL(id value) {
-		return (value == section);
-	}];
-}
 
 - (RFSection *)visibleSectionAtIndex:(NSUInteger)index
 {
@@ -180,14 +128,14 @@
 
 - (RFField *)fieldAtIndexPath:(NSIndexPath *)indexPath
 {
-	return [self visibleSectionAtIndex:indexPath.section].visibleFields[indexPath.row];
+	return [self visibleSectionAtIndex:indexPath.section].fields[indexPath.row];
 }
 
 - (NSIndexPath *)indexPathForField:(RFField *)field
 {
 	__block NSIndexPath *result = nil;
 	[self.visibleSections enumerateObjectsUsingBlock:^(RFSection *section, NSUInteger idx, BOOL *stop) {
-		NSUInteger fieldIndex = [section.visibleFields indexOfObject:field];
+		NSUInteger fieldIndex = [section.fields indexOfObject:field];
 		if (fieldIndex != NSNotFound) {
 			*stop = YES;
 			result = [NSIndexPath indexPathForRow:fieldIndex inSection:idx];
@@ -203,13 +151,71 @@
 
 - (NSUInteger)numberOfFieldsInSection:(NSUInteger)section
 {
-	return [[self visibleSectionAtIndex:section].visibleFields count];
+	return [[self visibleSectionAtIndex:section].fields count];
 }
 
 
 - (NSString *)description
 {
     return [NSString stringWithFormat:@"%@ %@", [super description], [self.visibleSections description]];
+}
+@end
+
+@implementation RACSignal (RFFormChanges)
+- (RACSignal *)rf_mapSectionChangesToFormChanges
+{
+	NSDictionary *(^composeChangesDictionary)(NSIndexSet *, NSIndexSet *, NSArray *, NSArray *) =
+	^(NSIndexSet *insertedSectionIndexSet, NSIndexSet *removedSectionIndexSet, NSArray *insertedFieldsAndIndexPaths, NSArray *removedFieldsAndIndexPaths) {
+		return @{@"RFSectionChanges" : @{@"RFInserted" : insertedSectionIndexSet,
+										 @"RFRemoved" : removedSectionIndexSet},
+				 @"RFFieldChanges" : @{@"RFInserted" : insertedFieldsAndIndexPaths,
+									   @"RFRemoved" : removedFieldsAndIndexPaths}};
+	};
+	
+	id (^indexSetFromSectionChanges)(NSArray *) = ^(NSArray *changes) {
+		return [changes foldLeftWithStart:[NSMutableIndexSet indexSet] block:^(NSMutableIndexSet *accumulator, id <RFChangeItem> changeItem) {
+			[accumulator addIndex:changeItem.index];
+			return accumulator;
+		}];
+	};
+	
+	id (^changeItemForField)(RFField *field, NSUInteger section, NSUInteger row) = ^(RFField *field, NSUInteger section, NSUInteger row) {
+		return @[[NSIndexPath indexPathForRow:row inSection:section], field];
+	};
+	
+	
+	NSArray *(^arrayFromFieldChanges)(NSArray *, NSUInteger) =
+	^(NSArray *changes, NSUInteger section) {
+		return [changes map:^(id <RFChangeItem> changeItem) {
+			return changeItemForField(changeItem.object, section, changeItem.index);
+		}];
+	};
+
+	return [[self combinePreviousWithStart:[NSOrderedSet orderedSet] reduce:^(NSOrderedSet *previousSections, NSOrderedSet *currentSections){
+		return [RACSignal createSignal:^(id<RACSubscriber> subscriber) {
+			id<RFOrderedSetDifference> sectionDiff = [currentSections differenceWithOrderedSet:previousSections];
+			
+			NSArray *fieldInsertions = [[[sectionDiff insertedObjects] map:^(id <RFChangeItem> insertion) {
+				return [[insertion.object fields] mapWithIndex:^(RFField *field, NSUInteger fieldIndex) {
+					return changeItemForField(field, insertion.index, fieldIndex);
+				}];
+			}] flatten];
+			
+			NSIndexSet *insertedSectionIndexSet =  indexSetFromSectionChanges([sectionDiff insertedObjects]);
+			NSIndexSet *removedSectionIndexSet = indexSetFromSectionChanges([sectionDiff removedObjects]);
+			
+			[subscriber sendNext:composeChangesDictionary(insertedSectionIndexSet, removedSectionIndexSet, fieldInsertions, @[])];
+			
+			return [[RACSignal merge:[currentSections mapWithIndex:^(RFSection *section, NSUInteger sectionIndex) {
+				return [[section signalOfChangesForFields] reduceEach:^(NSOrderedSet *oldFields, NSOrderedSet *currentFields) {
+					id <RFOrderedSetDifference> fieldDiff = [currentFields differenceWithOrderedSet:oldFields];
+					NSArray *insertedFields = arrayFromFieldChanges([fieldDiff insertedObjects], sectionIndex);
+					NSArray *removedFields = arrayFromFieldChanges([fieldDiff removedObjects], sectionIndex);
+					return composeChangesDictionary([NSIndexSet indexSet], [NSIndexSet indexSet], insertedFields, removedFields);
+				}];
+			}]] subscribe:subscriber];
+		}];
+	}] switchToLatest];
 }
 @end
 

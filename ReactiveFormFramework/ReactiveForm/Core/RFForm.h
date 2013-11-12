@@ -13,6 +13,8 @@
 @class RACSignal;
 @class RFField;
 
+extern NSString *const RFFormDidChangeNotification;
+
 @interface RFForm : NSObject
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, assign, readonly, getter = isValid) BOOL valid;
