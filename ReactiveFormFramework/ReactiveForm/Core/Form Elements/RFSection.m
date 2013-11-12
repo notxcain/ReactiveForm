@@ -14,7 +14,7 @@
 
 @interface RFSection ()
 @property (nonatomic, strong, readonly) RACSignal *visibleElements;
-@property (nonatomic, copy, readwrite) NSOrderedSet *visibleFields;
+@property (nonatomic, copy, readwrite) NSOrderedSet *fields;
 @end
 
 @implementation RFSection
@@ -26,11 +26,21 @@
 - (id)initWithFormElement:(id<RFFormElement>)formElement
 {
     if (!(self = [super init])) return nil;
-    
-    RAC(self, visibleFields) = [[[formElement visibleElements] map:^(RACSequence *value) {
-        return [NSOrderedSet orderedSetWithArray:value.array];
-    }] startWith:[NSOrderedSet orderedSet]];
 	
-    return self;
+	RACSignal *signalOfFields = [[formElement visibleElements] map:^(RACSequence *value) {
+        return [NSOrderedSet orderedSetWithArray:value.array];
+    }];
+	
+    RAC(self, fields) = [signalOfFields startWith:[NSOrderedSet orderedSet]];
+	
+	_signalOfChangesForFields = [signalOfFields combinePreviousWithStart:[NSOrderedSet orderedSet] reduce:^id(id previous, id current) {
+		return RACTuplePack(previous, current);
+	}];
+	return self;
+}
+
+- (NSString *)description
+{
+	return [NSString stringWithFormat:@"%@ %p {\nfields = %@\n}", [self class], self, [self.fields description]];
 }
 @end

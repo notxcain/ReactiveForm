@@ -62,4 +62,9 @@
 {
     return [self.value description];
 }
+
+- (NSString *)description
+{
+	return [NSString stringWithFormat:@"%@ %p {name = %@, title = %@, value = %@}", [self class], self, self.name, self.title, self.value ];
+}
 @end

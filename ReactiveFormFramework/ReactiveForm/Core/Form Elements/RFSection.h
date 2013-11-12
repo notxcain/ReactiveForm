@@ -8,8 +8,10 @@
 
 #import <Foundation/Foundation.h>
 @protocol RFFormElement;
+@class RACSignal;
 @interface RFSection : NSObject
-@property (nonatomic, copy, readonly) NSOrderedSet *visibleFields;
+@property (nonatomic, copy, readonly) NSOrderedSet *fields;
+@property (nonatomic, copy, readonly) RACSignal *signalOfChangesForFields;
 + (instancetype)sectionWithFormElement:(id <RFFormElement>)formElement;
 - (id)initWithFormElement:(id <RFFormElement>)formElement;
 @end
