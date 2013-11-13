@@ -16,6 +16,9 @@
 
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
+@interface RFFormObserverMock : NSObject <RFFormObserver>
+@end
+
 SPEC_BEGIN(RFFormSpec)
 describe(@"Form", ^{
    context(@"when created", ^{
@@ -24,11 +27,54 @@ describe(@"Form", ^{
 		   RFField *field2 = [RFField fieldWithName:@"field2" title:@"Field 2"];
 		   RFField *field3 = [RFField fieldWithName:@"field3" title:@"Field 3"];
 		   RFField *field4 = [RFField fieldWithName:@"field4" title:@"Field 4"];
+		   RFContainer *container = [RFContainer container];
+		   RFForm *form = [RFForm formWithBuildingBlock:^(id<RFFormContent> builder) {
+			   [builder addSectionWithElement:container];
+		   }];
+		   [form addFormObserver:[RFFormObserverMock new]];
+		   [container addElement:field1];
+		   [container addElement:field2];
+		   [container removeElement:field1];
+		   [container addElement:field3];
+		   [container addElement:field4];
+		   [form title];
        });
 	   
 	   it(@"should notify observers when changed", ^{
-		   
+		
 	   });
    });
 });
 SPEC_END
+
+@implementation RFFormObserverMock
+- (void)formWillChangeContent:(RFForm *)form
+{
+	
+}
+
+- (void)form:(RFForm *)form didInsertSectionAtIndex:(NSUInteger)index
+{
+	NSLog(@"Inserted section at index: %d", index);
+}
+
+- (void)form:(RFForm *)form didRemoveSectionAtIndex:(NSUInteger)index
+{
+	NSLog(@"Removed section at index: %d", index);
+}
+
+- (void)form:(RFForm *)form didInsertField:(RFField *)field atIndexPath:(NSIndexPath *)indexPath
+{
+	NSLog(@"Inserted field %@ at row %d in section %d", field, indexPath.row, indexPath.section);
+}
+
+- (void)form:(RFForm *)form didRemoveField:(RFField *)field atIndexPath:(NSIndexPath *)indexPath
+{
+	NSLog(@"Removed field %@ at row %d in section %d", field, indexPath.row, indexPath.section);
+}
+
+- (void)formDidChangeContent:(RFForm *)form
+{
+	NSLog(@"------------------------------------------------------");
+}
+@end

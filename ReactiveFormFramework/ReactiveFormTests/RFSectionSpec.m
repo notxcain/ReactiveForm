@@ -30,7 +30,7 @@ describe(@"RFSection", ^{
 		});
 		it(@"should send a tuple of a previous and current fields", ^{
 			__block RACTuple *tuple = nil;
-			[[[section changesForFields] logNext] subscribeNext:^(id x) {
+			[[[section changesOfFields] logNext] subscribeNext:^(id x) {
 				tuple = x;
 			}];
 			

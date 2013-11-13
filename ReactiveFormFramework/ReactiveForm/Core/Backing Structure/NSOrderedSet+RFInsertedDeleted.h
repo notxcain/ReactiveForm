@@ -8,14 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol RFChangeItem <NSObject>
-@property (nonatomic, strong, readonly) id object;
-@property (nonatomic, assign, readonly) NSUInteger index;
-@end
 
 @protocol RFOrderedSetDifference <NSObject>
-- (NSArray *)removedObjects;
-- (NSArray *)insertedObjects;
+- (NSDictionary *)removedObjects;
+- (NSDictionary *)insertedObjects;
 @end
 
 @interface NSOrderedSet (RFInsertedDeleted)

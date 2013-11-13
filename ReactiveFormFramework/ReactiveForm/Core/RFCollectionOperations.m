@@ -11,11 +11,9 @@
 @implementation NSArray (Map)
 - (instancetype)map:(id (^)(id))mapBlock
 {
-	NSMutableArray *result = [NSMutableArray array];
-	[self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-		[result addObject:mapBlock(obj)];
+	return [self mapWithIndex:^id(id x, NSUInteger idx) {
+		return mapBlock(x);
 	}];
-	return [result copy];
 }
 
 - (instancetype)mapWithIndex:(id (^)(id, NSUInteger))mapBlock
@@ -35,6 +33,13 @@
 		[result addObject:obj];
 	}];
 	return [result copy];
+}
+
+- (instancetype)filterNot:(BOOL (^)(id))filterBlock
+{
+	return [self filter:^BOOL(id x) {
+		return !filterBlock(x);
+	}];
 }
 
 - (void)each:(void (^)(id))each
@@ -67,11 +72,9 @@
 @implementation NSOrderedSet (Map)
 - (instancetype)map:(id (^)(id))mapBlock
 {
-	NSMutableOrderedSet *result = [NSMutableOrderedSet orderedSet];
-	[self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-		[result addObject:mapBlock(obj)];
+	return [self mapWithIndex:^id(id x, NSUInteger idx) {
+		return mapBlock(x);
 	}];
-	return [result copy];
 }
 
 - (instancetype)mapWithIndex:(id (^)(id, NSUInteger))mapBlock
@@ -93,12 +96,21 @@
 	return [result copy];
 }
 
+- (instancetype)filterNot:(BOOL (^)(id))filterBlock
+{
+	return [self filter:^BOOL(id x) {
+		return !filterBlock(x);
+	}];
+}
+
 - (void)each:(void (^)(id))each
 {
 	for (id obj in self) {
 		each(obj);
 	}
 }
+
+
 
 - (id)foldLeftWithStart:(id)accumulator block:(id (^)(id accumulator, id x))block
 {
@@ -116,6 +128,42 @@
 		}
 		return accumulator;
 	}] copy];
+}
+@end
+
+@implementation NSDictionary (Map)
+
+- (instancetype)map:(id (^)(id))mapBlock
+{
+	return [self mapWithKey:^id(id x, id key) {
+		return mapBlock(x);
+	}];
+}
+
+- (void)eachWithKey:(void (^)(id, id))block
+{
+	[self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+		block(obj, key);
+	}];
+}
+
+- (instancetype)mapWithKey:(id (^)(id, id))mapBlock
+{
+	NSMutableDictionary *result = [NSMutableDictionary dictionary];
+	[self eachWithKey:^(id x, id key) {
+		[result setObject:mapBlock(x, key) forKey:key];
+	}];
+	return result;
+}
+
+- (instancetype)filter:(BOOL (^)(id x))filterBlock
+{
+	NSMutableDictionary *result = [NSMutableDictionary dictionary];
+	[self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+		if (!filterBlock(obj)) return;
+		result[key] = obj;
+	}];
+	return [result copy];
 }
 @end
 
