@@ -26,14 +26,16 @@
 {
     if (!(self = [super init])) return nil;
 	
-	_contentSignal = [[[formElement visibleFields] distinctUntilChanged] map:^(NSArray *fields) {
+	_contentSignal = [[[[formElement visibleFields] distinctUntilChanged] map:^(NSArray *fields) {
         return [NSOrderedSet orderedSetWithArray:fields];
-    }];
+    }] startWith:[NSOrderedSet orderedSet]];
 	
     RAC(self, fields) = _contentSignal;
 	
-	_changesOfFields = [_contentSignal combinePreviousWithStart:[NSOrderedSet orderedSet] reduce:^(id previous, id current) {
+	_changesOfFields = [[_contentSignal combinePreviousWithStart:self.fields reduce:^(id previous, id current) {
 		return RACTuplePack(previous, current);
+	}] filter:^BOOL(RACTuple *tuple) {
+		return ![tuple.first isEqualToOrderedSet:tuple.second];
 	}];
 	return self;
 }
