@@ -9,7 +9,5 @@
 
 #import "RFForm.h"
 
-@interface RFForm () <RFFormContent>
-- (id)addSectionWithElement:(id<RFFormElement>)formElement;
-- (void)removeSection:(id)section;
+@interface RFForm () 
 @end

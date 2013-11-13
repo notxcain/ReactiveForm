@@ -9,33 +9,29 @@
 #import <Foundation/Foundation.h>
 
 @protocol RFFormElement;
-@protocol RFFormContent;
 @class RACSignal;
 @class RFField;
 
-extern NSString *const RFFormDidChangeNotification;
-
 @protocol RFFormObserver;
+@class RFFormContentProvider;
 @interface RFForm : NSObject
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, assign, readonly, getter = isValid) BOOL valid;
 
-+ (instancetype)formWithBuildingBlock:(void (^)(id <RFFormContent> builder))buildingBlock;
-- (id)initWithBuildingBlock:(void (^)(id <RFFormContent> builder))buildingBlock;
++ (instancetype)formWithFormContentProvider:(RFFormContentProvider *)contentProvider;
+- (id)initWithFormContentProvider:(RFFormContentProvider *)contentProvider;
 
 - (RFField *)fieldAtIndexPath:(NSIndexPath *)indexPath;
 - (NSIndexPath *)indexPathForField:(RFField *)field;
 - (NSUInteger)numberOfSections;
 - (NSUInteger)numberOfFieldsInSection:(NSUInteger)section;
+@end
 
+@interface RFForm (Observation)
 - (void)addFormObserver:(id <RFFormObserver>)observer;
 - (void)removeFormObserver:(id <RFFormObserver>)observer;
 @end
 
-@protocol RFFormContent <NSObject>
-- (id)addSectionWithElement:(id <RFFormElement>)formElement;
-- (void)removeSection:(id)section;
-@end
 
 @protocol RFFormObserver <NSObject>
 @optional

@@ -9,11 +9,10 @@
 #import <Kiwi/Kiwi.h>
 #import "RFForm.h"
 #import "RFFormElement.h"
-#import "KWMock+RFFormElement.h"
 #import "RFField.h"
 #import "RFContainer.h"
-#import "RFForm+Private.h"
-
+#import "RFFormContentProvider.h"
+#import "KWMock+RFFormElement.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
 @interface RFFormObserverMock : NSObject <RFFormObserver>
@@ -27,11 +26,11 @@ describe(@"Form", ^{
 		   RFField *field2 = [RFField fieldWithName:@"field2" title:@"Field 2"];
 		   RFField *field3 = [RFField fieldWithName:@"field3" title:@"Field 3"];
 		   RFField *field4 = [RFField fieldWithName:@"field4" title:@"Field 4"];
-		   RFContainer *container = [RFContainer container];
-		   RFForm *form = [RFForm formWithBuildingBlock:^(id<RFFormContent> builder) {
-			   [builder addSectionWithElement:container];
-		   }];
+		   RFMutableFormContentProvider *contentProvider = [[RFMutableFormContentProvider alloc] init];
+		   RFForm *form = [RFForm formWithFormContentProvider:contentProvider];
 		   [form addFormObserver:[RFFormObserverMock new]];
+		   RFContainer *container = [RFContainer container];
+		   [contentProvider addSectionWithElement:container];
 		   [container addElement:field1];
 		   [container addElement:field2];
 		   [container removeElement:field1];
