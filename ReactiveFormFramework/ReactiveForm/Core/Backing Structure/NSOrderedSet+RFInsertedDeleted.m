@@ -14,18 +14,14 @@ NSString *const RFInsertedObjectsKey = @"RFInsertedObjectsKey";
 @interface NSDictionary (RFOrderedSetDifference) <RFOrderedSetDifference>
 @end
 
-@interface NSArray (RFChangeItem) <RFChangeItem>
-
-@end
-
-NSArray *RFOrderedSetInsertedObjectsComparedToOrderedSet(NSOrderedSet *self, NSOrderedSet *oldOrderedSet)
+NSDictionary *RFOrderedSetInsertedObjectsComparedToOrderedSet(NSOrderedSet *self, NSOrderedSet *oldOrderedSet)
 {
 	NSMutableOrderedSet *addedObjectSet = [self mutableCopy];
 	[addedObjectSet minusOrderedSet:oldOrderedSet];
-	NSMutableArray *result = [NSMutableArray array];
+	NSMutableDictionary *result = [NSMutableDictionary dictionary];
 	[self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		if ([addedObjectSet containsObject:obj]) {
-			[result addObject:@[@(idx), obj]];
+			[result setObject:obj forKey:@(idx)];
 		}
 	}];
 	return [result copy];
@@ -37,32 +33,20 @@ NSArray *RFOrderedSetInsertedObjectsComparedToOrderedSet(NSOrderedSet *self, NSO
 	if (!orderedSet || [orderedSet isEqual:[NSNull null]]) {
 		return [self differenceWithOrderedSet:[NSOrderedSet orderedSet]];
 	}
-	NSArray *addedObjects = RFOrderedSetInsertedObjectsComparedToOrderedSet(self, orderedSet);
-	NSArray *deletedObjects = RFOrderedSetInsertedObjectsComparedToOrderedSet(orderedSet, self);
+	NSDictionary *addedObjects = RFOrderedSetInsertedObjectsComparedToOrderedSet(self, orderedSet);
+	NSDictionary *deletedObjects = RFOrderedSetInsertedObjectsComparedToOrderedSet(orderedSet, self);
 	return @{RFInsertedObjectsKey : [addedObjects copy], RFRemovedObjectsKey : [deletedObjects copy]};
 }
 @end
 
 @implementation NSDictionary (RFOrderedSetDifference)
-- (NSArray *)removedObjects
+- (NSDictionary *)removedObjects
 {
 	return [self objectForKey:RFRemovedObjectsKey];
 }
 
-- (NSArray *)insertedObjects
+- (NSDictionary *)insertedObjects
 {
 	return [self objectForKey:RFInsertedObjectsKey];
-}
-@end
-
-@implementation NSArray (RFChangeItem)
-- (id)object
-{
-	return self[1];
-}
-
-- (NSUInteger)index
-{
-	return [self[0] unsignedIntegerValue];
 }
 @end

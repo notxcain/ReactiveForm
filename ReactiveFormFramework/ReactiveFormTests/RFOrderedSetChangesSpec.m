@@ -17,10 +17,10 @@ describe(@"RFOrderedSetChangesSpec", ^{
 			NSArray *oldArray = @[@"account", @"date", @"phoneNumber"];
 			NSArray *newArray = @[@"account", @"address", @"date", @"phoneNumber", @"name"];
 			id diff = [[NSOrderedSet orderedSetWithArray:newArray] differenceWithOrderedSet:[NSOrderedSet orderedSetWithArray:oldArray]];
-			NSArray *addedObjects = [diff insertedObjects];
+			NSDictionary *addedObjects = [diff insertedObjects];
 			
 			[[addedObjects shouldNot] beEmpty];
-			[[addedObjects should] containObjectsInArray:@[@[@1, @"address"], @[@4, @"name"]]];
+			[[addedObjects should] equal:@{@1 : @"address", @4 : @"name"}];
 		});
 	});
 	context(@"when objects are deleted", ^{
@@ -28,9 +28,9 @@ describe(@"RFOrderedSetChangesSpec", ^{
 			NSArray *oldArray = @[@"account", @"address", @"date", @"phoneNumber", @"name"];
 			NSArray *newArray = @[@"account", @"date", @"phoneNumber"];
 			id diff = [[NSOrderedSet orderedSetWithArray:newArray] differenceWithOrderedSet:[NSOrderedSet orderedSetWithArray:oldArray]];
-			NSArray *deletedObjects = [diff removedObjects];
+			NSDictionary *deletedObjects = [diff removedObjects];
 			[[deletedObjects shouldNot] beEmpty];
-			[[deletedObjects should] containObjectsInArray:@[@[@1, @"address"], @[@4, @"name"]]];
+			[[deletedObjects should] equal:@{@1 : @"address", @4 : @"name"}];
 		});
 	});
 	
@@ -39,13 +39,13 @@ describe(@"RFOrderedSetChangesSpec", ^{
 			NSArray *oldArray = @[@"account", @"date", @"phoneNumber", @"country"];
 			NSArray *newArray = @[@"account", @"address", @"country", @"phoneNumber", @"name"];
 			id diff = [[NSOrderedSet orderedSetWithArray:newArray] differenceWithOrderedSet:[NSOrderedSet orderedSetWithArray:oldArray]];
-			NSArray *addedObjects = [diff insertedObjects];
+			NSDictionary *addedObjects = [diff insertedObjects];
 			[[addedObjects shouldNot] beEmpty];
-			[[addedObjects should] containObjectsInArray:@[@[@1, @"address"], @[@4, @"name"]]];
+			[[addedObjects should] equal:@{@1 : @"address", @4 : @"name"}];
 			
-			NSArray *deletedObjects = [diff removedObjects];
+			NSDictionary *deletedObjects = [diff removedObjects];
 			[[deletedObjects shouldNot] beEmpty];
-			[[deletedObjects should] containObjectsInArray:@[@[@1, @"date"]]];
+			[[deletedObjects should] equal:@{@1 : @"date"}];
 		});
 	});
 });
