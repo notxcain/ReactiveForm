@@ -16,6 +16,7 @@
 - (void)each:(void (^)(id x))each;
 - (id)foldLeftWithStart:(id)accumulator block:(id (^)(id accumulator, id x))block;
 - (instancetype)flatten;
+- (BOOL)isEmpty;
 @end
 
 @interface NSOrderedSet (Map)
@@ -24,6 +25,7 @@
 - (instancetype)filter:(BOOL (^)(id x))filterBlock;
 - (void)each:(void (^)(id x))each;
 - (id)foldLeftWithStart:(id)accumulator block:(id (^)(id accumulator, id x))block;
+- (BOOL)isEmpty;
 @end
 
 @interface NSDictionary (Map)
@@ -31,6 +33,7 @@
 - (instancetype)mapWithKey:(id (^)(id x, id key))mapBlock;
 - (instancetype)filter:(BOOL (^)(id x))filterBlock;
 - (void)eachWithKey:(void (^)(id x, id key))block;
+- (BOOL)isEmpty;
 @end
 
 

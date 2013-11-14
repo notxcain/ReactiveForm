@@ -67,6 +67,11 @@
 		return accumulator;
 	}] copy];
 }
+
+- (BOOL)isEmpty
+{
+	return [self count] == 0;
+}
 @end
 
 @implementation NSOrderedSet (Map)
@@ -129,6 +134,11 @@
 		return accumulator;
 	}] copy];
 }
+
+- (BOOL)isEmpty
+{
+	return [self count] == 0;
+}
 @end
 
 @implementation NSDictionary (Map)
@@ -164,6 +174,11 @@
 		result[key] = obj;
 	}];
 	return [result copy];
+}
+
+- (BOOL)isEmpty
+{
+	return [self count] == 0;
 }
 @end
 
