@@ -15,45 +15,39 @@
 
 SPEC_BEGIN(RFContainerSpec)
 describe(@"Container", ^{
-   context(@"when created", ^{
-       __block RFContainer *container = nil;
-       beforeEach(^{
-           container = [RFContainer container];
-       });
-      it(@"should expose non nil visibleElements signal", ^{
-          [[container visibleFields] shouldNotBeNil];
-      });
-       
-       context(@"signal", ^{
-           
-           __block id <RFFormElement> mockElement = nil;
-           
-           beforeEach(^{
-               mockElement = [RFField fieldWithName:@"" title:@""];
-           });
-           
-           it(@"should send signal when changed", ^{
-			   [container addElement:mockElement];
-			   [[[[container visibleFields] first] should] containObjects:mockElement, nil];
-           });
-           
-           it(@"should propagate visible elements signal", ^{
-               
-               RFContainer *subcontainer = [RFContainer container];
-               [container addElement:subcontainer];
-               
-               __block NSArray *fields = nil;
-               
-               [[container visibleFields] subscribeNext:^(id x) {
-                   fields = x;
-               }];
-               
-               [subcontainer addElement:mockElement];
-               
-               [[theValue([fields containsObject:mockElement]) should] beTrue];
-           });
-       });
-   });
+	context(@"when created", ^{
+		__block RFContainer *container = nil;
+		beforeEach(^{
+			container = [RFContainer container];
+		});
+		
+		it(@"should expose non nil visibleElements signal", ^{
+			[[container visibleFields] shouldNotBeNil];
+		});
+		
+		it(@"should send empty array to subscribers on visibleElements", ^{
+			[[[[container visibleFields] first] should] equal:[NSArray array]];
+		});
+		
+		context(@"when mutated", ^{
+			__block id <RFFormElement> field = nil;
+			
+			beforeEach(^{
+				field = [RFField fieldWithName:@"" title:@""];
+			});
+			
+			it(@"should send field when field is added", ^{
+				[container addElement:field];
+				[[[[container visibleFields] first] should] equal:@[field]];
+			});
+			
+			it(@"should propagate visible elements signal", ^{
+				id <RFFormElement> element = [KWMock mockFormElementWithElements:@[field]];
+				[container addElement:element];
+				[[[[container visibleFields] first] should] equal:@[field]];
+			});
+		});
+	});
 });
 SPEC_END
 

@@ -35,14 +35,17 @@
     self = [super init];
     if (self) {
         _elements = [NSMutableArray array];
-        _visibleFields = [[RACObserve(self, elements) map:^(NSArray *elements) {
-			NSArray *signals = [elements map:^(id <RFFormElement> formElement) {
+        _visibleFields = [[[[RACObserve(self, elements) map:^(NSArray *elements) {
+            return [elements map:^(id <RFFormElement> formElement) {
 				return [formElement visibleFields];
 			}];
-            return [[RACSignal combineLatest:signals] map:^(RACTuple *arraysOfFields) {
-                return [arraysOfFields.allObjects flatten];
+        }] map:^(NSArray *array) {
+            if ([array isEmpty]) return [RACSignal return:[NSArray array]];
+            
+            return [[RACSignal combineLatest:array] map:^(RACTuple *tupleOfArrays) {
+                return [tupleOfArrays.allObjects flatten];
             }];
-        }] switchToLatest];
+        }] switchToLatest] replayLast];
     }
     return self;
 }
