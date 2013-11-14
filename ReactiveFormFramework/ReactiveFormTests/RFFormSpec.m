@@ -30,12 +30,26 @@ describe(@"Form", ^{
 		   RFForm *form = [RFForm formWithFormContentProvider:contentProvider];
 		   [form addFormObserver:[RFFormObserverMock new]];
 		   RFContainer *container = [RFContainer container];
+		   
 		   [contentProvider addSectionWithElement:container];
+		   [[theValue([form numberOfSections]) should] equal:theValue(0)];
+		   
 		   [container addElement:field1];
+		   [[theValue([form numberOfSections]) should] equal:theValue(1)];
+		   [[theValue([form numberOfFieldsInSection:0]) should] equal:theValue(1)];
+		   
 		   [container addElement:field2];
+		   [[theValue([form numberOfFieldsInSection:0]) should] equal:theValue(2)];
+		   
 		   [container removeElement:field1];
+		   [[theValue([form numberOfFieldsInSection:0]) should] equal:theValue(1)];
+		   
 		   [container addElement:field3];
+		   [[theValue([form numberOfFieldsInSection:0]) should] equal:theValue(2)];
+		   
 		   [container addElement:field4];
+		   [[theValue([form numberOfFieldsInSection:0]) should] equal:theValue(3)];
+		   
 		   [form title];
        });
 	   

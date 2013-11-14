@@ -8,12 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol RFFormElement;
-@class RACSignal;
 @class RFField;
-
 @protocol RFFormObserver;
 @class RFFormContentProvider;
+
 @interface RFForm : NSObject
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, assign, readonly, getter = isValid) BOOL valid;
@@ -31,7 +29,6 @@
 - (void)addFormObserver:(id <RFFormObserver>)observer;
 - (void)removeFormObserver:(id <RFFormObserver>)observer;
 @end
-
 
 @protocol RFFormObserver <NSObject>
 @optional

@@ -24,11 +24,8 @@
 
 @interface RFForm ()
 @property (nonatomic, assign, readwrite, getter = isValid) BOOL valid;
-@property (nonatomic, strong, readonly) NSMutableOrderedSet *rootContainer;
-@property (nonatomic, strong, readonly) NSOrderedSet *visibleSections;
-@property (nonatomic, strong, readonly) RFFormContentProvider *contentProvider;
+@property (nonatomic, strong, readonly) NSOrderedSet *sections;
 @property (nonatomic, strong) RACSignal *changes;
-@property (nonatomic, strong, readonly) RACSignal *visibleSectionsSignal;
 @end
 
 NSDictionary *RFChangesDictionary(NSDictionary *insertedItems, NSDictionary *removedItems, NSDictionary *changedItems) {
@@ -55,7 +52,7 @@ NSDictionary *RFChangesDictionaryWithSectionDiff(NSOrderedSet *previousItems, NS
 }
 
 @implementation RFForm
-@synthesize rootContainer = _rootContainer, changes = _changes;
+@synthesize changes = _changes;
 
 + (instancetype)formWithFormContentProvider:(RFFormContentProvider *)contentProvider
 {
@@ -66,19 +63,33 @@ NSDictionary *RFChangesDictionaryWithSectionDiff(NSOrderedSet *previousItems, NS
 {
     self = [super init];
     if (self) {
-		_contentProvider = contentProvider;
+		RAC(self, sections) = contentProvider.visibleSections;
 		
-		RAC(self, visibleSections) = contentProvider.visibleSections;
+		RACSignal *changes = [[[[contentProvider.visibleSections filter:^BOOL(NSOrderedSet *sections) {
+			return [sections count] != 0;
+		}] combinePreviousWithStart:[NSOrderedSet orderedSet] reduce:^(NSOrderedSet *previousSections, NSOrderedSet *currentSections) {
+			return [RACSignal createSignal:^(id<RACSubscriber> subscriber) {
+				[subscriber sendNext:RFChangesDictionaryWithSectionDiff(previousSections, currentSections)];
+				return [[RACSignal merge:[currentSections mapWithIndex:^(RFSection *section, NSUInteger sectionIndex) {
+					return [[section changesOfFields] reduceEach:^(NSOrderedSet *previousFields, NSOrderedSet *currentFields) {
+						return RFChangesDictionary(@{}, @{}, @{@(sectionIndex) : RFChangesDictionaryWithFieldDiff(previousFields, currentFields)});
+					}];
+				}]] subscribe:subscriber];
+			}];
+		}] switchToLatest] replayLast];
+
 		
 		@weakify(self);
 		[[self rac_signalForSelector:@selector(addFormObserver:)] subscribeNext:^(RACTuple *args) {
 			@strongify(self);
 			NSObject <RFFormObserver> *observer = args.first;
-			RACSignal *removalSignal = [[self rac_signalForSelector:@selector(removeObserver:)] filter:^BOOL(RACTuple *removeArgs) {
+			RACSignal *observerIsRemoved = [[self rac_signalForSelector:@selector(removeObserver:)] filter:^BOOL(RACTuple *removeArgs) {
 				return removeArgs.first == observer;
 			}];
 			
-			[[[self.changes takeUntil:removalSignal] takeUntil:[observer rac_willDeallocSignal]] subscribeNext:^(id x) {
+			RACSignal *observerIsAboutToDealloc = [observer rac_willDeallocSignal];
+			
+			[[[changes takeUntil:observerIsRemoved] takeUntil:observerIsAboutToDealloc] subscribeNext:^(id x) {
 				@strongify(self);
 				[self notifyObserver:observer withChangesDictionary:x];
 			}];
@@ -125,30 +136,9 @@ NSDictionary *RFChangesDictionaryWithSectionDiff(NSOrderedSet *previousItems, NS
 
 }
 
-- (RACSignal *)changes
-{
-	if (_changes) return _changes;
-	
-	_changes = [[[self.contentProvider.visibleSections combinePreviousWithStart:self.visibleSections reduce:^(NSOrderedSet *previousSections, NSOrderedSet *currentSections){
-		if ([previousSections isEqualToOrderedSet:currentSections]) {
-			return [RACSignal empty];
-		}
-		return [RACSignal createSignal:^(id<RACSubscriber> subscriber) {
-			[subscriber sendNext:RFChangesDictionaryWithSectionDiff(previousSections, currentSections)];
-			return [[RACSignal merge:[currentSections mapWithIndex:^(RFSection *section, NSUInteger sectionIndex) {
-				return [[section changesOfFields] reduceEach:^(NSOrderedSet *previousFields, NSOrderedSet *currentFields) {
-					return RFChangesDictionary(@{}, @{}, @{@(sectionIndex) : RFChangesDictionaryWithFieldDiff(previousFields, currentFields)});
-				}];
-			}]] subscribe:subscriber];
-		}];
-	}] switchToLatest] replayLast];
-	
-	return _changes;
-}
-
 - (RFSection *)visibleSectionAtIndex:(NSUInteger)index
 {
-	return self.visibleSections[index];
+	return self.sections[index];
 }
 
 - (RFField *)fieldAtIndexPath:(NSIndexPath *)indexPath
@@ -159,7 +149,7 @@ NSDictionary *RFChangesDictionaryWithSectionDiff(NSOrderedSet *previousItems, NS
 - (NSIndexPath *)indexPathForField:(RFField *)field
 {
 	__block NSIndexPath *result = nil;
-	[self.visibleSections enumerateObjectsUsingBlock:^(RFSection *section, NSUInteger idx, BOOL *stop) {
+	[self.sections enumerateObjectsUsingBlock:^(RFSection *section, NSUInteger idx, BOOL *stop) {
 		NSUInteger fieldIndex = [section.fields indexOfObject:field];
 		if (fieldIndex != NSNotFound) {
 			*stop = YES;
@@ -171,7 +161,7 @@ NSDictionary *RFChangesDictionaryWithSectionDiff(NSOrderedSet *previousItems, NS
 
 - (NSUInteger)numberOfSections
 {
-	return [self.visibleSections count];
+	return [self.sections count];
 }
 
 - (NSUInteger)numberOfFieldsInSection:(NSUInteger)section
@@ -181,7 +171,7 @@ NSDictionary *RFChangesDictionaryWithSectionDiff(NSOrderedSet *previousItems, NS
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"%@ %@", [super description], [self.visibleSections description]];
+    return [NSString stringWithFormat:@"%@ %@", [super description], [self.sections description]];
 }
 @end
 
