@@ -16,6 +16,7 @@
 @protocol RFFormElement;
 @interface RFMutableFormContentProvider : RFFormContentProvider
 @property (nonatomic, strong, readonly) RACSignal *visibleSections;
+
 - (id)addSectionWithElement:(id <RFFormElement>)formElement;
 - (void)removeSection:(id)section;
 @end

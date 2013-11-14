@@ -35,7 +35,7 @@
 {
     self = [super init];
     if (self) {
-        RACSignal *sectionsSignal = [RACSignal createSignal:^(id<RACSubscriber> subscriber) {
+        RACSignal *sectionsSignal = [[RACSignal createSignal:^(id<RACSubscriber> subscriber) {
 			NSMutableOrderedSet *rootContainer = [NSMutableOrderedSet orderedSet];
 			
 			RACCompoundDisposable *disposable = [RACCompoundDisposable compoundDisposable];
@@ -51,23 +51,21 @@
 				[rootContainer removeObject:section];
 				[subscriber sendNext:rootContainer];
 			}]];
-		
 			
 			[subscriber sendNext:rootContainer];
 			return disposable;
-		}];
+		}] setNameWithFormat:@"All sections"];
 		
-		_visibleSections = [[[[[[sectionsSignal map:^(NSOrderedSet *sections) {
-			return [RACSignal combineLatest:[sections map:^(RFSection *section) {
-				return [section.contentSignal mapReplace:section];
-			}]];
-		}] switchToLatest] map:^(RACTuple *sections) {
-			return [[sections allObjects] filterNot:^(RFSection *section) {
-				return [section isEmpty];
+		_visibleSections = [[[[[sectionsSignal map:^(NSOrderedSet *sections) {
+			NSOrderedSet *fieldSignals = [sections map:^(RFSection *section) {
+				return [[[section contentSignal] filter:^BOOL(NSOrderedSet *fields) {
+					return ![fields isEmpty];
+				}] mapReplace:section];
 			}];
-		}] distinctUntilChanged] map:^(NSArray *array) {
-			return [NSOrderedSet orderedSetWithArray:array];
-		}] replayLast];
+			return [RACSignal combineLatest:fieldSignals];
+		}] switchToLatest] map:^(RACTuple *sections) {
+			return [NSOrderedSet orderedSetWithArray:[sections allObjects]];
+		}] startWith:[NSOrderedSet orderedSet]] replayLast];
     }
     return self;
 }
