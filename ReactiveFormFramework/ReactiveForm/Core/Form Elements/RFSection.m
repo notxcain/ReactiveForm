@@ -25,14 +25,15 @@
 - (id)initWithFormElement:(id<RFFormElement>)formElement
 {
     if (!(self = [super init])) return nil;
+	_fields = [NSOrderedSet orderedSet];
 	
-	_contentSignal = [[[[formElement visibleFields] distinctUntilChanged] map:^(NSArray *fields) {
-        return [NSOrderedSet orderedSetWithArray:fields];
-    }] startWith:[NSOrderedSet orderedSet]];
+	_contentSignal = [[formElement visibleFields] map:^id(id value) {
+        return [NSOrderedSet orderedSetWithArray:value];
+    }];
 	
-    RAC(self, fields) = _contentSignal;
+	RAC(self, fields) = _contentSignal;
 	
-	_changesOfFields = [[_contentSignal combinePreviousWithStart:self.fields reduce:^(id previous, id current) {
+	_changesOfFields = [[_contentSignal  combinePreviousWithStart:[NSOrderedSet orderedSet] reduce:^(id previous, id current) {
 		return RACTuplePack(previous, current);
 	}] filter:^BOOL(RACTuple *tuple) {
 		return ![tuple.first isEqualToOrderedSet:tuple.second];
@@ -43,11 +44,6 @@
 - (BOOL)isEmpty
 {
 	return [self.fields count] == 0;
-}
-
-- (NSOrderedSet *)items
-{
-	return self.fields;
 }
 
 - (NSString *)description

@@ -26,11 +26,12 @@ describe(@"RFSection", ^{
 		
 		it(@"should expose fields send by the form element through fields property", ^{
 			[fieldsSubject sendNext:fields];
+			
 			[[section.fields should] equal:[NSOrderedSet orderedSetWithArray:fields]];
 		});
 		it(@"should send a tuple of a previous and current fields", ^{
 			__block RACTuple *tuple = nil;
-			[[[section changesOfFields] logNext] subscribeNext:^(id x) {
+			[[section changesOfFields] subscribeNext:^(id x) {
 				tuple = x;
 			}];
 			
