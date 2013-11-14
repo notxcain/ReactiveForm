@@ -10,6 +10,10 @@
 @class RACSignal;
 @interface RFFormContentProvider : NSObject
 + (instancetype)contentProvider;
+
+/// Subclasses should override this methods and
+/// return a signal sending NSOrderedSet of RFSection.
+/// The semantics of this signal should be similar to RACObserve(obj, property) i.e. it should send current value immediatly to each subscriber.
 - (RACSignal *)visibleSections;
 @end
 

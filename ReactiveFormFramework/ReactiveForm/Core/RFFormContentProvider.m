@@ -9,7 +9,7 @@
 #import "RFFormContentProvider.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import "RFCollectionOperations.h"
-
+#import <ReactiveCocoa/RACEXTScope.h>
 #import "RFSection.h"
 #import "RFDefines.h"
 
@@ -28,44 +28,45 @@
 @end
 
 @interface RFMutableFormContentProvider ()
+
 @end
 
 @implementation RFMutableFormContentProvider
+
 - (id)init
 {
     self = [super init];
     if (self) {
-        RACSignal *sectionsSignal = [[RACSignal createSignal:^(id<RACSubscriber> subscriber) {
-			NSMutableOrderedSet *rootContainer = [NSMutableOrderedSet orderedSet];
-			
+		@weakify(self);
+
+        RACSignal *currentSections = [RACSignal createSignal:^(id<RACSubscriber> subscriber) {
+            NSMutableOrderedSet *sections = [NSMutableOrderedSet orderedSet];
+			@strongify(self);
 			RACCompoundDisposable *disposable = [RACCompoundDisposable compoundDisposable];
-			
 			[disposable addDisposable:[[self rac_signalForSelector:@selector(addSection:)] subscribeNext:^(RACTuple *args) {
-				RFSection *section = args.first;
-				[rootContainer addObject:section];
-				[subscriber sendNext:rootContainer];
+				[sections addObject:args.first];
+				[subscriber sendNext:sections];
 			}]];
-			
 			[disposable addDisposable:[[self rac_signalForSelector:@selector(removeSection:)] subscribeNext:^(RACTuple *args) {
-				RFSection *section = args.first;
-				[rootContainer removeObject:section];
-				[subscriber sendNext:rootContainer];
+				[sections removeObject:args.first];
+				[subscriber sendNext:sections];
 			}]];
-			
-			[subscriber sendNext:rootContainer];
+			[subscriber sendNext:sections];
 			return disposable;
-		}] setNameWithFormat:@"All sections"];
+		}];
 		
-		_visibleSections = [[[[[sectionsSignal map:^(NSOrderedSet *sections) {
-			NSOrderedSet *fieldSignals = [sections map:^(RFSection *section) {
-				return [[[section contentSignal] filter:^BOOL(NSOrderedSet *fields) {
-					return ![fields isEmpty];
-				}] mapReplace:section];
+		RACSignal *visibleSections = [[[currentSections map:^(NSOrderedSet *sections) {
+            if ([sections isEmpty]) return [RACSignal return:[NSOrderedSet orderedSet]];
+            
+			return [[RACSignal combineLatest:[sections map:^(RFSection *section) {
+				@strongify(self);
+				return [RACObserve(section, fields) mapReplace:section];
+			}]] map:^(RACTuple *sections) {
+				return [NSOrderedSet orderedSetWithArray:[[sections allObjects] filterNotEmpty]];
 			}];
-			return [RACSignal combineLatest:fieldSignals];
-		}] switchToLatest] map:^(RACTuple *sections) {
-			return [NSOrderedSet orderedSetWithArray:[sections allObjects]];
-		}] startWith:[NSOrderedSet orderedSet]] replayLast];
+		}] switchToLatest] replayLast];
+		
+		_visibleSections = visibleSections;
     }
     return self;
 }
@@ -76,13 +77,7 @@
 	return section;
 }
 
-- (void)addSection:(RFSection *)section
-{
-	
-}
+- (void)addSection:(RFSection *)section{}
 
-- (void)removeSection:(id)section
-{
-	
-}
+- (void)removeSection:(id)section{}
 @end
