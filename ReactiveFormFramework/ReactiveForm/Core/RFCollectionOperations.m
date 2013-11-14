@@ -35,11 +35,27 @@
 	return [result copy];
 }
 
+- (instancetype)flattenMapWithIndex:(id (^)(id, NSUInteger))mapBlock
+{
+    NSMutableArray *result = [NSMutableArray array];
+	[self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		[result addObject:mapBlock(obj, idx)];
+	}];
+    return [result flatten];
+}
+
 - (instancetype)filterNot:(BOOL (^)(id))filterBlock
 {
 	return [self filter:^BOOL(id x) {
 		return !filterBlock(x);
 	}];
+}
+
+- (instancetype)filterNotEmpty
+{
+    return [self filterNot:^BOOL(id x) {
+        return [x isEmpty];
+    }];
 }
 
 - (void)each:(void (^)(id))each
