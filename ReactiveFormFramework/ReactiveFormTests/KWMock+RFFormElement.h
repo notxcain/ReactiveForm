@@ -11,4 +11,5 @@
 @protocol RFFormElement;
 @interface KWMock (RFFormElement)
 + (id <RFFormElement>)mockFormElementWithSignal:(RACSignal *)signal;
++ (id <RFFormElement>)mockFormElementWithElements:(NSArray *)elements;
 @end

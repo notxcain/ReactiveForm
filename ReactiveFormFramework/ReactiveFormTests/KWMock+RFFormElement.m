@@ -18,4 +18,9 @@
     [mock stub:@selector(visibleFields) andReturn:signal];
     return (id<RFFormElement>)mock;
 }
+
++ (id<RFFormElement>)mockFormElementWithElements:(NSArray *)elements
+{
+	return [self mockFormElementWithSignal:[RACSignal return:elements]];
+}
 @end
