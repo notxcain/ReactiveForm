@@ -6,11 +6,11 @@
 //  Copyright (c) 2013 Denis Mikhaylov. All rights reserved.
 //
 
-#import "RFSignalContainer.h"
+#import "RFSwitch.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
 
-@interface RFSignalContainer ()
+@interface RFSwitch ()
 @property (nonatomic, strong) id <RFFormElement> activeFormElement;
 @property (nonatomic, strong) RACSignal *signal;
 @property (nonatomic, strong) id lastSignalValue;
@@ -25,11 +25,11 @@
 - (BOOL)containsValue:(id)value;
 @end
 
-@implementation RFSignalContainer
+@implementation RFSwitch
 
 + (instancetype)containerWithSignal:(RACSignal *)signal routes:(NSArray *)cases
 {
-    RFSignalContainer *container = [[self alloc] initWithSignal:signal];
+    RFSwitch *container = [[self alloc] initWithSignal:signal];
     [container addRoutesFromArray:cases];
     return container;
 }
@@ -121,8 +121,8 @@
 @end
 
 @implementation RACSignal (SignalContainer)
-- (RFSignalContainer *)elementWithRoutes:(NSArray *)routes
+- (RFSwitch *)elementWithRoutes:(NSArray *)routes
 {
-    return [RFSignalContainer containerWithSignal:self routes:routes];
+    return [RFSwitch containerWithSignal:self routes:routes];
 }
 @end

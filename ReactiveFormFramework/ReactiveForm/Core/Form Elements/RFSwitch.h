@@ -13,7 +13,7 @@
 @class RACSignal;
 @class RFRoute;
 
-@interface RFSignalContainer : NSObject <RFFormElement>
+@interface RFSwitch : NSObject <RFFormElement>
 + (instancetype)containerWithSignal:(RACSignal *)signal routes:(NSArray *)routes;
 
 - (id)initWithSignal:(RACSignal *)signal;
@@ -25,5 +25,5 @@
 @end
 
 @interface RACSignal (SignalContainer)
-- (RFSignalContainer *)elementWithRoutes:(NSArray *)routes;
+- (RFSwitch *)elementWithRoutes:(NSArray *)routes;
 @end

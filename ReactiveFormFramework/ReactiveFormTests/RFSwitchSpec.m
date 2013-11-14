@@ -7,34 +7,34 @@
 //
 
 #import "Kiwi.h"
-#import "RFSignalContainer.h"
+#import "RFSwitch.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
 #import "KWMock+RFFormElement.h"
 #import "RFField.h"
 
-SPEC_BEGIN(RFSignalContainerSpec)
+SPEC_BEGIN(RFSwitchSpec)
 describe(@"Signal container", ^{
-    __block RFSignalContainer *container = nil;
+    __block RFSwitch *switchElement = nil;
     context(@"when created with signal", ^{
         __block RACSubject *subject = nil;
         
         beforeEach(^{
             subject = [RACSubject subject];
-            container = [RFSignalContainer containerWithSignal:subject routes:nil];
+            switchElement = [RFSwitch containerWithSignal:subject routes:nil];
         });
         
         it(@"should route to the visibleElements signal of element based in signal", ^{
             __block NSArray *fields = nil;
-            [[container visibleFields] subscribeNext:^(NSArray *x) {
+            [[switchElement visibleFields] subscribeNext:^(NSArray *x) {
                 fields = x;
             }];
             
             id<RFFormElement> element1 = [RFField fieldWithName:@"f" title:@"f"];
-            [container setFormElement:element1 forSignalValue:@1];
+            [switchElement setFormElement:element1 forSignalValue:@1];
             
             id<RFFormElement> element2 = [RFField fieldWithName:@"a" title:@"a"];
-            [container setFormElement:element2 forSignalValue:@2];
+            [switchElement setFormElement:element2 forSignalValue:@2];
             
             [subject sendNext:@1];
             
