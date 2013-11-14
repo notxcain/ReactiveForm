@@ -10,7 +10,7 @@
 #import <Kiwi/Kiwi.h>
 #import "NSOrderedSet+RFInsertedDeleted.h"
 
-SPEC_BEGIN(KiwiSpec)
+SPEC_BEGIN(RFOrderedSetChangesSpec)
 describe(@"RFOrderedSetChangesSpec", ^{
 	context(@"when objects are added", ^{
 		it(@"works", ^{
@@ -39,6 +39,7 @@ describe(@"RFOrderedSetChangesSpec", ^{
 			NSArray *oldArray = @[@"account", @"date", @"phoneNumber", @"country"];
 			NSArray *newArray = @[@"account", @"address", @"country", @"phoneNumber", @"name"];
 			id diff = [[NSOrderedSet orderedSetWithArray:newArray] differenceWithOrderedSet:[NSOrderedSet orderedSetWithArray:oldArray]];
+			
 			NSDictionary *addedObjects = [diff insertedObjects];
 			[[addedObjects shouldNot] beEmpty];
 			[[addedObjects should] equal:@{@1 : @"address", @4 : @"name"}];
