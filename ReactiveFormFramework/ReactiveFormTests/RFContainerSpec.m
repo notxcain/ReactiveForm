@@ -33,15 +33,8 @@ describe(@"Container", ^{
            });
            
            it(@"should send signal when changed", ^{
-                __block NSArray *fields = nil;
-               
-              [container addElement:mockElement];
-               
-               [[container visibleFields] subscribeNext:^(id x) {
-                   fields = x;
-               }];
-               
-               [[theValue([fields containsObject:mockElement]) should] beTrue];
+			   [container addElement:mockElement];
+			   [[[[container visibleFields] first] should] containObjects:mockElement, nil];
            });
            
            it(@"should propagate visible elements signal", ^{

@@ -44,6 +44,7 @@
 		F09508AA1830CE3A00648C79 /* NSOrderedSet+RFInsertedDeleted.m in Sources */ = {isa = PBXBuildFile; fileRef = F09508A91830CE3A00648C79 /* NSOrderedSet+RFInsertedDeleted.m */; };
 		F09508AD18310C5200648C79 /* RFCollectionOperations.m in Sources */ = {isa = PBXBuildFile; fileRef = F09508AC18310C5200648C79 /* RFCollectionOperations.m */; };
 		F09508B01833C0E100648C79 /* RFFormContentProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = F09508AF1833C0E100648C79 /* RFFormContentProvider.m */; };
+		F09508B51833DB7200648C79 /* RFMutableFormContentProviderSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F09508B41833DB7200648C79 /* RFMutableFormContentProviderSpec.m */; };
 		FADB8193E94848739BE5390C /* libPods-ReactiveFormTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FF6C90513EB4582870CAFF0 /* libPods-ReactiveFormTests.a */; };
 /* End PBXBuildFile section */
 
@@ -138,6 +139,7 @@
 		F09508AC18310C5200648C79 /* RFCollectionOperations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFCollectionOperations.m; sourceTree = "<group>"; };
 		F09508AE1833C0E100648C79 /* RFFormContentProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFFormContentProvider.h; sourceTree = "<group>"; };
 		F09508AF1833C0E100648C79 /* RFFormContentProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFFormContentProvider.m; sourceTree = "<group>"; };
+		F09508B41833DB7200648C79 /* RFMutableFormContentProviderSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFMutableFormContentProviderSpec.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,6 +231,7 @@
 				F0322407182D14C800E7EA41 /* RFSignalContainerSpec.m */,
 				F03223DF1823AF0400E7EA41 /* RFValidatorSpec.m */,
 				F03223FF1828F27700E7EA41 /* RFFormPresentationSpec.m */,
+				F09508B41833DB7200648C79 /* RFMutableFormContentProviderSpec.m */,
 				92EB195C182BBDCC003E8561 /* RFFormSpec.m */,
 				F0322376182396A900E7EA41 /* Supporting Files */,
 			);
@@ -521,6 +524,7 @@
 				F0322409182D14C800E7EA41 /* RFContainerSpec.m in Sources */,
 				F032240C182D14C800E7EA41 /* RFSectionSpec.m in Sources */,
 				F032237C182396A900E7EA41 /* RFOrderedSetChangesSpec.m in Sources */,
+				F09508B51833DB7200648C79 /* RFMutableFormContentProviderSpec.m in Sources */,
 				F032240A182D14C800E7EA41 /* RFMaskSpec.m in Sources */,
 				F032240D182D14C800E7EA41 /* RFSignalContainerSpec.m in Sources */,
 				F03223E01823AF0400E7EA41 /* RFValidatorSpec.m in Sources */,
