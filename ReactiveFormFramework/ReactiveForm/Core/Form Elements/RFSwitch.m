@@ -23,6 +23,16 @@
 
 @implementation RFSwitch
 
++ (instancetype)switchWithBooleanSignal:(RACSignal *)signal then:(id <RFFormElement>)thenElement
+{
+	return [self switchWithControlSignal:signal routes:[NSSet setWithObjects:[@YES then:thenElement], nil]];
+}
+
++ (instancetype)switchWithBooleanSignal:(RACSignal *)signal then:(id <RFFormElement>)thenElement else:(id <RFFormElement>)elseElement
+{
+	return [self switchWithControlSignal:signal routes:[NSSet setWithObjects:[@YES then:thenElement], [@NO then:elseElement], nil]];
+}
+
 + (instancetype)switchWithControlSignal:(RACSignal *)signal routes:(NSSet *)routes
 {
     RFSwitch *container = [[self alloc] initWithControlSignal:signal routes:routes];

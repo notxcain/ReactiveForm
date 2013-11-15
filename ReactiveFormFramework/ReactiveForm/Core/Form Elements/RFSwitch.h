@@ -13,6 +13,8 @@
 @class RACSignal;
 @class RFRoute;
 @interface RFSwitch : NSObject <RFFormElement>
++ (instancetype)switchWithBooleanSignal:(RACSignal *)signal then:(id <RFFormElement>)thenElement;
++ (instancetype)switchWithBooleanSignal:(RACSignal *)signal then:(id <RFFormElement>)thenElement else:(id <RFFormElement>)elseElement;
 + (instancetype)switchWithControlSignal:(RACSignal *)signal routes:(NSSet *)routes;
 - (id)initWithControlSignal:(RACSignal *)signal routes:(NSSet *)routes;
 @end
