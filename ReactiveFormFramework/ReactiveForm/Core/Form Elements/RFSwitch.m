@@ -11,10 +11,6 @@
 #import <ReactiveCocoa/RACEXTScope.h>
 
 @interface RFSwitch ()
-@property (nonatomic, strong) id <RFFormElement> activeFormElement;
-@property (nonatomic, strong) RACSignal *signal;
-@property (nonatomic, strong) id lastSignalValue;
-@property (nonatomic, strong, readonly) NSMutableSet *routes;
 @property (nonatomic, strong) RACSignal *visibleFields;
 @end
 
@@ -27,71 +23,25 @@
 
 @implementation RFSwitch
 
-+ (instancetype)containerWithSignal:(RACSignal *)signal routes:(NSArray *)cases
++ (instancetype)switchWithControlSignal:(RACSignal *)signal routes:(NSSet *)routes
 {
-    RFSwitch *container = [[self alloc] initWithSignal:signal];
-    [container addRoutesFromArray:cases];
+    RFSwitch *container = [[self alloc] initWithControlSignal:signal routes:routes];
     return container;
 }
 
-- (id)initWithSignal:(RACSignal *)signal
+- (id)initWithControlSignal:(RACSignal *)signal routes:(NSSet *)routes
 {
     self = [super init];
     if (self) {
-        _signal = [signal distinctUntilChanged];
-        _routes = [NSMutableSet set];
-        
-        @weakify(self);
-        _visibleFields = [[[[[RACSignal combineLatest:@[_signal, RACObserve(self, routes)] reduce:^(id value, id _) {
-            @strongify(self);
-            return [self formElementForSignalValue:value];
-        }] distinctUntilChanged] map:^(id <RFFormElement> formElement) {
-            return formElement ? [formElement visibleFields] : [RACSignal return:[NSArray array]];
+        _visibleFields = [[[[signal distinctUntilChanged] map:^(id value) {
+            for (RFSignalContainerRoute *route in routes) {
+                if ([route containsValue:value]) return [route.formElement visibleFields];
+            }
+            return [RACSignal return:[NSArray array]];
         }] switchToLatest] startWith:[NSArray array]];
         
     }
     return self;
-}
-
-- (void)setFormElement:(id<RFFormElement>)formElement forSignalValue:(id)value
-{
-    [self changeRoutesWithBlock:^(NSMutableSet *routes) {
-        RFSignalContainerRoute *route = [self routeForSignalValue:value];
-        if (!route) {
-            route = [RFSignalContainerRoute routeWithSignalValue:value];
-            [routes addObject:route];
-        }
-        route.formElement = formElement;
-    }];
-}
-
-- (void)addRoutesFromArray:(NSArray *)array
-{
-    [self changeRoutesWithBlock:^(NSMutableSet *routes) {
-        [self.routes addObjectsFromArray:array];
-    }];
-}
-
-- (void)changeRoutesWithBlock:(void (^)(NSMutableSet *routes))block
-{
-    @synchronized(self) {
-        [self willChangeValueForKey:@keypath(self.routes)];
-        block(self.routes);
-        [self didChangeValueForKey:@keypath(self.routes)];
-    }
-}
-
-- (id <RFFormElement>)formElementForSignalValue:(id)value
-{
-    return [self routeForSignalValue:value].formElement;
-}
-
-- (RFSignalContainerRoute *)routeForSignalValue:(id)value
-{
-    for (RFSignalContainerRoute *route in self.routes) {
-        if ([route containsValue:value]) return route;
-    }
-    return nil;
 }
 @end
 
@@ -121,8 +71,8 @@
 @end
 
 @implementation RACSignal (SignalContainer)
-- (RFSwitch *)elementWithRoutes:(NSArray *)routes
+- (RFSwitch *)switchWithRoutes:(NSSet *)routes
 {
-    return [RFSwitch containerWithSignal:self routes:routes];
+    return [RFSwitch switchWithControlSignal:self routes:routes];
 }
 @end

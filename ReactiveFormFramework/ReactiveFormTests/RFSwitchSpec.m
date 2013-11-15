@@ -12,29 +12,29 @@
 #import <ReactiveCocoa/RACEXTScope.h>
 #import "KWMock+RFFormElement.h"
 #import "RFField.h"
+#import "RFField.h"
+#import "RFContainer.h"
+#import "RFCollectionOperations.h"
 
 SPEC_BEGIN(RFSwitchSpec)
 describe(@"Signal container", ^{
     __block RFSwitch *switchElement = nil;
-    context(@"when created with signal", ^{
+    context(@"when created with control signal and routes", ^{
         __block RACSubject *subject = nil;
-        
+        id<RFFormElement> element1 = [RFField fieldWithName:@"f" title:@"f"];
+        id<RFFormElement> element2 = [RFField fieldWithName:@"a" title:@"a"];
+        NSSet *routes = [NSSet setWithArray:@[[@1 then:element1], [@2 then:element2]]];
         beforeEach(^{
             subject = [RACSubject subject];
-            switchElement = [RFSwitch containerWithSignal:subject routes:nil];
+            switchElement = [[RFSwitch alloc] initWithControlSignal:subject routes:routes];
         });
         
-        it(@"should route to the visibleElements signal of element based in signal", ^{
+        it(@"should route to the visibleElements signal of element based in control signal next value", ^{
             __block NSArray *fields = nil;
             [[switchElement visibleFields] subscribeNext:^(NSArray *x) {
                 fields = x;
             }];
-            
-            id<RFFormElement> element1 = [RFField fieldWithName:@"f" title:@"f"];
-            [switchElement setFormElement:element1 forSignalValue:@1];
-            
-            id<RFFormElement> element2 = [RFField fieldWithName:@"a" title:@"a"];
-            [switchElement setFormElement:element2 forSignalValue:@2];
+            [[fields should] beEmpty];
             
             [subject sendNext:@1];
             
@@ -43,6 +43,10 @@ describe(@"Signal container", ^{
             [subject sendNext:@2];
             
             [[fields should] equal:@[element2]];
+            
+            [subject sendNext:@1];
+            
+            [[fields should] equal:@[element1]];
             
             [subject sendNext:nil];
             
