@@ -44,7 +44,7 @@
         @weakify(self);
         _visibleFields = [RACSignal defer:^{
 			@strongify(self);
-			return [RACSignal return:@[self]];
+			return [[RACSignal return:@[self]] replayLast];
 		}];
     }
     return self;
