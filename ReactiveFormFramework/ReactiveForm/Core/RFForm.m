@@ -108,7 +108,6 @@ NSDictionary *RFChangesDictionaryWithSectionDiff(NSOrderedSet *previousItems, NS
 - (void)notifyObserver:(id <RFFormObserver>)observer withChangesDictionary:(NSDictionary *)changes
 {
 	if ([observer respondsToSelector:@selector(formWillChangeContent:)]) {
-		NSLog(@"Form will change content");
 		[observer formWillChangeContent:self];
 	}
 	

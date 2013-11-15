@@ -70,7 +70,6 @@ describe(@"Mutable form content provider", ^{
 
 			__block NSOrderedSet *visibleSections = nil;
 			[[contentProvider visibleSections] subscribeNext:^(id x) {
-				NSLog(@"Visible sections %@", x);
 				visibleSections = x;
 			}];
 			RFContainer *container1 = [RFContainer container];

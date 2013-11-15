@@ -26,7 +26,10 @@
 
 - (void)viewDidLoad
 {
-	RAC(self.textField, value) = [self.view.textField rac_newTextChannel];
+	[[self.view.textField rac_newTextChannel] subscribeNext:^(id x) {
+		self.textField.value = x;
+	}];
+	RAC(self.view.textLabel, text) = RACObserve(self.textField, title);
 }
 @end
 
@@ -45,6 +48,7 @@
 - (void)layoutSubviews
 {
 	[super layoutSubviews];
-	self.textField.frame = CGRectInset(self.contentView.bounds, 5.0f, 5.0f);
+	self.textLabel.frame = CGRectMake(5.0f, 5.0f, 50.0f, self.contentView.bounds.size.height - 10.0f);
+	self.textField.frame = CGRectMake(CGRectGetMaxX(self.textLabel.frame) + 5.0f, 5.0f, self.contentView.bounds.size.width - (CGRectGetMaxX(self.textLabel.frame) + 5.0f) - 5.0f, self.contentView.bounds.size.height - 10.0f);
 }
 @end

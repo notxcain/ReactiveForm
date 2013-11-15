@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import <ReactiveForm/ReactiveForm.h>
+#import <ReactiveCocoa/ReactiveCocoa.h>
 #import "RFETextFieldController.h"
 
 @interface ViewController ()
@@ -21,12 +22,9 @@
 {
     [super viewDidLoad];
     
-    RFTextField *textField = [RFTextField fieldWithName:@"textField" title:@"title"];
-    RFContainer *container = [RFContainer container];
-    [container addElement:textField];
 
     RFFormPresentation *formPresentation = [RFFormPresentation createWithBlock:^(id<RFFormPresentationBuilder> builder) {
-        [builder addMatcher:[RFTextField class] instantiator:^RFFieldController *(RFField *field) {
+        [builder addMatcher:[RFTextField class] instantiator:^(RFTextField *field) {
 			RFETextFieldController *controller = [[RFETextFieldController alloc] init];
 			controller.textField = field;
             return controller;
@@ -34,6 +32,16 @@
     }];
     
 	RFMutableFormContentProvider *provider = [RFMutableFormContentProvider contentProvider];
+	RFTextField *textField = [RFTextField fieldWithName:@"textField" title:@"Title"];
+    RFContainer *container = [RFContainer container];
+    [container addElement:textField];
+	[container addElement:[RFSwitch
+						   switchWithBooleanSignal:[RACObserve(textField, value)
+													map:^(id value) {
+														return @([value length] > 3);
+													}]
+						   then:[RFTextField fieldWithName:@"test" title:@"test"]
+						   else:[RFContainer container]]];
 	[provider addSectionWithElement:container];
 	
     RFForm *form = [RFForm formWithFormContentProvider:provider];
@@ -43,6 +51,7 @@
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
     self.tableView.dataSource = self.dataSourceModel;
     self.tableView.tableFooterView = [[UIView alloc] init];
+	_dataSourceModel.tableView = self.tableView;
 	
     [self.view addSubview:self.tableView];
 }
