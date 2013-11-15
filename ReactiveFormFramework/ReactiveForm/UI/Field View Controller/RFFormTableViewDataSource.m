@@ -9,7 +9,7 @@
 #import "RFFormTableViewDataSource.h"
 #import "RFFormPresentation.h"
 #import "RFForm.h"
-#import "RFFieldViewController.h"
+#import "RFFieldController.h"
 
 @interface RFFormTableViewDataSource () <RFFormObserver, UITableViewDelegate>
 @property (nonatomic, strong, readonly) RFFormPresentation *presentation;

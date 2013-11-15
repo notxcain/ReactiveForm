@@ -8,7 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import <Kiwi/Kiwi.h>
-#import "NSOrderedSet+RFInsertedDeleted.h"
+#import "NSOrderedSet+Diff.h"
 
 SPEC_BEGIN(RFOrderedSetChangesSpec)
 describe(@"RFOrderedSetChangesSpec", ^{

@@ -8,7 +8,7 @@
 
 #import <Kiwi/Kiwi.h>
 #import "RFFormPresentation.h"
-#import "RFFieldViewController.h"
+#import "RFFieldController.h"
 #import "RFField.h"
 #import "RFTextField.h"
 
