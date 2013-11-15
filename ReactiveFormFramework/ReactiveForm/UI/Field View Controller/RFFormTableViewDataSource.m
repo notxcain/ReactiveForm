@@ -23,8 +23,7 @@
     self = [super init];
     if (self) {
         _form = form;
-		[_form addFormObserver:self];
-		
+		[self.form addFormObserver:self];
 		_presentation = presentation;
 		
 		_fieldControllerCache = [[NSCache alloc] init];
@@ -60,20 +59,22 @@
 	return result;
 }
 
-- (void)setTableView:(UITableView *)tableView
-{
-	if (_tableView == tableView) return;
-	
-	if (_tableView == nil) {
-		[self.form addFormObserver:self];
-	}
-	
-	_tableView = tableView;
-	
-	if (_tableView == nil) {
-		[self.form removeFormObserver:self];
-	}
-}
+//- (void)setTableView:(UITableView *)tableView
+//{
+//	if (_tableView == tableView) return;
+//
+//	if (tableView == nil && _tableView != nil) {
+//		[self.form removeFormObserver:self];
+//	}
+//	
+//	if (_tableView == nil && tableView) {
+//		[self.form addFormObserver:self];
+//	}
+//	
+//	_tableView = tableView;
+//	
+//
+//}
 
 - (void)formWillChangeContent:(RFForm *)form
 {
