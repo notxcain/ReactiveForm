@@ -17,7 +17,7 @@ typedef BOOL(^RFValidationBlock)(id value, NSError *__autoreleasing*error);
 @interface RFValidator : NSObject <RFValidator>
 + (instancetype)validatorWithBlock:(RFValidationBlock)block;
 + (instancetype)successfulValidator;
-+ (instancetype)validatorWithRegularExpression:(NSRegularExpression *)regularExpression;
++ (instancetype)validatorWithRegularExpression:(NSRegularExpression *)regularExpression failureError:(NSError *)failureError;
 @end
 
 @interface NSRegularExpression (RFValidator)

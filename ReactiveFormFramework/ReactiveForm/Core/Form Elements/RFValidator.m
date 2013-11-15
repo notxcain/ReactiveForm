@@ -34,7 +34,7 @@
 @implementation NSRegularExpression (RFValidator)
 - (id<RFValidator>)validatorWithFailureError:(NSError *)failureError
 {
-	return [RFValidator validatorWithRegularExpression:self];
+	return [RFValidator validatorWithRegularExpression:self failureError:failureError];
 }
 @end
 
@@ -69,7 +69,7 @@
     }];
 }
 
-- (RACSignal *)validateValue:(id)value
+- (BOOL)validateValue:(id)value error:(out NSError *__autoreleasing *)error
 {
     RFAssertShouldBeOverriden();
     return NO;
