@@ -31,7 +31,7 @@
 		F03223D91823A3C900E7EA41 /* RFForm.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223BF1823A3C900E7EA41 /* RFForm.m */; };
 		F03223DE1823A5AE00E7EA41 /* RFMaskComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223DD1823A5AE00E7EA41 /* RFMaskComponent.m */; };
 		F03223E01823AF0400E7EA41 /* RFValidatorSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223DF1823AF0400E7EA41 /* RFValidatorSpec.m */; };
-		F03223EF1823B5BE00E7EA41 /* RFFieldViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223E81823B5BE00E7EA41 /* RFFieldViewController.m */; };
+		F03223EF1823B5BE00E7EA41 /* RFFieldController.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223E81823B5BE00E7EA41 /* RFFieldController.m */; };
 		F03223F61828AE8200E7EA41 /* RFFormTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223F51828AE8200E7EA41 /* RFFormTableViewDataSource.m */; };
 		F03223FB1828BD4000E7EA41 /* RFFieldMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223FA1828BD4000E7EA41 /* RFFieldMatcher.m */; };
 		F03224001828F27700E7EA41 /* RFFormPresentationSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223FF1828F27700E7EA41 /* RFFormPresentationSpec.m */; };
@@ -117,8 +117,8 @@
 		F03223BF1823A3C900E7EA41 /* RFForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFForm.m; sourceTree = "<group>"; };
 		F03223DD1823A5AE00E7EA41 /* RFMaskComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFMaskComponent.m; sourceTree = "<group>"; };
 		F03223DF1823AF0400E7EA41 /* RFValidatorSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFValidatorSpec.m; sourceTree = "<group>"; };
-		F03223E71823B5BE00E7EA41 /* RFFieldViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFFieldViewController.h; sourceTree = "<group>"; };
-		F03223E81823B5BE00E7EA41 /* RFFieldViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFFieldViewController.m; sourceTree = "<group>"; };
+		F03223E71823B5BE00E7EA41 /* RFFieldController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFFieldController.h; sourceTree = "<group>"; };
+		F03223E81823B5BE00E7EA41 /* RFFieldController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFFieldController.m; sourceTree = "<group>"; };
 		F03223F41828AE8200E7EA41 /* RFFormTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFFormTableViewDataSource.h; sourceTree = "<group>"; };
 		F03223F51828AE8200E7EA41 /* RFFormTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFFormTableViewDataSource.m; sourceTree = "<group>"; };
 		F03223F91828BD4000E7EA41 /* RFFieldMatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFFieldMatcher.h; sourceTree = "<group>"; };
@@ -335,8 +335,8 @@
 				F03223FA1828BD4000E7EA41 /* RFFieldMatcher.m */,
 				F03223F41828AE8200E7EA41 /* RFFormTableViewDataSource.h */,
 				F03223F51828AE8200E7EA41 /* RFFormTableViewDataSource.m */,
-				F03223E71823B5BE00E7EA41 /* RFFieldViewController.h */,
-				F03223E81823B5BE00E7EA41 /* RFFieldViewController.m */,
+				F03223E71823B5BE00E7EA41 /* RFFieldController.h */,
+				F03223E81823B5BE00E7EA41 /* RFFieldController.m */,
 			);
 			path = "Field View Controller";
 			sourceTree = "<group>";
@@ -498,7 +498,7 @@
 				F03223CB1823A3C900E7EA41 /* RFMask.m in Sources */,
 				F03223D11823A3C900E7EA41 /* RFTextField.m in Sources */,
 				688BD9671823C12300D585F0 /* RFFormPresentation.m in Sources */,
-				F03223EF1823B5BE00E7EA41 /* RFFieldViewController.m in Sources */,
+				F03223EF1823B5BE00E7EA41 /* RFFieldController.m in Sources */,
 				F03223F61828AE8200E7EA41 /* RFFormTableViewDataSource.m in Sources */,
 				F03223CE1823A3C900E7EA41 /* RFChoice.m in Sources */,
 				F03223D01823A3C900E7EA41 /* RFField.m in Sources */,

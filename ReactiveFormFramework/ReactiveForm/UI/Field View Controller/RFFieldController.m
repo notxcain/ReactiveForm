@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Denis Mikhaylov. All rights reserved.
 //
 
-#import "RFFieldViewController.h"
+#import "RFFieldController.h"
 
 @interface RFFieldController ()
 
