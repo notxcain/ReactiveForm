@@ -16,7 +16,6 @@
 #import <ReactiveCocoa/RACEXTScope.h>
 #import "RFContainer.h"
 #import <objc/runtime.h>
-#import "RFForm+Private.h"
 #import <ReactiveCocoa/RACEXTKeyPathCoding.h>
 #import "NSOrderedSet+RFInsertedDeleted.h"
 #import "RFCollectionOperations.h"
