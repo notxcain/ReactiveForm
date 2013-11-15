@@ -17,7 +17,7 @@
 #import "RFTextField.h"
 #import "RFChoice.h"
 #import "RFValidator.h"
-#import "RFSignalContainer.h"
+#import "RFSwitch.h"
 #import "RACSignal+RFSignalContainer.h"
 #import "NSObject+RFBlockSetup.h"
 #import "RFFormFieldStyle.h"
