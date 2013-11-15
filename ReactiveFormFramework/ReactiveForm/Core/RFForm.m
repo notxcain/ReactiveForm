@@ -64,43 +64,52 @@ NSDictionary *RFChangesDictionaryWithSectionDiff(NSOrderedSet *previousItems, NS
     self = [super init];
     if (self) {
 		RAC(self, sections) = contentProvider.visibleSections;
-		
-		RACSignal *changes = [[[[contentProvider.visibleSections filter:^BOOL(NSOrderedSet *sections) {
-			return [sections count] != 0;
-		}] combinePreviousWithStart:[NSOrderedSet orderedSet] reduce:^(NSOrderedSet *previousSections, NSOrderedSet *currentSections) {
+		RACSignal *changes = [[[[contentProvider.visibleSections distinctUntilChanged] combinePreviousWithStart:[NSOrderedSet orderedSet] reduce:^(NSOrderedSet *previousSections, NSOrderedSet *currentSections) {
 			return [RACSignal createSignal:^(id<RACSubscriber> subscriber) {
 				[subscriber sendNext:RFChangesDictionaryWithSectionDiff(previousSections, currentSections)];
 				return [[RACSignal merge:[currentSections mapWithIndex:^(RFSection *section, NSUInteger sectionIndex) {
-					return [[section changesOfFields] reduceEach:^(NSOrderedSet *previousFields, NSOrderedSet *currentFields) {
-						return RFChangesDictionary(@{}, @{}, @{@(sectionIndex) : RFChangesDictionaryWithFieldDiff(previousFields, currentFields)});
+					return [[section.currentFields skip:1] combinePreviousWithStart:section.fields reduce:^(id previous, id current) {
+						return RFChangesDictionary(@{}, @{}, @{@(sectionIndex) : RFChangesDictionaryWithFieldDiff(previous, current)});
 					}];
 				}]] subscribe:subscriber];
 			}];
-		}] switchToLatest] replayLast];
-
-		
-		@weakify(self);
-		[[self rac_signalForSelector:@selector(addFormObserver:)] subscribeNext:^(RACTuple *args) {
-			@strongify(self);
-			NSObject <RFFormObserver> *observer = args.first;
-			RACSignal *observerIsRemoved = [[self rac_signalForSelector:@selector(removeObserver:)] filter:^BOOL(RACTuple *removeArgs) {
-				return removeArgs.first == observer;
-			}];
-			
-			RACSignal *observerIsAboutToDealloc = [observer rac_willDeallocSignal];
-			
-			[[[changes takeUntil:observerIsRemoved] takeUntil:observerIsAboutToDealloc] subscribeNext:^(id x) {
-				@strongify(self);
-				[self notifyObserver:observer withChangesDictionary:x];
-			}];
+		}] switchToLatest] filter:^BOOL(id value) {
+			return ![value isEmpty];
 		}];
+		
+		[self setupObservationManagementWithChangesSignal:changes];
     }
     return self;
+}
+
+- (void)setupObservationManagementWithChangesSignal:(RACSignal *)changes
+{
+	RACSignal *newObserver = [[self rac_signalForSelector:@selector(addFormObserver:)] map:^(RACTuple *args) {
+		return args.first;
+	}];
+	RACSignal *removedObserver = [[self rac_signalForSelector:@selector(removeObserver:)] map:^(RACTuple *args) {
+		return args.first;
+	}];
+	@weakify(self);
+	[newObserver subscribeNext:^(id observer) {
+		NSCParameterAssert([observer conformsToProtocol:@protocol(RFFormObserver)]);
+		@strongify(self);
+		RACSignal *observerIsRemoved = [removedObserver filter:^BOOL(id x) {
+			return x == observer;
+		}];
+		RACSignal *observerIsAboutToDealloc = [observer rac_willDeallocSignal];
+		[[[changes takeUntil:observerIsRemoved] takeUntil:observerIsAboutToDealloc] subscribeNext:^(id x) {
+			@strongify(self);
+			NSLog(@"%@", x);
+			[self notifyObserver:observer withChangesDictionary:x];
+		}];
+	}];
 }
 
 - (void)notifyObserver:(id <RFFormObserver>)observer withChangesDictionary:(NSDictionary *)changes
 {
 	if ([observer respondsToSelector:@selector(formWillChangeContent:)]) {
+		NSLog(@"Form will change content");
 		[observer formWillChangeContent:self];
 	}
 	
@@ -167,6 +176,37 @@ NSDictionary *RFChangesDictionaryWithSectionDiff(NSOrderedSet *previousItems, NS
 - (NSUInteger)numberOfFieldsInSection:(NSUInteger)section
 {
 	return [[self visibleSectionAtIndex:section].fields count];
+}
+
+- (RFField *)fieldBeforeField:(RFField *)field
+{
+    return [self fieldAtIndexPath:[self indexPathBeforeIndexPath:[self indexPathForField:field]]];;
+}
+
+- (RFField *)fieldAfterField:(RFField *)field
+{
+    return [self fieldAtIndexPath:[self indexPathAfterIndexPath:[self indexPathForField:field]]];
+}
+
+- (NSIndexPath *)indexPathBeforeIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row > 0) {
+        return [NSIndexPath indexPathForRow:indexPath.row - 1 inSection:indexPath.section];
+    } else if (indexPath.section > 0) {
+        NSUInteger previousSection = indexPath.section - 1;
+        return [NSIndexPath indexPathForRow:[self numberOfFieldsInSection:previousSection] - 1 inSection:previousSection];
+    }
+    return nil;
+}
+
+- (NSIndexPath *)indexPathAfterIndexPath:(NSIndexPath *)indexPath
+{
+	if (indexPath.row + 1 < [self numberOfFieldsInSection:indexPath.section]) {
+        return [NSIndexPath indexPathForRow:indexPath.row + 1 inSection:indexPath.section];
+    } else if (indexPath.section + 1 < [self numberOfSections]) {
+        return [NSIndexPath indexPathForRow:0 inSection:indexPath.section + 1];
+    }
+    return nil;
 }
 
 - (NSString *)description

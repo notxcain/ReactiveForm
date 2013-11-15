@@ -15,26 +15,32 @@
 #import "KWMock+RFFormElement.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
-@interface RFFormObserverMock : NSObject <RFFormObserver>
+@interface RFMockFormObserver : KWMock <RFFormObserver>
 @end
 
 SPEC_BEGIN(RFFormSpec)
 describe(@"Form", ^{
-   context(@"when created", ^{
-       it(@"should return element added in builder", ^{
-		   RFField *field1 = [RFField fieldWithName:@"field1" title:@"Field 1"];
-		   RFField *field2 = [RFField fieldWithName:@"field2" title:@"Field 2"];
-		   RFField *field3 = [RFField fieldWithName:@"field3" title:@"Field 3"];
-		   RFField *field4 = [RFField fieldWithName:@"field4" title:@"Field 4"];
-		   RFMutableFormContentProvider *contentProvider = [[RFMutableFormContentProvider alloc] init];
-		   RFForm *form = [RFForm formWithFormContentProvider:contentProvider];
-		   [form addFormObserver:[RFFormObserverMock new]];
-		   RFContainer *container = [RFContainer container];
-		   
-		   [contentProvider addSectionWithElement:container];
+   context(@"when created with content provider", ^{
+	   RFField *field1 = [RFField fieldWithName:@"field1" title:@"Field 1"];
+	   RFField *field2 = [RFField fieldWithName:@"field2" title:@"Field 2"];
+	   RFField *field3 = [RFField fieldWithName:@"field3" title:@"Field 3"];
+	   RFField *field4 = [RFField fieldWithName:@"field4" title:@"Field 4"];
+	   __block RFContainer *container = nil;
+	   __block RFForm *form = nil;
+	   __block RFMutableFormContentProvider *contentProvider = nil;
+	   beforeEach(^{
+		   contentProvider = [RFMutableFormContentProvider contentProvider];
+		   form = [RFForm formWithFormContentProvider:contentProvider];
+		   container = [RFContainer container];
+	   });
+	   
+       it(@"should mutate along with the content provider", ^{
+		   id section = [contentProvider addSectionWithElement:container];
 		   [[theValue([form numberOfSections]) should] equal:theValue(0)];
+		   [contentProvider removeSection:section];
 		   
 		   [container addElement:field1];
+		   [contentProvider addSectionWithElement:container];
 		   [[theValue([form numberOfSections]) should] equal:theValue(1)];
 		   [[theValue([form numberOfFieldsInSection:0]) should] equal:theValue(1)];
 		   
@@ -54,17 +60,34 @@ describe(@"Form", ^{
        });
 	   
 	   it(@"should notify observers when changed", ^{
-		
+		   KWMock <RFFormObserver> *observer = [KWMock mockForProtocol:@protocol(RFFormObserver)];
+		   [contentProvider addSectionWithElement:container];
+		   [form addFormObserver:observer];
+		   [[[observer should] receiveWithCount:2] formWillChangeContent:form];
+		   [[[observer should] receive] form:form didInsertSectionAtIndex:0];
+		   [[[observer should] receive] form:form didInsertField:field1 atIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+		   [[[observer should] receive] form:form didInsertField:field2 atIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+		   [[[observer should] receiveWithCount:2] formDidChangeContent:form];
+		   
+		   [container addElement:field1];
+		   [container addElement:field2];
+		   
 	   });
    });
 });
 SPEC_END
 
-@implementation RFFormObserverMock
-- (void)formWillChangeContent:(RFForm *)form
+@implementation RFMockFormObserver
+
++ (id)mock
 {
-	
+	return [self mockForProtocol:@protocol(RFFormObserver)];
 }
+
+//- (void)formWillChangeContent:(RFForm *)form
+//{
+//	
+//}
 
 - (void)form:(RFForm *)form didInsertSectionAtIndex:(NSUInteger)index
 {

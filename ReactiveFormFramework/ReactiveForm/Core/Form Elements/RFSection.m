@@ -13,7 +13,7 @@
 
 @interface RFSection ()
 @property (nonatomic, copy, readwrite) NSOrderedSet *fields;
-
+@property (nonatomic, copy, readonly) RACSignal *fieldSignal;
 @end
 
 @implementation RFSection
@@ -27,17 +27,12 @@
     if (!(self = [super init])) return nil;
 	_fields = [NSOrderedSet orderedSet];
 	
-	_contentSignal = [[formElement visibleFields] map:^id(id value) {
+	RACSignal *currentFields =  [[formElement visibleFields] map:^(id value) {
         return [NSOrderedSet orderedSetWithArray:value];
     }];
-	
-	RAC(self, fields) = _contentSignal;
-	
-	_changesOfFields = [[_contentSignal  combinePreviousWithStart:[NSOrderedSet orderedSet] reduce:^(id previous, id current) {
-		return RACTuplePack(previous, current);
-	}] filter:^BOOL(RACTuple *tuple) {
-		return ![tuple.first isEqualToOrderedSet:tuple.second];
-	}];
+
+	RAC(self, fields) = currentFields;
+    _currentFields = RACObserve(self, fields);
 	return self;
 }
 

@@ -23,6 +23,8 @@
 - (NSIndexPath *)indexPathForField:(RFField *)field;
 - (NSUInteger)numberOfSections;
 - (NSUInteger)numberOfFieldsInSection:(NSUInteger)section;
+- (RFField *)fieldBeforeField:(RFField *)field;
+- (RFField *)fieldAfterField:(RFField *)field;
 @end
 
 @interface RFForm (Observation)
