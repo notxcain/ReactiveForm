@@ -29,7 +29,6 @@
 		F03223D41823A3C900E7EA41 /* RFSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223B31823A3C900E7EA41 /* RFSwitch.m */; };
 		F03223D51823A3C900E7EA41 /* RFValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223B51823A3C900E7EA41 /* RFValidator.m */; };
 		F03223D91823A3C900E7EA41 /* RFForm.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223BF1823A3C900E7EA41 /* RFForm.m */; };
-		F03223DA1823A3C900E7EA41 /* RFFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223C11823A3C900E7EA41 /* RFFormController.m */; };
 		F03223DE1823A5AE00E7EA41 /* RFMaskComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223DD1823A5AE00E7EA41 /* RFMaskComponent.m */; };
 		F03223E01823AF0400E7EA41 /* RFValidatorSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223DF1823AF0400E7EA41 /* RFValidatorSpec.m */; };
 		F03223EF1823B5BE00E7EA41 /* RFFieldViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223E81823B5BE00E7EA41 /* RFFieldViewController.m */; };
@@ -41,7 +40,7 @@
 		F032240A182D14C800E7EA41 /* RFMaskSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F0322404182D14C800E7EA41 /* RFMaskSpec.m */; };
 		F032240C182D14C800E7EA41 /* RFSectionSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F0322406182D14C800E7EA41 /* RFSectionSpec.m */; };
 		F032240D182D14C800E7EA41 /* RFSwitchSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F0322407182D14C800E7EA41 /* RFSwitchSpec.m */; };
-		F09508AA1830CE3A00648C79 /* NSOrderedSet+RFInsertedDeleted.m in Sources */ = {isa = PBXBuildFile; fileRef = F09508A91830CE3A00648C79 /* NSOrderedSet+RFInsertedDeleted.m */; };
+		F09508AA1830CE3A00648C79 /* NSOrderedSet+Diff.m in Sources */ = {isa = PBXBuildFile; fileRef = F09508A91830CE3A00648C79 /* NSOrderedSet+Diff.m */; };
 		F09508AD18310C5200648C79 /* RFCollectionOperations.m in Sources */ = {isa = PBXBuildFile; fileRef = F09508AC18310C5200648C79 /* RFCollectionOperations.m */; };
 		F09508B01833C0E100648C79 /* RFFormContentProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = F09508AF1833C0E100648C79 /* RFFormContentProvider.m */; };
 		F09508B51833DB7200648C79 /* RFMutableFormContentProviderSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F09508B41833DB7200648C79 /* RFMutableFormContentProviderSpec.m */; };
@@ -114,11 +113,8 @@
 		F03223B41823A3C900E7EA41 /* RFValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFValidator.h; sourceTree = "<group>"; };
 		F03223B51823A3C900E7EA41 /* RFValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFValidator.m; sourceTree = "<group>"; };
 		F03223BC1823A3C900E7EA41 /* RFDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFDefines.h; sourceTree = "<group>"; };
-		F03223BD1823A3C900E7EA41 /* RFForm+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RFForm+Private.h"; sourceTree = "<group>"; };
 		F03223BE1823A3C900E7EA41 /* RFForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFForm.h; sourceTree = "<group>"; };
 		F03223BF1823A3C900E7EA41 /* RFForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFForm.m; sourceTree = "<group>"; };
-		F03223C01823A3C900E7EA41 /* RFFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFFormController.h; sourceTree = "<group>"; };
-		F03223C11823A3C900E7EA41 /* RFFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFFormController.m; sourceTree = "<group>"; };
 		F03223DD1823A5AE00E7EA41 /* RFMaskComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFMaskComponent.m; sourceTree = "<group>"; };
 		F03223DF1823AF0400E7EA41 /* RFValidatorSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFValidatorSpec.m; sourceTree = "<group>"; };
 		F03223E71823B5BE00E7EA41 /* RFFieldViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFFieldViewController.h; sourceTree = "<group>"; };
@@ -134,8 +130,8 @@
 		F0322404182D14C800E7EA41 /* RFMaskSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFMaskSpec.m; sourceTree = "<group>"; };
 		F0322406182D14C800E7EA41 /* RFSectionSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFSectionSpec.m; sourceTree = "<group>"; };
 		F0322407182D14C800E7EA41 /* RFSwitchSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFSwitchSpec.m; sourceTree = "<group>"; };
-		F09508A81830CE3A00648C79 /* NSOrderedSet+RFInsertedDeleted.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSOrderedSet+RFInsertedDeleted.h"; sourceTree = "<group>"; };
-		F09508A91830CE3A00648C79 /* NSOrderedSet+RFInsertedDeleted.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSOrderedSet+RFInsertedDeleted.m"; sourceTree = "<group>"; };
+		F09508A81830CE3A00648C79 /* NSOrderedSet+Diff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSOrderedSet+Diff.h"; sourceTree = "<group>"; };
+		F09508A91830CE3A00648C79 /* NSOrderedSet+Diff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSOrderedSet+Diff.m"; sourceTree = "<group>"; };
 		F09508AB18310C5200648C79 /* RFCollectionOperations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFCollectionOperations.h; sourceTree = "<group>"; };
 		F09508AC18310C5200648C79 /* RFCollectionOperations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFCollectionOperations.m; sourceTree = "<group>"; };
 		F09508AE1833C0E100648C79 /* RFFormContentProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFFormContentProvider.h; sourceTree = "<group>"; };
@@ -253,16 +249,13 @@
 		F03223851823A3C900E7EA41 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				F03223BC1823A3C900E7EA41 /* RFDefines.h */,
 				F03223861823A3C900E7EA41 /* Backing Structure */,
 				F03223951823A3C900E7EA41 /* Form Elements */,
-				F03223BC1823A3C900E7EA41 /* RFDefines.h */,
-				F03223BD1823A3C900E7EA41 /* RFForm+Private.h */,
 				F03223BE1823A3C900E7EA41 /* RFForm.h */,
 				F03223BF1823A3C900E7EA41 /* RFForm.m */,
 				F09508AE1833C0E100648C79 /* RFFormContentProvider.h */,
 				F09508AF1833C0E100648C79 /* RFFormContentProvider.m */,
-				F03223C01823A3C900E7EA41 /* RFFormController.h */,
-				F03223C11823A3C900E7EA41 /* RFFormController.m */,
 				F09508AB18310C5200648C79 /* RFCollectionOperations.h */,
 				F09508AC18310C5200648C79 /* RFCollectionOperations.m */,
 			);
@@ -272,8 +265,8 @@
 		F03223861823A3C900E7EA41 /* Backing Structure */ = {
 			isa = PBXGroup;
 			children = (
-				F09508A81830CE3A00648C79 /* NSOrderedSet+RFInsertedDeleted.h */,
-				F09508A91830CE3A00648C79 /* NSOrderedSet+RFInsertedDeleted.m */,
+				F09508A81830CE3A00648C79 /* NSOrderedSet+Diff.h */,
+				F09508A91830CE3A00648C79 /* NSOrderedSet+Diff.m */,
 			);
 			path = "Backing Structure";
 			sourceTree = "<group>";
@@ -510,11 +503,10 @@
 				F03223CE1823A3C900E7EA41 /* RFChoice.m in Sources */,
 				F03223D01823A3C900E7EA41 /* RFField.m in Sources */,
 				F09508B01833C0E100648C79 /* RFFormContentProvider.m in Sources */,
-				F09508AA1830CE3A00648C79 /* NSOrderedSet+RFInsertedDeleted.m in Sources */,
+				F09508AA1830CE3A00648C79 /* NSOrderedSet+Diff.m in Sources */,
 				F09508AD18310C5200648C79 /* RFCollectionOperations.m in Sources */,
 				F03223D41823A3C900E7EA41 /* RFSwitch.m in Sources */,
 				F03223FB1828BD4000E7EA41 /* RFFieldMatcher.m in Sources */,
-				F03223DA1823A3C900E7EA41 /* RFFormController.m in Sources */,
 				F03223D51823A3C900E7EA41 /* RFValidator.m in Sources */,
 				F03223CF1823A3C900E7EA41 /* RFChoiceField.m in Sources */,
 			);

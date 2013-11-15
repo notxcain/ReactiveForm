@@ -5,7 +5,7 @@ PODS:
   - ReactiveCocoa/Core (2.1.7):
     - ReactiveCocoa/no-arc
   - ReactiveCocoa/no-arc (2.1.7)
-  - ReactiveForm (0.2):
+  - ReactiveForm (0.3):
     - ReactiveCocoa (~> 2.0)
 
 DEPENDENCIES:
@@ -18,6 +18,6 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   ReactiveCocoa: 1117f7968c8667d2ca00b5aa47156fabcb56af75
-  ReactiveForm: 3be0316f7712063607825a0bf9d0a2ca1f2434ae
+  ReactiveForm: 6c3c49bf3960b691d99745cc9ebc3409b408f264
 
 COCOAPODS: 0.27.1

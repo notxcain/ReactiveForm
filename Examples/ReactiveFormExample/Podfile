@@ -1,3 +1,2 @@
 platform :ios, 5.0
 pod 'ReactiveForm', :git => 'https://github.com/ReactiveForm/ReactiveForm.git', :branch=>'form-ui'
-#pod 'ReactiveForm', :path => "../../"

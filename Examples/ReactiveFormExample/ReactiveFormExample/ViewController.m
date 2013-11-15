@@ -13,6 +13,7 @@
 #import <ReactiveForm/RFTextField.h>
 #import <ReactiveForm/RFFieldViewController.h>
 #import <ReactiveForm/RFContainer.h>
+#import <ReactiveForm/RFFormContentProvider.h>
 
 @interface ViewController ()
 @property(nonatomic,strong,readonly) UITableView *tableView;
@@ -35,13 +36,17 @@
         }];
     }];
     
-    RFForm *form = [RFForm form];
-    [form addSectionWithElement:container];
+	RFMutableFormContentProvider *provider = [RFMutableFormContentProvider contentProvider];
+	[provider addSectionWithElement:container];
+	
+    RFForm *form = [RFForm formWithFormContentProvider:provider];
+
     _dataSourceModel = [[RFFormTableViewDataSource alloc] initWithForm:form presentation:formPresentation];
     
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
     self.tableView.dataSource = self.dataSourceModel;
     self.tableView.tableFooterView = [[UIView alloc] init];
+	
     [self.view addSubview:self.tableView];
 }
 
