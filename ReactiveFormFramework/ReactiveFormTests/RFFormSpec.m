@@ -56,6 +56,11 @@ describe(@"Form", ^{
 		   [container addElement:field4];
 		   [[theValue([form numberOfFieldsInSection:0]) should] equal:theValue(3)];
 		   
+		   [contentProvider addSectionWithElement:[RFField fieldWithName:@"'" title:@"'"]];
+		   [[theValue([form numberOfFieldsInSection:0]) should] equal:theValue(3)];
+		   [[theValue([form numberOfSections]) should] equal:theValue(2)];
+		   [[theValue([form numberOfFieldsInSection:1]) should] equal:theValue(1)];
+		   
 		   [form title];
        });
 	   

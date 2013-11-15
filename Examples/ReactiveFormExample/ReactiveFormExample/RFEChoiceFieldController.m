@@ -37,6 +37,7 @@
 
 - (void)viewDidLoad
 {
+	self.view.selectionStyle = UITableViewCellSelectionStyleNone;
 	RAC(self.view.textLabel, text) = RACObserve(self.field, title);
 	[RACObserve(self.field, stringValue) subscribe:self.view.textField.rac_newTextChannel];
 

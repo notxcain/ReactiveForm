@@ -80,6 +80,7 @@ describe(@"Mutable form content provider", ^{
 			[container1 addElement:field2];
 			[container1 removeElement:field1];
 			id s = [contentProvider addSectionWithElement:[RFContainer containerWithElements:@[[RFField fieldWithName:@"sdsd" title:@"fdfdf"]]]];
+			[[theValue([visibleSections count]) should] equal:theValue(2)];
 			[[visibleSections should] equal:[NSOrderedSet orderedSetWithObjects:section, s, nil]];
 			[container1 removeElement:field2];
 			[contentProvider removeSection:s];
