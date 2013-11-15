@@ -32,7 +32,7 @@
     [container addElement:textField];
 
     RFFormPresentation *formPresentation = [RFFormPresentation createWithBlock:^(id<RFFormPresentationBuilder> builder) {
-        [builder addMatcher:[RFTextField class] instantiator:^(RFTextField *field) {
+        [builder addMatcher:[RFTextField class] instantiator:^RFFieldController *(RFField *field) {
 			RFETextFieldController *controller = [[RFETextFieldController alloc] init];
 			controller.textField = field;
             return controller;

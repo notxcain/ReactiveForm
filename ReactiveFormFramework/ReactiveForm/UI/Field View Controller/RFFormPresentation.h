@@ -17,7 +17,7 @@
 - (RFFieldController *)controllerForField:(RFField *)field;
 @end
 
-typedef RFFieldController *(^RFFieldViewControllerInstantiator)(RFField *field);
+typedef RFFieldController *(^RFFieldViewControllerInstantiator)(id field);
 
 @protocol RFFormPresentationBuilder
 
