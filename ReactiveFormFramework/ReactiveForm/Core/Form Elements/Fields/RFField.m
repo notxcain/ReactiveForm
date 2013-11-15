@@ -41,13 +41,18 @@
     if (self) {
         _required = YES;
         _name = [name copy];
-        @weakify(self);
-        _visibleFields = [RACSignal defer:^{
-			@strongify(self);
-			return [[RACSignal return:@[self]] replayLast];
-		}];
+        _visibleFields = [self createVisibleFieldsSignal];
     }
     return self;
+}
+
+- (RACSignal *)createVisibleFieldsSignal
+{
+	@weakify(self);
+	return [[RACSignal defer:^{
+		@strongify(self);
+		return [RACSignal return:@[self]];
+	}] replayLast];
 }
 
 - (BOOL)validate:(out NSError *__autoreleasing *)errorPtr
