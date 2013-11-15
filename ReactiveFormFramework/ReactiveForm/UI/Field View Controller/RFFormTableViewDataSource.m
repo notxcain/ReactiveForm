@@ -7,26 +7,26 @@
 //
 
 #import "RFFormTableViewDataSource.h"
-#import "RFFormController.h"
 #import "RFFieldViewController.h"
 #import "RFFormPresentation.h"
+#import "RFForm.h"
 
-@interface RFFormTableViewDataSource () <RFFormControllerDelegate, UITableViewDelegate>
+@interface RFFormTableViewDataSource () <RFFormObserver, UITableViewDelegate>
 @property (nonatomic, strong, readonly) RFFormPresentation *presentation;
 @property (nonatomic, strong, readonly) RFForm *form;
-@property (nonatomic, strong, readonly) RFFormController *formController;
 @property (nonatomic, strong, readonly) NSCache *fieldControllerCache;
 @end
 
 @implementation RFFormTableViewDataSource
-@synthesize formController = _formController, formView = _formView;
-
 - (id)initWithForm:(RFForm *)form presentation:(RFFormPresentation *)presentation
 {
     self = [super init];
     if (self) {
         _form = form;
+		[_form addFormObserver:self];
+		
 		_presentation = presentation;
+		
 		_fieldControllerCache = [[NSCache alloc] init];
 		_fieldControllerCache.name = @"rf.fieldViewController.cache";
     }
@@ -35,7 +35,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.formController numberOfFieldsInSection:section];
+    return [self.form numberOfFieldsInSection:section];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -46,7 +46,7 @@
 
 - (RFFieldController *)controllerAtIndexPath:(NSIndexPath *)indexPath
 {
-	return [self fieldViewControllerForField:[self.formController fieldAtIndexPath:indexPath]];
+	return [self fieldViewControllerForField:[self.form fieldAtIndexPath:indexPath]];
 }
 
 - (RFFieldController *)fieldViewControllerForField:(RFField *)field
@@ -60,23 +60,33 @@
 	return result;
 }
 
-- (RFFormController *)formController
+- (void)formWillChangeContent:(RFForm *)form
 {
-	if (_formController) return _formController;
-	
-	_formController = [[RFFormController alloc] initWithForm:self.form];
-	_formController.delegate = self;
-	
-	return _formController;
+	[self.tableView beginUpdates];
 }
 
-- (UITableView *)formView
+- (void)form:(RFForm *)form didInsertSectionAtIndex:(NSUInteger)index
 {
-	if (_formView) return _formView;
-	
-	_formView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-	_formView.dataSource = self;
-	
-	return _formView;
+	[self.tableView insertSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+- (void)form:(RFForm *)form didRemoveSectionAtIndex:(NSUInteger)index
+{
+	[self.tableView deleteSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+- (void)form:(RFForm *)form didInsertField:(RFField *)field atIndexPath:(NSIndexPath *)indexPath
+{
+	[self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+- (void)form:(RFForm *)form didRemoveField:(RFField *)field atIndexPath:(NSIndexPath *)indexPath
+{
+	[self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+- (void)formDidChangeContent:(RFForm *)form
+{
+	[self.tableView endUpdates];
 }
 @end
