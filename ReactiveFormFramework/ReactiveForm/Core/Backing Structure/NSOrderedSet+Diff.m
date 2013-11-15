@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Denis Mikhaylov. All rights reserved.
 //
 
-#import "NSOrderedSet+RFInsertedDeleted.h"
+#import "NSOrderedSet+Diff.h"
 
 NSString *const RFRemovedObjectsKey = @"RFRemovedObjectsKey";
 NSString *const RFInsertedObjectsKey = @"RFInsertedObjectsKey";
