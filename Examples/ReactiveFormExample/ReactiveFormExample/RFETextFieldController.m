@@ -9,12 +9,10 @@
 #import "RFETextFieldController.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveForm/ReactiveForm.h>
+#import "RFETextCell.h"
 
-@interface RFETextCell : UITableViewCell
-@property (nonatomic, strong, readonly) UITextField *textField;
-@end
 
-@interface RFETextFieldController ()
+@interface RFETextFieldController () <UITextFieldDelegate>
 @property (nonatomic, strong, readonly) RFETextCell *view;
 @end
 
@@ -22,33 +20,25 @@
 - (void)loadView
 {
 	self.view = [[RFETextCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"sfaf"];
+	self.view.textField.delegate = self;
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+	NSString *newString = [self.field.textInputController stringByReplacingSelectedRange:&range ofString:textField.text withString:string];
+	textField.text = newString;
+	UITextPosition *rangeLocation = [textField positionFromPosition:[textField beginningOfDocument] offset:range.location];
+	textField.selectedTextRange = [textField textRangeFromPosition:[textField positionFromPosition:[textField beginningOfDocument] offset:range.location]
+														toPosition:[textField positionFromPosition:rangeLocation offset:range.length]];
+	return NO;
 }
 
 - (void)viewDidLoad
 {
 	[[self.view.textField rac_newTextChannel] subscribeNext:^(id x) {
-		self.textField.value = x;
+		self.field.value = x;
 	}];
-	RAC(self.view.textLabel, text) = RACObserve(self.textField, title);
+	RAC(self.view.textLabel, text) = RACObserve(self.field, title);
 }
 @end
 
-@implementation RFETextCell
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        _textField = [[UITextField alloc] init];
-		_textField.font = [UIFont systemFontOfSize:24.0f];
-		[self.contentView addSubview:_textField];
-    }
-    return self;
-}
-
-- (void)layoutSubviews
-{
-	[super layoutSubviews];
-	self.textLabel.frame = CGRectMake(5.0f, 5.0f, 50.0f, self.contentView.bounds.size.height - 10.0f);
-	self.textField.frame = CGRectMake(CGRectGetMaxX(self.textLabel.frame) + 5.0f, 5.0f, self.contentView.bounds.size.width - (CGRectGetMaxX(self.textLabel.frame) + 5.0f) - 5.0f, self.contentView.bounds.size.height - 10.0f);
-}
-@end

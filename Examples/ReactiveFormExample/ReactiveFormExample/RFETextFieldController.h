@@ -10,5 +10,5 @@
 
 @class RFTextField;
 @interface RFETextFieldController : RFFieldController
-@property (nonatomic, strong) RFTextField *textField;
+@property (nonatomic, strong) RFTextField *field;
 @end
