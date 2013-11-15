@@ -11,9 +11,10 @@
 #import <ReactiveForm/RFFormTableViewDataSource.h>
 #import <ReactiveForm/RFFormPresentation.h>
 #import <ReactiveForm/RFTextField.h>
-#import <ReactiveForm/RFFieldViewController.h>
+#import <ReactiveForm/RFFieldController.h>
 #import <ReactiveForm/RFContainer.h>
 #import <ReactiveForm/RFFormContentProvider.h>
+#import "RFETextFieldController.h"
 
 @interface ViewController ()
 @property(nonatomic,strong,readonly) UITableView *tableView;
@@ -29,10 +30,12 @@
     RFTextField *textField = [RFTextField fieldWithName:@"textField" title:@"title"];
     RFContainer *container = [RFContainer container];
     [container addElement:textField];
-    RFFieldController *textFieldController = [[RFFieldController alloc] init];
+
     RFFormPresentation *formPresentation = [RFFormPresentation createWithBlock:^(id<RFFormPresentationBuilder> builder) {
-        [builder addMatcher:[RFTextField class] instantiator:^RFFieldController *(RFField *field) {
-            return textFieldController;
+        [builder addMatcher:[RFTextField class] instantiator:^(RFTextField *field) {
+			RFETextFieldController *controller = [[RFETextFieldController alloc] init];
+			controller.textField = field;
+            return controller;
         }];
     }];
     
