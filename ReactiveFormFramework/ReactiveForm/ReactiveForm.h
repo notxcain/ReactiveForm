@@ -6,18 +6,16 @@
 //  Copyright (c) 2013 Denis Mikhaylov. All rights reserved.
 //
 
+#import "RFForm.h"
+#import "RFFormContentProvider.h"
+
+#import "RFContainer.h"
+#import "RFSwitch.h"
+
+#import "RFField.h"
+#import "RFTextField.h"
 #import "RFActionField.h"
 #import "RFChoiceField.h"
-#import "RFField.h"
-#import "RFForm.h"
-#import "RFMask.h"
-#import "RFSection.h"
-#import "RFSignalContainer.h"
-#import "RFTextField.h"
 #import "RFChoice.h"
-#import "RFValidator.h"
-#import "RFSwitch.h"
-#import "RACSignal+RFSignalContainer.h"
-#import "NSObject+RFBlockSetup.h"
-#import "RFFormFieldStyle.h"
+#import "RFMask.h"
 #import "RFValidator.h"
