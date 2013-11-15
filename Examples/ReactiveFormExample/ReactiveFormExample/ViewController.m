@@ -7,13 +7,7 @@
 //
 
 #import "ViewController.h"
-#import <ReactiveForm/RFForm.h>
-#import <ReactiveForm/RFFormTableViewDataSource.h>
-#import <ReactiveForm/RFFormPresentation.h>
-#import <ReactiveForm/RFTextField.h>
-#import <ReactiveForm/RFFieldController.h>
-#import <ReactiveForm/RFContainer.h>
-#import <ReactiveForm/RFFormContentProvider.h>
+#import <ReactiveForm/ReactiveForm.h>
 #import "RFETextFieldController.h"
 
 @interface ViewController ()
