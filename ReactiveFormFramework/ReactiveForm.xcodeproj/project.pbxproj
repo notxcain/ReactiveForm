@@ -33,7 +33,6 @@
 		F03223E01823AF0400E7EA41 /* RFValidatorSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223DF1823AF0400E7EA41 /* RFValidatorSpec.m */; };
 		F03223EF1823B5BE00E7EA41 /* RFFieldController.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223E81823B5BE00E7EA41 /* RFFieldController.m */; };
 		F03223F61828AE8200E7EA41 /* RFFormTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223F51828AE8200E7EA41 /* RFFormTableViewDataSource.m */; };
-		F03223FB1828BD4000E7EA41 /* RFFieldMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223FA1828BD4000E7EA41 /* RFFieldMatcher.m */; };
 		F03224001828F27700E7EA41 /* RFFormPresentationSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F03223FF1828F27700E7EA41 /* RFFormPresentationSpec.m */; };
 		F0322408182D14C800E7EA41 /* KWMock+RFFormElement.m in Sources */ = {isa = PBXBuildFile; fileRef = F0322402182D14C800E7EA41 /* KWMock+RFFormElement.m */; };
 		F0322409182D14C800E7EA41 /* RFContainerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F0322403182D14C800E7EA41 /* RFContainerSpec.m */; };
@@ -122,8 +121,6 @@
 		F03223E81823B5BE00E7EA41 /* RFFieldController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFFieldController.m; sourceTree = "<group>"; };
 		F03223F41828AE8200E7EA41 /* RFFormTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFFormTableViewDataSource.h; sourceTree = "<group>"; };
 		F03223F51828AE8200E7EA41 /* RFFormTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFFormTableViewDataSource.m; sourceTree = "<group>"; };
-		F03223F91828BD4000E7EA41 /* RFFieldMatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFFieldMatcher.h; sourceTree = "<group>"; };
-		F03223FA1828BD4000E7EA41 /* RFFieldMatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFFieldMatcher.m; sourceTree = "<group>"; };
 		F03223FF1828F27700E7EA41 /* RFFormPresentationSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFFormPresentationSpec.m; sourceTree = "<group>"; };
 		F0322401182D14C800E7EA41 /* KWMock+RFFormElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KWMock+RFFormElement.h"; sourceTree = "<group>"; };
 		F0322402182D14C800E7EA41 /* KWMock+RFFormElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KWMock+RFFormElement.m"; sourceTree = "<group>"; };
@@ -334,8 +331,6 @@
 			children = (
 				688BD9651823C12300D585F0 /* RFFormPresentation.h */,
 				688BD9661823C12300D585F0 /* RFFormPresentation.m */,
-				F03223F91828BD4000E7EA41 /* RFFieldMatcher.h */,
-				F03223FA1828BD4000E7EA41 /* RFFieldMatcher.m */,
 				F03223F41828AE8200E7EA41 /* RFFormTableViewDataSource.h */,
 				F03223F51828AE8200E7EA41 /* RFFormTableViewDataSource.m */,
 				F03223E71823B5BE00E7EA41 /* RFFieldController.h */,
@@ -509,7 +504,6 @@
 				F09508AA1830CE3A00648C79 /* NSOrderedSet+Diff.m in Sources */,
 				F09508AD18310C5200648C79 /* RFCollectionOperations.m in Sources */,
 				F03223D41823A3C900E7EA41 /* RFSwitch.m in Sources */,
-				F03223FB1828BD4000E7EA41 /* RFFieldMatcher.m in Sources */,
 				F03223D51823A3C900E7EA41 /* RFValidator.m in Sources */,
 				F03223CF1823A3C900E7EA41 /* RFChoiceField.m in Sources */,
 			);
