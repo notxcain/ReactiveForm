@@ -24,7 +24,6 @@
 {
     [super viewDidLoad];
     
-	RFETestFormContentProvider *f = [RFETestFormContentProvider contentProvider];
     RFFormPresentation *formPresentation = [RFFormPresentation createWithBlock:^(id<RFFormPresentationBuilder> builder) {
         [builder addMatcher:[RFTextField class] instantiator:^(RFTextField *field) {
 			RFETextFieldController *controller = [[RFETextFieldController alloc] init];
@@ -42,23 +41,10 @@
             return controller;
         }];
     }];
-    
-	RFMutableFormContentProvider *provider = [RFMutableFormContentProvider contentProvider];
-	RFTextField *textField = [RFTextField fieldWithName:@"phoneNumber" title:@"Phone number"];
-	textField.textInputController = [RFMask maskWithPattern:@"(ddd) ddd-dd-dd"];
-    RFContainer *container = [RFContainer container];
-
-    [container addElement:textField];
-	[container addElement:[RFSwitch
-						   switchWithBooleanSignal:[RACObserve(textField, value)
-													map:^(id value) {
-														return @([value length] > 3);
-													}]
-						   then:[RFTextField fieldWithName:@"test" title:@"test"]
-						   else:[RFContainer container]]];
-	[provider addSectionWithElement:container];
 	
-    RFForm *form = [RFForm formWithFormContentProvider:f];
+	RFETestFormContentProvider *testFormContentProvider = [RFETestFormContentProvider contentProvider];
+	
+    RFForm *form = [RFForm formWithFormContentProvider:testFormContentProvider];
 
     _dataSourceModel = [[RFFormTableViewDataSource alloc] initWithForm:form presentation:formPresentation];
 
