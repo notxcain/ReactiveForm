@@ -28,11 +28,11 @@
     if (self) {
 		_contentProvider = [RFMutableFormContentProvider contentProvider];
 
-        RFTextField *phoneNumberField = [RFTextField fieldWithName:@"card_num" title:@"Номер телефона"];
+        RFTextField *phoneNumberField = [RFTextField fieldWithName:@"card_number" title:@"Phone number"];
 		[phoneNumberField setValidator:[[NSRegularExpression regularExpressionWithPattern:@"\\(\\d{3}\\)\\d{3}-\\d{2}-\\d{2}" options:kNilOptions error:NULL] validatorWithFailureError:nil]];
 		[phoneNumberField setTextInputController:[RFMask maskWithPattern:@"(ddd)ddd-dd-dd"]];
 		
-		RFChoiceField *recipientField = [RFChoiceField fieldWithName:@"recipient" title:@"Получатель"];
+		RFChoiceField *recipientField = [RFChoiceField fieldWithName:@"recipient" title:@"Recipient"];
 		
 		RACCommand *recipientListLoadCommand = [[RACCommand alloc] initWithSignalBlock:^(id _) {
 			return [self loadRecipientsForPhoneNumber:phoneNumberField.value];
@@ -40,40 +40,44 @@
 		
 		RAC(recipientField, choices) = [[recipientListLoadCommand executionSignals] switchToLatest];
 		
-		RFActionField *cardCheckField = [RFActionField fieldWithName:@"card_num_check" title:@"Загрузить данные"];
+		RFActionField *cardCheckField = [RFActionField fieldWithName:@"card_num_check" title:@"Load data"];
 		cardCheckField.command = recipientListLoadCommand;
 		
 		RAC(cardCheckField, value) = [RACObserve(phoneNumberField, value) mapReplace:@NO];
 		
-		RACSignal *cardCheckActionVisibilitySignal = [RACSignal combineLatest:@[[RACSignal return:@YES], RACObserve(cardCheckField, value)]
-																	   reduce:^(NSNumber *cardNumberIsValid, NSNumber *isChecked) {
-																		   return @([cardNumberIsValid boolValue] && ![isChecked boolValue]);
+		RACSignal *phoneNumberValidity = [RACObserve(phoneNumberField, value) map:^(id value) {
+			return @([phoneNumberField validate:NULL]);
+		}];
+		
+		
+		RACSignal *cardCheckActionVisibilitySignal = [RACSignal combineLatest:@[phoneNumberValidity, RACObserve(cardCheckField, value)]
+																	   reduce:^(NSNumber *phoneNumberIsValid, NSNumber *isChecked) {
+																		   return @([phoneNumberIsValid boolValue] && ![isChecked boolValue]);
 																	   }];
 		
-		[_contentProvider addSectionWithElement:[RFContainer containerWithElements:@[[RFTextField fieldWithName:@"rec_surename" title:@"Фамилия получателя"],
-																					 [RFTextField fieldWithName:@"rec_name" title:@"Имя получателя"],
-																					 [RFTextField fieldWithName:@"rec_mname" title:@"Отчество получателя"],
-																					 [RFTextField fieldWithName:@"s_surename" title:@"Фамилия отправителя"],
-																					 [RFTextField fieldWithName:@"s_name" title:@"Имя отправителя"],
-																					 [RFTextField fieldWithName:@"s_mname" title:@"Отчество отправителя"]
-																					 ]]];
 		[_contentProvider addSectionWithElement:
 		 [RFChoiceField fieldWithName:@"identity_type"
-								title:@"Тип идентификатора"
-							  choices:@[[@1 choiceWithTitle:@"Номер телефона"
+								title:@"ID type"
+							  choices:@[[@1 choiceWithTitle:@"Phone number"
 												  formElement:[RFContainer containerWithElements:@[phoneNumberField,
 																								   [RFSwitch switchWithBooleanSignal:cardCheckActionVisibilitySignal then:cardCheckField],
 																								   [RFSwitch switchWithBooleanSignal:RACObserve(cardCheckField, value) then:recipientField]
 																								   ]]],
-										[@2 choiceWithTitle:@"Фамилия Имя Отчество"
-												  formElement:[RFContainer containerWithElements:@[[RFTextField fieldWithName:@"rec_surename" title:@"Фамилия получателя"],
-																								   [RFTextField fieldWithName:@"rec_name" title:@"Имя получателя"],
-																								   [RFTextField fieldWithName:@"rec_mname" title:@"Отчество получателя"],
+										[@2 choiceWithTitle:@"Full name"
+												  formElement:[RFContainer containerWithElements:@[[RFTextField fieldWithName:@"rec_name" title:@"Recipient first name"],
+																								   [RFTextField fieldWithName:@"rec_mname" title:@"Recipient patronymic"],
+																								   [RFTextField fieldWithName:@"rec_surename" title:@"Recipient last name"],
 																								   [RFTextField fieldWithName:@"s_surename" title:@"Фамилия отправителя"],
 																								   [RFTextField fieldWithName:@"s_name" title:@"Имя отправителя"],
 																								   [RFTextField fieldWithName:@"s_mname" title:@"Отчество отправителя"]
 																								   ]]]
 										]]];
+		
+		[_contentProvider addSectionWithElement:[RFContainer containerWithElements:@[[RFTextField fieldWithName:@"rec_surename" title:@"Сумма"],
+																					 [RFTextField fieldWithName:@"rec_name" title:@"Способ оплаты"],
+																					 [RFTextField fieldWithName:@"rec_mname" title:@"Комментарий"],
+																					 ]]];
+
     }
     return self;
 }
@@ -92,7 +96,7 @@
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             NSMutableArray *recipientChoices = [NSMutableArray array];
             for (int i = 0; i < 10; i++) {
-                [recipientChoices addObject:[@(i) choiceWithTitle:[NSString stringWithFormat:@"Получатель %d", i]]];
+                [recipientChoices addObject:[@(i) choiceWithTitle:[NSString stringWithFormat:@"Recipient #%d", i]]];
             }
             [subscriber sendNext:recipientChoices];
             [subscriber sendCompleted];
