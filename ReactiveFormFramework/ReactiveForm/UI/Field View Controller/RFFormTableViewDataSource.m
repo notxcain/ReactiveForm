@@ -64,23 +64,6 @@
 	return result;
 }
 
-//- (void)setTableView:(UITableView *)tableView
-//{
-//	if (_tableView == tableView) return;
-//
-//	if (tableView == nil && _tableView != nil) {
-//		[self.form removeFormObserver:self];
-//	}
-//	
-//	if (_tableView == nil && tableView) {
-//		[self.form addFormObserver:self];
-//	}
-//	
-//	_tableView = tableView;
-//	
-//
-//}
-
 - (void)formWillChangeContent:(RFForm *)form
 {
 	[self.tableView beginUpdates];
