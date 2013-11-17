@@ -36,6 +36,21 @@
 	return self;
 }
 
+- (NSUInteger)numberOfFields
+{
+	return [self.fields count];
+}
+
+- (id)fieldAtIndex:(NSUInteger)index
+{
+	return [self.fields objectAtIndex:index];
+}
+
+- (NSUInteger)indexOfField:(RFField *)field
+{
+	return [self.fields indexOfObject:field];
+}
+
 - (BOOL)isEmpty
 {
 	return [self.fields count] == 0;

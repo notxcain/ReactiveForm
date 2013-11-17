@@ -10,17 +10,23 @@
 
 @protocol RFFormElement;
 @class RACSignal;
-@interface RFSection : NSObject
+@class RFField;
 
-/// Returns a set containing currently visible fields provided by formElement passed during initialization;
+
+
+@interface RFSection : NSObject
+/// Return a signal that sends currently visible field immediately upon subscription
+/// and then each time they change
+
+@property (nonatomic, copy, readonly) RACSignal *currentFields;
 @property (nonatomic, copy, readonly) NSOrderedSet *fields;
 
-/// Returns a signal that sends tuples of previous and current value of fields;
-/// Exists for the optimization sake
-@property (nonatomic, copy, readonly) RACSignal *currentFields;
+- (NSUInteger)numberOfFields;
+- (RFField *)fieldAtIndex:(NSUInteger)index;
+- (NSUInteger)indexOfField:(RFField *)field;
+- (BOOL)isEmpty;
 
 + (instancetype)sectionWithFormElement:(id <RFFormElement>)formElement;
 - (id)initWithFormElement:(id <RFFormElement>)formElement;
 
-- (BOOL)isEmpty;
 @end
