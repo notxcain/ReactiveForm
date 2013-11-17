@@ -12,6 +12,7 @@
 #import "RFETextFieldController.h"
 #import "UnistreamPaymentForm.h"
 #import "RFEChoiceFieldController.h"
+#import "RFEActionFieldController.h"
 
 @interface ViewController ()
 @property(nonatomic,strong,readonly) RFFormTableViewDataSource *dataSourceModel;
@@ -35,8 +36,8 @@
 			controller.field = field;
             return controller;
         }];
-		[builder addMatcher:[RFActionField class] instantiator:^(RFTextField *field) {
-			RFETextFieldController *controller = [[RFETextFieldController alloc] init];
+		[builder addMatcher:[RFActionField class] instantiator:^(RFActionField *field) {
+			RFEActionFieldController *controller = [[RFEActionFieldController alloc] init];
 			controller.field = field;
             return controller;
         }];
