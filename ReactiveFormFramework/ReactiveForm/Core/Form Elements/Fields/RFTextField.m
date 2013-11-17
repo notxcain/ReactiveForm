@@ -27,14 +27,13 @@
     self = [super initWithName:name];
     if (self) {
         _textInputController = [RFDefaultTextInputController sharedInstance];
-        
     }
     return self;
 }
 
 - (BOOL)validate:(out NSError *__autoreleasing *)errorPtr
 {
-    return [self.validator validateValue:self.validator error:errorPtr];
+    return [self.validator validateValue:self.value error:errorPtr];
 }
 
 - (void)setTextInputController:(id<RFTextInputController>)textInputController
