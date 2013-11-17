@@ -34,27 +34,31 @@
 		
 		RFChoiceField *recipientField = [RFChoiceField fieldWithName:@"recipient" title:@"Recipient"];
 		
-		RACCommand *recipientListLoadCommand = [[RACCommand alloc] initWithSignalBlock:^(id _) {
-			return [self loadRecipientsForPhoneNumber:phoneNumberField.value];
+		RACCommand *loadRecipientListCommand = [[RACCommand alloc] initWithSignalBlock:^(NSString *phoneNumber) {
+			return [self loadRecipientsForPhoneNumber:phoneNumber];
 		}];
 		
-		RAC(recipientField, choices) = [[recipientListLoadCommand executionSignals] switchToLatest];
-		
+		RAC(recipientField, choices) = [[loadRecipientListCommand executionSignals] switchToLatest];
 		RFActionField *cardCheckField = [RFActionField fieldWithName:@"card_num_check" title:@"Load data"];
-		cardCheckField.command = recipientListLoadCommand;
-		
-		RAC(cardCheckField, value) = [RACObserve(phoneNumberField, value) mapReplace:@NO];
-		
-		RACSignal *phoneNumberValidity = [RACObserve(phoneNumberField, value) map:^(id value) {
-			return @([phoneNumberField validate:NULL]);
+		[cardCheckField setCommand:loadRecipientListCommand valueBlock:^{
+			return phoneNumberField.value;
 		}];
 		
+		[[RACObserve(phoneNumberField, value) mapReplace:@NO] subscribeNext:^(id x) {
+			cardCheckField.value = x;
+			recipientField.choices = nil;
+		}];
+
+		RACSignal *phoneNumberValidity = [[RACObserve(phoneNumberField, value) map:^(id value) {
+			return @([phoneNumberField validate:NULL]);
+		}] distinctUntilChanged];
 		
-		RACSignal *cardCheckActionVisibilitySignal = [RACSignal combineLatest:@[phoneNumberValidity, RACObserve(cardCheckField, value)]
-																	   reduce:^(NSNumber *phoneNumberIsValid, NSNumber *isChecked) {
-																		   return @([phoneNumberIsValid boolValue] && ![isChecked boolValue]);
+		
+		RACSignal *cardCheckActionVisibilitySignal = [RACSignal combineLatest:@[phoneNumberValidity, RACObserve(recipientField, choices)]
+																	   reduce:^(NSNumber *phoneNumberIsValid, NSArray *choices) {
+																		   return @([phoneNumberIsValid boolValue] && ![choices count]);
 																	   }];
-		
+	
 		[_contentProvider addSectionWithElement:
 		 [RFChoiceField fieldWithName:@"identity_type"
 								title:@"ID type"
@@ -73,9 +77,9 @@
 																								   ]]]
 										]]];
 		
-		[_contentProvider addSectionWithElement:[RFContainer containerWithElements:@[[RFTextField fieldWithName:@"rec_surename" title:@"Сумма"],
-																					 [RFTextField fieldWithName:@"rec_name" title:@"Способ оплаты"],
-																					 [RFTextField fieldWithName:@"rec_mname" title:@"Комментарий"],
+		[_contentProvider addSectionWithElement:[RFContainer containerWithElements:@[[RFTextField fieldWithName:@"sum" title:@"Sum"],
+																					 [RFTextField fieldWithName:@"payment_method" title:@"Payment method"],
+																					 [RFTextField fieldWithName:@"comment" title:@"Comment"],
 																					 ]]];
 
     }

@@ -17,18 +17,37 @@
 @implementation RFEActionFieldController
 - (void)viewDidLoad
 {
-	UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-	button.frame = self.view.contentView.bounds;
+	UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+	button.frame = self.view.bounds;
+	button.titleLabel.font = [UIFont systemFontOfSize:22.0f];
+	[button setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+	
+	UIActivityIndicatorView *activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+	[activity setHidesWhenStopped:YES];
+	[self.view.contentView addSubview:activity];
+	
 	[[button rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-		[self.field performAction];
+		activity.center = CGPointMake(CGRectGetMidX(self.view.contentView.bounds), CGRectGetMidY(self.view.contentView.bounds));
+		[button setHidden:YES];
+		[activity startAnimating];
+		[[self performAction] subscribeError:^(NSError *error) {
+			[button setHidden:NO];
+			[activity stopAnimating];
+		} completed:^{
+			[button setHidden:NO];
+			[activity stopAnimating];
+		}];
 	}];
-	[self.view.contentView addSubview:button];
+	[button setTitle:self.field.title forState:UIControlStateNormal];
+	button.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+	self.view.userInteractionEnabled = YES;
+	self.view.contentView.userInteractionEnabled = YES;
+	[self.view addSubview:button];
 	self.view.selectionStyle = UITableViewCellSelectionStyleNone;
-	RAC(self.view.textLabel, text) = RACObserve(self, field.title);
 }
 
-- (void)performAction
+- (RACSignal *)performAction
 {
-	[self.field performAction];
+	return [self.field performAction];
 }
 @end

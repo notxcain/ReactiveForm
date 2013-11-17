@@ -30,15 +30,13 @@
 	UITextPosition *rangeLocation = [textField positionFromPosition:[textField beginningOfDocument] offset:range.location];
 	textField.selectedTextRange = [textField textRangeFromPosition:[textField positionFromPosition:[textField beginningOfDocument] offset:range.location]
 														toPosition:[textField positionFromPosition:rangeLocation offset:range.length]];
+	self.field.value = textField.text;
 	return NO;
 }
 
 - (void)viewDidLoad
 {
-	[[self.view.textField rac_newTextChannel] subscribeNext:^(id x) {
-		self.field.value = x;
-	}];
-	RAC(self.view.textLabel, text) = RACObserve(self.field, title);
+	RAC(self.view.textLabel, text) = RACObserve(self, field.title);
 }
 @end
 
