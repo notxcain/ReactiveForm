@@ -67,8 +67,12 @@ NSDictionary *RFChangesDictionaryWithSectionDiff(NSOrderedSet *previousItems, NS
 			return [RACSignal createSignal:^(id<RACSubscriber> subscriber) {
 				[subscriber sendNext:RFChangesDictionaryWithSectionDiff(previousSections, currentSections)];
 				return [[RACSignal merge:[currentSections mapWithIndex:^(RFSection *section, NSUInteger sectionIndex) {
-					return [[section.currentFields skip:1] combinePreviousWithStart:section.fields reduce:^(id previous, id current) {
-						return RFChangesDictionary(@{}, @{}, @{@(sectionIndex) : RFChangesDictionaryWithFieldDiff(previous, current)});
+					return [[[[section.currentFields skip:1] combinePreviousWithStart:section.fields reduce:^(id previous, id current) {
+						return RFChangesDictionaryWithFieldDiff(previous, current);
+					}] filter:^BOOL(id value) {
+						return ![value isEmpty];
+					}] map:^(id value) {
+						return RFChangesDictionary(@{}, @{}, @{@(sectionIndex) : value});
 					}];
 				}]] subscribe:subscriber];
 			}];
@@ -83,23 +87,22 @@ NSDictionary *RFChangesDictionaryWithSectionDiff(NSOrderedSet *previousItems, NS
 
 - (void)setupObservationManagementWithChangesSignal:(RACSignal *)changes
 {
-	RACSignal *newObserver = [[self rac_signalForSelector:@selector(addFormObserver:)] map:^(RACTuple *args) {
+	RACSignal *newObservers = [[self rac_signalForSelector:@selector(addFormObserver:)] map:^(RACTuple *args) {
 		return args.first;
 	}];
-	RACSignal *removedObserver = [[self rac_signalForSelector:@selector(removeObserver:)] map:^(RACTuple *args) {
+	RACSignal *removedObservers = [[self rac_signalForSelector:@selector(removeObserver:)] map:^(RACTuple *args) {
 		return args.first;
 	}];
 	@weakify(self);
-	[newObserver subscribeNext:^(id observer) {
+	[newObservers subscribeNext:^(id observer) {
 		NSCParameterAssert([observer conformsToProtocol:@protocol(RFFormObserver)]);
 		@strongify(self);
-		RACSignal *observerIsRemoved = [removedObserver filter:^BOOL(id x) {
+		RACSignal *observerIsRemoved = [removedObservers filter:^BOOL(id x) {
 			return x == observer;
 		}];
 		RACSignal *observerIsAboutToDealloc = [observer rac_willDeallocSignal];
 		[[[changes takeUntil:observerIsRemoved] takeUntil:observerIsAboutToDealloc] subscribeNext:^(id x) {
 			@strongify(self);
-			NSLog(@"%@", x);
 			[self notifyObserver:observer withChangesDictionary:x];
 		}];
 	}];
