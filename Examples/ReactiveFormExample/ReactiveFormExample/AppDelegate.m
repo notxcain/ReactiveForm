@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "ViewController.h"
+#import "RFEFormViewController.h"
 
 @interface AppDelegate ()
 
@@ -18,7 +18,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 	self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-	self.window.rootViewController = [[ViewController alloc] initWithStyle:UITableViewStyleGrouped];
+	self.window.rootViewController = [[RFEFormViewController alloc] initWithStyle:UITableViewStyleGrouped];
 	[self.window makeKeyAndVisible];
     return YES;
 }

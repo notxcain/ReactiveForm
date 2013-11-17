@@ -13,7 +13,7 @@
 		6896A73E182A4F3A00C11E0A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6896A73C182A4F3A00C11E0A /* InfoPlist.strings */; };
 		6896A740182A4F3A00C11E0A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6896A73F182A4F3A00C11E0A /* main.m */; };
 		6896A744182A4F3A00C11E0A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6896A743182A4F3A00C11E0A /* AppDelegate.m */; };
-		6896A74D182A4F3A00C11E0A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6896A74C182A4F3A00C11E0A /* ViewController.m */; };
+		6896A74D182A4F3A00C11E0A /* RFEFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6896A74C182A4F3A00C11E0A /* RFEFormViewController.m */; };
 		6896A74F182A4F3A00C11E0A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6896A74E182A4F3A00C11E0A /* Images.xcassets */; };
 		6896A756182A4F3A00C11E0A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6896A755182A4F3A00C11E0A /* XCTest.framework */; };
 		6896A757182A4F3A00C11E0A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6896A733182A4F3A00C11E0A /* Foundation.framework */; };
@@ -51,8 +51,8 @@
 		6896A741182A4F3A00C11E0A /* ReactiveFormExample-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ReactiveFormExample-Prefix.pch"; sourceTree = "<group>"; };
 		6896A742182A4F3A00C11E0A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6896A743182A4F3A00C11E0A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		6896A74B182A4F3A00C11E0A /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		6896A74C182A4F3A00C11E0A /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		6896A74B182A4F3A00C11E0A /* RFEFormViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RFEFormViewController.h; sourceTree = "<group>"; };
+		6896A74C182A4F3A00C11E0A /* RFEFormViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RFEFormViewController.m; sourceTree = "<group>"; };
 		6896A74E182A4F3A00C11E0A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6896A754182A4F3A00C11E0A /* ReactiveFormExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReactiveFormExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6896A755182A4F3A00C11E0A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -136,8 +136,8 @@
 			children = (
 				6896A742182A4F3A00C11E0A /* AppDelegate.h */,
 				6896A743182A4F3A00C11E0A /* AppDelegate.m */,
-				6896A74B182A4F3A00C11E0A /* ViewController.h */,
-				6896A74C182A4F3A00C11E0A /* ViewController.m */,
+				6896A74B182A4F3A00C11E0A /* RFEFormViewController.h */,
+				6896A74C182A4F3A00C11E0A /* RFEFormViewController.m */,
 				F0C41EFD183619F1000AEED5 /* RFETextFieldController.h */,
 				F0C41EFE183619F1000AEED5 /* RFETextFieldController.m */,
 				F0C41F06183637DC000AEED5 /* RFETextCell.h */,
@@ -318,7 +318,7 @@
 			files = (
 				F0C41F0B18363A12000AEED5 /* RFESimpleSelectionInputViewController.m in Sources */,
 				F0C41F1018365D98000AEED5 /* RFEActionFieldController.m in Sources */,
-				6896A74D182A4F3A00C11E0A /* ViewController.m in Sources */,
+				6896A74D182A4F3A00C11E0A /* RFEFormViewController.m in Sources */,
 				F0C41EFF183619F1000AEED5 /* RFETextFieldController.m in Sources */,
 				F0C41F0218363538000AEED5 /* RFETestFormContentProvider.m in Sources */,
 				F0C41F05183637BA000AEED5 /* RFEChoiceFieldController.m in Sources */,

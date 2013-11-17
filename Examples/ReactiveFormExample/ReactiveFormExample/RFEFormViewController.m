@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 ReactiveForm. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "RFEFormViewController.h"
 #import <ReactiveForm/ReactiveForm.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import "RFETextFieldController.h"
@@ -14,11 +14,11 @@
 #import "RFEChoiceFieldController.h"
 #import "RFEActionFieldController.h"
 
-@interface ViewController ()
+@interface RFEFormViewController ()
 @property(nonatomic,strong,readonly) RFFormTableViewDataSource *dataSourceModel;
 @end
 
-@implementation ViewController
+@implementation RFEFormViewController
 
 - (void)viewDidLoad
 {
