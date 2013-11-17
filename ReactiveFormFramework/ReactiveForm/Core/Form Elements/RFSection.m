@@ -13,7 +13,6 @@
 
 @interface RFSection ()
 @property (nonatomic, copy, readwrite) NSOrderedSet *fields;
-@property (nonatomic, copy, readonly) RACSignal *fieldSignal;
 @end
 
 @implementation RFSection
@@ -25,14 +24,15 @@
 - (id)initWithFormElement:(id<RFFormElement>)formElement
 {
     if (!(self = [super init])) return nil;
-	_fields = [NSOrderedSet orderedSet];
 	
-	RACSignal *currentFields =  [[formElement visibleFields] map:^(id value) {
-        return [NSOrderedSet orderedSetWithArray:value];
-    }];
-
-	RAC(self, fields) = currentFields;
-    _currentFields = RACObserve(self, fields);
+	@weakify(self);
+	_currentFields = [[[[[formElement visibleFields] map:^(id value) {
+			return [NSOrderedSet orderedSetWithArray:value];
+		}] doNext:^(id x) {
+			@strongify(self);
+			self.fields = x;
+		}] startWith:[NSOrderedSet orderedSet]] replayLast];
+	
 	return self;
 }
 
