@@ -60,9 +60,16 @@
 
 - (void)each:(void (^)(id))each
 {
-	for (id obj in self) {
-		each(obj);
-	}
+	[self eachWithIndex:^(id x, NSUInteger idx) {
+		each(x);
+	}];
+}
+
+- (void)eachWithIndex:(void (^)(id x, NSUInteger idx))each
+{
+	[self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		each(obj, idx);
+	}];
 }
 
 - (id)foldLeftWithStart:(id)accumulator block:(id (^)(id accumulator, id x))block
@@ -124,14 +131,26 @@
 	}];
 }
 
-- (void)each:(void (^)(id))each
+- (instancetype)filterNotEmpty
 {
-	for (id obj in self) {
-		each(obj);
-	}
+    return [self filterNot:^BOOL(id x) {
+        return [x isEmpty];
+    }];
 }
 
+- (void)each:(void (^)(id))each
+{
+	[self eachWithIndex:^(id x, NSUInteger idx) {
+		each(x);
+	}];
+}
 
+- (void)eachWithIndex:(void (^)(id x, NSUInteger idx))each
+{
+	[self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		each(obj, idx);
+	}];
+}
 
 - (id)foldLeftWithStart:(id)accumulator block:(id (^)(id accumulator, id x))block
 {
@@ -192,9 +211,23 @@
 	return [result copy];
 }
 
+- (instancetype)filterNot:(BOOL (^)(id))filterBlock
+{
+	return [self filter:^BOOL(id x) {
+		return !filterBlock(x);
+	}];
+}
+
 - (BOOL)isEmpty
 {
 	return [self count] == 0;
+}
+
+- (instancetype)filterNotEmpty
+{
+    return [self filterNot:^BOOL(id x) {
+        return [x isEmpty];
+    }];
 }
 @end
 
