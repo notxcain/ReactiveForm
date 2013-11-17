@@ -22,7 +22,7 @@
 		6896A762182A4F3A00C11E0A /* ReactiveFormExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6896A761182A4F3A00C11E0A /* ReactiveFormExampleTests.m */; };
 		BE0934231DA14D7FA2D4DAC3 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D92DC1983F5B4249A934C6BC /* libPods.a */; };
 		F0C41EFF183619F1000AEED5 /* RFETextFieldController.m in Sources */ = {isa = PBXBuildFile; fileRef = F0C41EFE183619F1000AEED5 /* RFETextFieldController.m */; };
-		F0C41F0218363538000AEED5 /* UnistreamPaymentForm.m in Sources */ = {isa = PBXBuildFile; fileRef = F0C41F0118363538000AEED5 /* UnistreamPaymentForm.m */; };
+		F0C41F0218363538000AEED5 /* RFETestFormContentProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = F0C41F0118363538000AEED5 /* RFETestFormContentProvider.m */; };
 		F0C41F05183637BA000AEED5 /* RFEChoiceFieldController.m in Sources */ = {isa = PBXBuildFile; fileRef = F0C41F04183637BA000AEED5 /* RFEChoiceFieldController.m */; };
 		F0C41F08183637DC000AEED5 /* RFETextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F0C41F07183637DC000AEED5 /* RFETextCell.m */; };
 		F0C41F0B18363A12000AEED5 /* RFESimpleSelectionInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F0C41F0A18363A12000AEED5 /* RFESimpleSelectionInputViewController.m */; };
@@ -62,8 +62,8 @@
 		D92DC1983F5B4249A934C6BC /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0C41EFD183619F1000AEED5 /* RFETextFieldController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFETextFieldController.h; sourceTree = "<group>"; };
 		F0C41EFE183619F1000AEED5 /* RFETextFieldController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFETextFieldController.m; sourceTree = "<group>"; };
-		F0C41F0018363538000AEED5 /* UnistreamPaymentForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnistreamPaymentForm.h; sourceTree = "<group>"; };
-		F0C41F0118363538000AEED5 /* UnistreamPaymentForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnistreamPaymentForm.m; sourceTree = "<group>"; };
+		F0C41F0018363538000AEED5 /* RFETestFormContentProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFETestFormContentProvider.h; sourceTree = "<group>"; };
+		F0C41F0118363538000AEED5 /* RFETestFormContentProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFETestFormContentProvider.m; sourceTree = "<group>"; };
 		F0C41F03183637BA000AEED5 /* RFEChoiceFieldController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFEChoiceFieldController.h; sourceTree = "<group>"; };
 		F0C41F04183637BA000AEED5 /* RFEChoiceFieldController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFEChoiceFieldController.m; sourceTree = "<group>"; };
 		F0C41F06183637DC000AEED5 /* RFETextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFETextCell.h; sourceTree = "<group>"; };
@@ -148,8 +148,8 @@
 				F0C41F0F18365D98000AEED5 /* RFEActionFieldController.m */,
 				F0C41F0918363A12000AEED5 /* RFESimpleSelectionInputViewController.h */,
 				F0C41F0A18363A12000AEED5 /* RFESimpleSelectionInputViewController.m */,
-				F0C41F0018363538000AEED5 /* UnistreamPaymentForm.h */,
-				F0C41F0118363538000AEED5 /* UnistreamPaymentForm.m */,
+				F0C41F0018363538000AEED5 /* RFETestFormContentProvider.h */,
+				F0C41F0118363538000AEED5 /* RFETestFormContentProvider.m */,
 				6896A74E182A4F3A00C11E0A /* Images.xcassets */,
 				6896A73A182A4F3A00C11E0A /* Supporting Files */,
 			);
@@ -320,7 +320,7 @@
 				F0C41F1018365D98000AEED5 /* RFEActionFieldController.m in Sources */,
 				6896A74D182A4F3A00C11E0A /* ViewController.m in Sources */,
 				F0C41EFF183619F1000AEED5 /* RFETextFieldController.m in Sources */,
-				F0C41F0218363538000AEED5 /* UnistreamPaymentForm.m in Sources */,
+				F0C41F0218363538000AEED5 /* RFETestFormContentProvider.m in Sources */,
 				F0C41F05183637BA000AEED5 /* RFEChoiceFieldController.m in Sources */,
 				6896A744182A4F3A00C11E0A /* AppDelegate.m in Sources */,
 				6896A740182A4F3A00C11E0A /* main.m in Sources */,

@@ -8,6 +8,6 @@
 
 #import "RFForm.h"
 #import <ReactiveForm/RFFormContentProvider.h>
-@interface UnistreamPaymentForm : RFFormContentProvider
+@interface RFETestFormContentProvider : RFFormContentProvider
 
 @end

@@ -10,7 +10,7 @@
 #import <ReactiveForm/ReactiveForm.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import "RFETextFieldController.h"
-#import "UnistreamPaymentForm.h"
+#import "RFETestFormContentProvider.h"
 #import "RFEChoiceFieldController.h"
 #import "RFEActionFieldController.h"
 
@@ -24,7 +24,7 @@
 {
     [super viewDidLoad];
     
-	UnistreamPaymentForm *f = [UnistreamPaymentForm contentProvider];
+	RFETestFormContentProvider *f = [RFETestFormContentProvider contentProvider];
     RFFormPresentation *formPresentation = [RFFormPresentation createWithBlock:^(id<RFFormPresentationBuilder> builder) {
         [builder addMatcher:[RFTextField class] instantiator:^(RFTextField *field) {
 			RFETextFieldController *controller = [[RFETextFieldController alloc] init];

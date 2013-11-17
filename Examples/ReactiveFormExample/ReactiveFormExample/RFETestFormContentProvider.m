@@ -6,22 +6,16 @@
 //  Copyright (c) 2013 Denis Mikhaylov. All rights reserved.
 //
 
-#import "UnistreamPaymentForm.h"
+#import "RFETestFormContentProvider.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
 #import <ReactiveForm/ReactiveForm.h>
 
-@interface UnistreamPaymentForm ()
+@interface RFETestFormContentProvider ()
 @property (nonatomic, strong, readonly) RFMutableFormContentProvider *contentProvider;
 @end
 
-@implementation UnistreamPaymentForm
-
-- (NSString *)title
-{
-    return @"МТС. Домашний интернет и ТВ (ввод лицевого счета)";
-}
-
+@implementation RFETestFormContentProvider
 - (id)init
 {
     self = [super init];
@@ -90,7 +84,6 @@
 {
 	return [self.contentProvider visibleSections];
 }
-
 
 - (RACSignal *)loadRecipientsForPhoneNumber:(NSString *)phoneNumber
 {
