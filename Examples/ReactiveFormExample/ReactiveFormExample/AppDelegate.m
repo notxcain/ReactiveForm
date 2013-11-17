@@ -18,7 +18,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 	self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-	self.window.rootViewController = [[ViewController alloc] initWithNibName:nil bundle:nil];
+	self.window.rootViewController = [[ViewController alloc] initWithStyle:UITableViewStyleGrouped];
 	[self.window makeKeyAndVisible];
     return YES;
 }

@@ -14,7 +14,6 @@
 #import "RFEChoiceFieldController.h"
 
 @interface ViewController ()
-@property(nonatomic,strong,readonly) UITableView *tableView;
 @property(nonatomic,strong,readonly) RFFormTableViewDataSource *dataSourceModel;
 @end
 
@@ -61,14 +60,13 @@
     RFForm *form = [RFForm formWithFormContentProvider:f];
 
     _dataSourceModel = [[RFFormTableViewDataSource alloc] initWithForm:form presentation:formPresentation];
-    
-    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
+
 	
     self.tableView.dataSource = self.dataSourceModel;
     self.tableView.tableFooterView = [[UIView alloc] init];
+	self.tableView.backgroundView = nil;
 	_dataSourceModel.tableView = self.tableView;
 	
-    [self.view addSubview:self.tableView];
 }
 
 - (void)didReceiveMemoryWarning
