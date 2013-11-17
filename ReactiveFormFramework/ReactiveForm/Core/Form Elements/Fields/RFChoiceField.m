@@ -31,7 +31,7 @@
 - (RACSignal *)createVisibleFieldsSignal
 {
 	@weakify(self);
-	return [[[RACObserve(self, value) map:^(id <RFChoice> choice) {
+	return [[[[RACObserve(self, value) distinctUntilChanged] map:^(id <RFChoice> choice) {
 		if (!choice) return [RACSignal return:@[]];
 		NSCAssert([choice conformsToProtocol:@protocol(RFChoice)], @"Expected value to conform to RFChoice protocol, got %@ instead", choice);
 		return [[choice formElement] visibleFields];

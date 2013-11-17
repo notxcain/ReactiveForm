@@ -20,9 +20,14 @@ describe(@"Choice field", ^{
 		RFField *field2 = [RFField fieldWithName:@"choiceField2" title:@""];
 		RFChoice *choice2 = [@2 choiceWithTitle:@"Choice 2" formElement:field2];
 		
-		RFChoiceField *choiceField = [RFChoiceField fieldWithName:@"choiceField"
-															title:@"Coice field"
-														  choices:@[choice1, choice2]];
+		__block RFChoiceField *choiceField;
+        beforeEach(^{
+            choiceField = [RFChoiceField fieldWithName:@"choiceField"
+                                                 title:@"Coice field"
+                                               choices:@[choice1, choice2]];
+
+        });
+        
 		it(@"should send dependent formElements when choice is made", ^{
 			__block NSArray *visibleFields = nil;
 			[[choiceField visibleFields] subscribeNext:^(id x) {
@@ -36,6 +41,14 @@ describe(@"Choice field", ^{
 			choiceField.value = nil;
 			[[visibleFields should] equal:@[choiceField]];
 		});
+        
+        it(@"should be valid only if its value is one of this choices", ^{
+            [[@([choiceField validate:NULL]) should] equal:@NO];
+            choiceField.value = choice1;
+            [[@([choiceField validate:NULL]) should] equal:@YES];
+            choiceField.value = @"ddd";
+            [[@([choiceField validate:NULL]) should] equal:@NO];
+        });
 	});
 	
 });

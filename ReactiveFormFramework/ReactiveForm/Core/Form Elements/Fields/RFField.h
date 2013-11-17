@@ -21,7 +21,6 @@
 - (BOOL)validate:(out NSError **)errorPtr;
 - (NSString *)stringValue;
 
-
 /// Subclasses may override this method to create custom signal
 - (RACSignal *)createVisibleFieldsSignal;
 @end
