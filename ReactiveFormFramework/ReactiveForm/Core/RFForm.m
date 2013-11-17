@@ -41,9 +41,9 @@ NSDictionary *RFChangesDictionaryWithFieldDiff(NSOrderedSet *previousFields, NSO
 }
 
 NSDictionary *RFChangesDictionaryWithSectionDiff(NSOrderedSet *previousItems, NSOrderedSet *currentItems) {
-	id<RFOrderedSetDifference> collectionDiff = [currentItems differenceWithOrderedSet:previousItems];
-	NSDictionary *insertedItems = [collectionDiff insertedObjects];
-	NSDictionary *removedItems = [collectionDiff removedObjects];
+	id<RFOrderedSetDifference> diff = [currentItems differenceWithOrderedSet:previousItems];
+	NSDictionary *insertedItems = [diff insertedObjects];
+	NSDictionary *removedItems = [diff removedObjects];
 	NSDictionary *changedItems = [insertedItems map:^(RFSection *section) {
 		return RFChangesDictionaryWithFieldDiff([NSOrderedSet orderedSet], section.fields);
 	}];
@@ -146,21 +146,21 @@ NSDictionary *RFChangesDictionaryWithSectionDiff(NSOrderedSet *previousItems, NS
 
 }
 
-- (RFSection *)visibleSectionAtIndex:(NSUInteger)index
+- (RFSection *)sectionAtIndex:(NSUInteger)index
 {
 	return self.sections[index];
 }
 
 - (RFField *)fieldAtIndexPath:(NSIndexPath *)indexPath
 {
-	return [self visibleSectionAtIndex:indexPath.section].fields[indexPath.row];
+	return [[self sectionAtIndex:indexPath.section] fieldAtIndex:indexPath.row];
 }
 
 - (NSIndexPath *)indexPathForField:(RFField *)field
 {
 	__block NSIndexPath *result = nil;
 	[self.sections enumerateObjectsUsingBlock:^(RFSection *section, NSUInteger idx, BOOL *stop) {
-		NSUInteger fieldIndex = [section.fields indexOfObject:field];
+		NSUInteger fieldIndex = [section indexOfField:field];
 		if (fieldIndex != NSNotFound) {
 			*stop = YES;
 			result = [NSIndexPath indexPathForRow:fieldIndex inSection:idx];
@@ -176,7 +176,7 @@ NSDictionary *RFChangesDictionaryWithSectionDiff(NSOrderedSet *previousItems, NS
 
 - (NSUInteger)numberOfFieldsInSection:(NSUInteger)section
 {
-	return [[self visibleSectionAtIndex:section].fields count];
+	return [[self sectionAtIndex:section] numberOfFields];
 }
 
 - (RFField *)fieldBeforeField:(RFField *)field
