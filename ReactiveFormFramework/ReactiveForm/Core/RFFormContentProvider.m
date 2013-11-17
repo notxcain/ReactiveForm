@@ -59,8 +59,7 @@
             if ([sections isEmpty]) return [RACSignal return:[NSOrderedSet orderedSet]];
             
 			return [[RACSignal combineLatest:[sections map:^(RFSection *section) {
-				@strongify(self);
-				return [RACObserve(section, fields) mapReplace:section];
+				return [section.currentFields mapReplace:section];
 			}]] map:^(RACTuple *sections) {
 				return [NSOrderedSet orderedSetWithArray:[[sections allObjects] filterNotEmpty]];
 			}];
