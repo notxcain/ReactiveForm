@@ -8,4 +8,4 @@
 
 #import <Foundation/Foundation.h>
 
-#define RFAssertShouldBeOverriden() NSAssert(NO, @"Method %@ should be overriden by subclass", NSStringFromSelector(_cmd))
+#define RFAssertShouldBeOverriden() NSAssert(NO, @"Method %@ should be overriden by a subclass", NSStringFromSelector(_cmd))
