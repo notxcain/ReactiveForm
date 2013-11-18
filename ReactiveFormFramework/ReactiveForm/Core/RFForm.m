@@ -53,12 +53,12 @@ NSDictionary *RFChangesDictionaryWithSectionDiff(NSOrderedSet *previousItems, NS
 @implementation RFForm
 @synthesize changes = _changes;
 
-+ (instancetype)formWithFormContentProvider:(RFFormContentProvider *)contentProvider
++ (instancetype)formWithContentProvider:(RFFormContentProvider *)contentProvider
 {
-    return [[self alloc] initWithFormContentProvider:contentProvider];
+    return [[self alloc] initWithContentProvider:contentProvider];
 }
 
-- (id)initWithFormContentProvider:(RFFormContentProvider *)contentProvider
+- (id)initWithContentProvider:(RFFormContentProvider *)contentProvider
 {
     self = [super init];
     if (self) {

@@ -16,8 +16,8 @@
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, assign, readonly, getter = isValid) BOOL valid;
 
-+ (instancetype)formWithFormContentProvider:(RFFormContentProvider *)contentProvider;
-- (id)initWithFormContentProvider:(RFFormContentProvider *)contentProvider;
++ (instancetype)formWithContentProvider:(RFFormContentProvider *)contentProvider;
+- (id)initWithContentProvider:(RFFormContentProvider *)contentProvider;
 
 - (RFField *)fieldAtIndexPath:(NSIndexPath *)indexPath;
 - (NSIndexPath *)indexPathForField:(RFField *)field;
