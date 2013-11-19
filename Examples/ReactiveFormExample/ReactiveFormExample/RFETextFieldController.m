@@ -25,11 +25,12 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-	NSString *newString = [self.field.textInputController stringByReplacingSelectedRange:&range ofString:textField.text withString:string];
+    NSUInteger caretPosition = 0;
+	NSString *newString = [self.field.textInputController stringByReplacingSelectedRange:range ofString:textField.text withString:string caretPosition:&caretPosition];
 	textField.text = newString;
-	UITextPosition *rangeLocation = [textField positionFromPosition:[textField beginningOfDocument] offset:range.location];
-	textField.selectedTextRange = [textField textRangeFromPosition:[textField positionFromPosition:[textField beginningOfDocument] offset:range.location]
-														toPosition:[textField positionFromPosition:rangeLocation offset:range.length]];
+	UITextPosition *caretLocation = [textField positionFromPosition:[textField beginningOfDocument] offset:caretPosition];
+	textField.selectedTextRange = [textField textRangeFromPosition:caretLocation
+														toPosition:caretLocation];
 	self.field.value = textField.text;
 	return NO;
 }

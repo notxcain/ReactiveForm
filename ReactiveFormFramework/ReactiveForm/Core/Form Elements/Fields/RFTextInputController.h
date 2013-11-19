@@ -7,9 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-@protocol RFTextInputState;
 @protocol RFTextInputController <NSObject>
-- (NSString *)stringByReplacingSelectedRange:(inout NSRangePointer)range ofString:(NSString *)string withString:(NSString *)replacement;
+- (NSString *)stringByReplacingSelectedRange:(NSRange)range ofString:(NSString *)string withString:(NSString *)replacement caretPosition:(out NSUInteger *)caretPosition;
 @optional
 - (UIKeyboardType)keyboardType;
 @end
