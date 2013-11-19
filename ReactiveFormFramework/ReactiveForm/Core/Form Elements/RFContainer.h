@@ -17,7 +17,3 @@
 - (void)addElement:(id<RFFormElement>)element;
 - (void)removeElement:(id<RFFormElement>)element;
 @end
-
-@interface NSArray (ConstantContainer) <RFFormElement>
-
-@end

@@ -25,6 +25,6 @@
 
 @protocol RFFormElement;
 @interface NSObject (RFChoice)
-- (id<RFChoice>)asChoiceWithTitle:(NSString *)title;
-- (id<RFChoice>)asChoiceWithTitle:(NSString *)title formElement:(id<RFFormElement>)formElement;
+- (id<RFChoice>)choiceWithTitle:(NSString *)title;
+- (id<RFChoice>)choiceWithTitle:(NSString *)title formElement:(id<RFFormElement>)formElement;
 @end

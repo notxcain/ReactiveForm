@@ -10,6 +10,6 @@
 
 @class RACSignal;
 @protocol RFFormElement <NSObject>
-/// Returns a signal sending RACSequence of currently visible elements
-- (RACSignal *)visibleElements;
+/// Returns a signal sending array of currently visible fields
+- (RACSignal *)visibleFields;
 @end

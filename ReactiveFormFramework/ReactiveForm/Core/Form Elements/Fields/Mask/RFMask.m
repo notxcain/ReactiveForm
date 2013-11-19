@@ -129,12 +129,12 @@
     return result;
 }
 
-- (NSString *)stringByReplacingSelectedRange:(inout NSRange *)range ofString:(NSString *)string withString:(NSString *)replacement
+- (NSString *)stringByReplacingSelectedRange:(NSRange)range ofString:(NSString *)string withString:(NSString *)replacement caretPosition:(out NSUInteger *)caretPosition
 {
-    NSRange adjustedRange = *range;
+    NSRange adjustedRange = range;
     if ([replacement length] == 0) {
         NSUInteger numberOfStaticSymbols = [self numberOfStaticComponentsToTheLeftFromIndex:adjustedRange.location + adjustedRange.length];
-        if (NSEqualRanges(*range, NSMakeRange(0, numberOfStaticSymbols))) {
+        if (NSEqualRanges(range, NSMakeRange(0, numberOfStaticSymbols))) {
             adjustedRange.location = numberOfStaticSymbols;
             adjustedRange.length = 0;
         } else {
@@ -177,7 +177,7 @@
     }
     NSString *formattedResult = [self formatString:result];
     
-    *range = NSMakeRange(cursorPosition, 0);
+    *caretPosition = cursorPosition;
     
     return formattedResult;
 }

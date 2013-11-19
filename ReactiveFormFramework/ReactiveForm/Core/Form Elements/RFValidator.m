@@ -7,7 +7,7 @@
 //
 
 #import "RFValidator.h"
-#import <ReactiveCocoa/ReactiveCocoa.h>
+#import "RFDefines.h"
 
 @interface RFBlockValidator : RFValidator
 @property (nonatomic, copy, readonly) RFValidationBlock block;
@@ -69,7 +69,7 @@
     }];
 }
 
-- (RACSignal *)validateValue:(id)value
+- (BOOL)validateValue:(id)value error:(out NSError *__autoreleasing *)error
 {
     RFAssertShouldBeOverriden();
     return NO;

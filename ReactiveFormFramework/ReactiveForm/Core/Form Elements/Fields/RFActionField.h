@@ -8,8 +8,12 @@
 
 #import "RFField.h"
 
+typedef  id (^RFActionFieldCommandValueBlock)(void);
+
 @class RACCommand;
 @interface RFActionField : RFField
-@property (nonatomic, strong) RACCommand *command;
+- (void)setCommand:(RACCommand *)command valueBlock:(RFActionFieldCommandValueBlock)valueBlock;
+
+/// Executes a command with a value received from the value block, ignores all values, sends completed or error;
 - (RACSignal *)performAction;
 @end

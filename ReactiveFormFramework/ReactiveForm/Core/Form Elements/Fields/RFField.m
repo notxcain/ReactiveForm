@@ -8,13 +8,14 @@
 
 #import "RFField.h"
 #import "RFValidator.h"
+#import "RFDefines.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
 
 @interface RFField ()
 @property (nonatomic, copy, readwrite) NSString *name;
 @property (nonatomic, strong, readonly) RACSignal *validitySignal;
-@property (nonatomic, strong, readonly) RACSignal *visibleElements;
+@property (nonatomic, strong, readonly) RACSignal *visibleFields;
 @end
 
 @implementation RFField
@@ -40,25 +41,33 @@
     if (self) {
         _required = YES;
         _name = [name copy];
-        @weakify(self);
-        _visibleElements = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-            @strongify(self);
-            [subscriber sendNext:(self ? @[self] : @[]).rac_sequence];
-            [subscriber sendCompleted];
-            return nil;
-        }];
+        _visibleFields = [self createVisibleFieldsSignal];
     }
     return self;
 }
 
-- (RACSignal *)validate
+- (RACSignal *)createVisibleFieldsSignal
+{
+	@weakify(self);
+	return [[RACSignal defer:^{
+		@strongify(self);
+		return [RACSignal return:@[self]];
+	}] replayLast];
+}
+
+- (BOOL)validate:(out NSError *__autoreleasing *)errorPtr
 {
     RFAssertShouldBeOverriden();
-    return nil;
+    return NO;
 }
 
 - (NSString *)stringValue
 {
     return [self.value description];
+}
+
+- (NSString *)description
+{
+	return [NSString stringWithFormat:@"%@ %p {name = %@, title = %@, value = %@}", [self class], self, self.name, self.title, self.value ];
 }
 @end

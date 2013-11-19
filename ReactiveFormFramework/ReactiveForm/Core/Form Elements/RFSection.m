@@ -7,14 +7,12 @@
 //
 
 #import "RFSection.h"
-#import "RFSection+Private.h"
-
+#import "RFFormElement.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
 
-
 @interface RFSection ()
-@property (nonatomic, strong, readonly) RACSignal *visibleElements;
+@property (nonatomic, copy, readwrite) NSOrderedSet *fields;
 @end
 
 @implementation RFSection
@@ -26,13 +24,40 @@
 - (id)initWithFormElement:(id<RFFormElement>)formElement
 {
     if (!(self = [super init])) return nil;
-    
-    @weakify(self);
-    _visibleElements = [[formElement visibleElements] map:^(RACSequence *elements) {
-        @strongify(self);
-        return self ? [@[self].rac_sequence concat:elements] : [RACSequence empty];
-    }];
-    
-    return self;
+	
+	@weakify(self);
+	_currentFields = [[[[[formElement visibleFields] map:^(id value) {
+			return [NSOrderedSet orderedSetWithArray:value];
+		}] doNext:^(id x) {
+			@strongify(self);
+			self.fields = x;
+		}] startWith:[NSOrderedSet orderedSet]] replayLast];
+	
+	return self;
+}
+
+- (NSUInteger)numberOfFields
+{
+	return [self.fields count];
+}
+
+- (id)fieldAtIndex:(NSUInteger)index
+{
+	return [self.fields objectAtIndex:index];
+}
+
+- (NSUInteger)indexOfField:(RFField *)field
+{
+	return [self.fields indexOfObject:field];
+}
+
+- (BOOL)isEmpty
+{
+	return [self.fields count] == 0;
+}
+
+- (NSString *)description
+{
+	return [NSString stringWithFormat:@"%@ %p {\nfields = %@\n}", [self class], self, [self.fields description]];
 }
 @end

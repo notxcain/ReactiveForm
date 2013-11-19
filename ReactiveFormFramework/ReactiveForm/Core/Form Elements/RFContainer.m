@@ -7,14 +7,14 @@
 //
 
 #import "RFContainer.h"
-
+#import "RFCollectionOperations.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
 #import <ReactiveCocoa/RACEXTKeyPathCoding.h>
 
 @interface RFContainer ()
 @property (nonatomic, strong, readonly) NSMutableArray *elements;
-@property (nonatomic, strong, readonly) RACSignal *visibleElements;
+@property (nonatomic, strong, readonly) RACSignal *visibleFields;
 @end
 
 @implementation RFContainer
@@ -35,15 +35,17 @@
     self = [super init];
     if (self) {
         _elements = [NSMutableArray array];
-        _visibleElements = [[[RACObserve(self, elements) map:^(NSArray *rootElements) {
-            NSMutableArray *signals = [NSMutableArray arrayWithCapacity:[rootElements count]];
-            for (id <RFFormElement> formElement in rootElements) {
-                [signals addObject:[formElement visibleElements]];
-            }
-            return [RACSignal combineLatest:signals];
-        }] switchToLatest] map:^(RACTuple *values) {
-            return [values.rac_sequence flatten];
-        }];
+        _visibleFields = [[[[RACObserve(self, elements) map:^(NSArray *elements) {
+            return [elements map:^(id <RFFormElement> formElement) {
+				return [formElement visibleFields];
+			}];
+        }] map:^(NSArray *array) {
+            if ([array isEmpty]) return [RACSignal return:[NSArray array]];
+            
+            return [[RACSignal combineLatest:array] map:^(RACTuple *tupleOfArrays) {
+                return [tupleOfArrays.allObjects flatten];
+            }];
+        }] switchToLatest] replayLast];
     }
     return self;
 }

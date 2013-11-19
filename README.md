@@ -5,9 +5,10 @@ ReactiveForm is an Objective-C framework for composing of complex input forms ba
 
 ## What is already done:
 1. Signal based form rebuild.
-2. Form controller with NSFetchedResultsController like interface
+2. Form observation protocol with NSFetchedResultsController like interface
+3. Base classes for UI implementation
+4. Example application
 
 ## To-do:
-1. UI basement
-2. Example UI
-3. Increase test coverage
+1. Increase test coverage
+2. Abstract more use cases
